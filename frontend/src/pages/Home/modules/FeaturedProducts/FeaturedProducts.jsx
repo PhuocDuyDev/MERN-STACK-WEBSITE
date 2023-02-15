@@ -128,7 +128,7 @@ const FeaturedProducts = () => {
                                             Thailand brand MW
                                         </h4>
                                         <Rating
-                                            initialValue={Math.random() * 1 + 4}
+                                            initialValue={Math.random() * 1 + 3.5}
                                             allowFraction={true}
                                             size={'2.4rem'}
                                             readonly={true}

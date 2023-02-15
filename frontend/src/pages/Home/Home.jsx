@@ -1,11 +1,12 @@
 import React from 'react';
-import { Banner, FeaturedProduct } from './modules';
+import { Banner, FeaturedProducts, SaleProducts } from './modules';
 
 const Home = () => {
     return (
         <>
             <Banner />
-            <FeaturedProduct />
+            <FeaturedProducts />
+            <SaleProducts />
         </>
     );
 };
