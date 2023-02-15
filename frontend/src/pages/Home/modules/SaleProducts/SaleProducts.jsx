@@ -26,7 +26,7 @@ const SaleProducts = () => {
                                 product={product}
                                 key={index}
                                 productId={index}
-                                sale={index % 2 == 0}
+                                sale={true}
                             />
                         );
                     })}

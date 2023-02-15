@@ -13,6 +13,9 @@ import {
 } from 'react-icons/bs';
 
 const ProductCard = ({ product, productId, sale }) => {
+    const productPrice = Math.floor(Math.random() * (249 - 219 + 1)) + 219;
+    const discount = Math.floor(Math.random() * (70 - 20 + 1)) + 20;
+    const productDiscount = Math.round((productPrice * discount) / 100);
     return (
         <div className={styles['product-container']}>
             <Link
@@ -40,7 +43,7 @@ const ProductCard = ({ product, productId, sale }) => {
                             <span
                                 className={styles['product-details-price-sale']}
                             >
-                                $199
+                                ${productDiscount}
                             </span>
                         )}
                         <span
@@ -48,7 +51,7 @@ const ProductCard = ({ product, productId, sale }) => {
                                 styles['product-details-price-original']
                             } ${!sale && styles['not-sale']}`}
                         >
-                            $299
+                            ${productPrice}
                         </span>
                     </div>
                 </div>
@@ -116,7 +119,11 @@ const ProductCard = ({ product, productId, sale }) => {
                     />
                 </button>
             </Link>
-            {sale && <div className={styles['product-card-badget']}>-40%</div>}
+            {sale && (
+                <div className={styles['product-card-badget']}>
+                    -{discount}%
+                </div>
+            )}
         </div>
     );
 };
