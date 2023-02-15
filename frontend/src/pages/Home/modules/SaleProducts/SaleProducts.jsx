@@ -84,10 +84,10 @@ const SaleProducts = () => {
     // };
 
     return (
-        <section className={`${styles['featured-section']} section`}>
-            <div className={`container ${styles['featured']}`}>
+        <section className={`${styles['sale-section']} section`}>
+            <div className={`container ${styles['sale']}`}>
                 <h1 className='section-heading'>On Sale</h1>
-                <div className={`grid ${styles['featured-products']}`}>
+                <div className={`grid ${styles['sale-products']}`}>
                     {new Array(8).fill(0).map((_, index) => {
                         let product = [product1a, product1b];
                         if (index % 3 == 0) {

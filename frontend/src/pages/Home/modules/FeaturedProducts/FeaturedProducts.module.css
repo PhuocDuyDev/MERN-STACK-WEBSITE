@@ -15,23 +15,25 @@
 }
 
 .featured-products .product-container {
-    position: relative;overflow: hidden;
+    position: relative;
+    overflow: hidden;
+    padding: 0.8rem;
 }
 
 .product-container .product-card-badget {
     position: absolute;
     content: '';
-    top: 1rem;
-    left: -4rem;
-    width: 50%;
-    height: 4rem;
-    transform: rotate(-45deg);
+    bottom: 2.2rem;
+    right: 2rem;
+    width: 20%;
+    height: 3.4rem;
     background-color: var(--accent-color);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
     color: white;
+    user-select: none;
 }
 
 .product-container .product-card {
@@ -40,7 +42,7 @@
     background-color: white;
     border-radius: var(--border-radius-m);
     overflow: hidden;
-    transition: 0.3s ease
+    transition: 0.3s ease;
 }
 .featured-products .product-card:hover {
     box-shadow: var(--box-shadow);
