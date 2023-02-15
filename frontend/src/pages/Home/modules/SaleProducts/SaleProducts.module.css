@@ -60,11 +60,11 @@
 .product-card .product-img img:last-child {
     display: none;
 }
-.product-card .product-img:hover img:first-child {
+.product-card:hover .product-img img:first-child {
     display: none;
 }
 
-.product-card .product-img:hover img:last-child {
+.product-card:hover .product-img img:last-child {
     display: block;
 }
 
