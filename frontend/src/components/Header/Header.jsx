@@ -26,7 +26,7 @@ const Header = () => {
             </header>
             <header>
                 <div className={`container grid ${styles['header-middle']}`}>
-                    <Link to={'/'} className={styles['header-logo']}>Dev PDuy</Link>
+                    <Link to={'/'} className={styles['header-logo']}>San.D Store</Link>
                     <form method='POST' className={styles['header-form']}>
                         <input
                             type='text'

@@ -17,10 +17,10 @@ const Banner = () => {
                         <img src={mainBanner} alt='banner big' />
                         <div className={`${styles['banner-left-content']}`}>
                             <Link
-                                to={PRODUCTS_PAGE}
+                                to={`${PRODUCTS_PAGE}/products?category=san.d`}
                                 className={`btn ${styles['button-content']}`}
                             >
-                                BUY NOW
+                                San.D Store
                             </Link>
                         </div>
                     </div>
