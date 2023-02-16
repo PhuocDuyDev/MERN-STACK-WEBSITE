@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Banner.module.css';
 import mainBanner from '../../../../assets/images/main-banner-1.png';
-import rightBanner1 from '../../../../assets/images/catbanner-01.jpg';
-import rightBanner2 from '../../../../assets/images/catbanner-02.jpg';
-import rightBanner3 from '../../../../assets/images/catbanner-03.jpg';
-import rightBanner4 from '../../../../assets/images/catbanner-04-1.jpg';
+import rightBanner1 from '../../../../assets/images/category-01.jpg';
+import rightBanner2 from '../../../../assets/images/category-02.jpg';
+import rightBanner3 from '../../../../assets/images/category-03.jpg';
+import rightBanner4 from '../../../../assets/images/category-04.jpg';
 import { PRODUCTS_PAGE } from '../../../../const/NavigateConst';
 
 const Banner = () => {
