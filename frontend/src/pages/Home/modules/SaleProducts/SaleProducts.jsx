@@ -1,6 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import styles from './SaleProducts.module.css';
 import { ProductCard } from '../../../../components';
+import { PRODUCTS_PAGE } from './../../../../const/NavigateConst';
+
 import product1a from '../../../../assets/images/product-1-1.jpg';
 import product1b from '../../../../assets/images/product-1-2.jpg';
 import product2a from '../../../../assets/images/product-2-1.jpg';
@@ -31,6 +35,12 @@ const SaleProducts = () => {
                         );
                     })}
                 </div>
+                <Link
+                    to={`${PRODUCTS_PAGE}/products?category=sale`}
+                    className={`${styles['sale-btn']} see-more-btn`}
+                >
+                    See More
+                </Link>
             </div>
         </section>
     );

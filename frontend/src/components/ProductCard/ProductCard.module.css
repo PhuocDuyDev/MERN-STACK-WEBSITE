@@ -66,7 +66,7 @@
 
 .product-details .product-details-tag {
     font-size: 1.3rem;
-    color: var(--accent-shade-color);
+    color: var(--primary-shade-color);
     font-weight: 600;
 }
 
@@ -88,7 +88,7 @@
     line-height: 1.4;
     font-weight: 500;
     color: red;
-    /* color: var(--accent-color); */
+    /* color: var(--primary-color); */
 }
 .product-details .product-details-price .product-details-price-original {
     font-size: 1.4rem;
@@ -143,7 +143,7 @@
 }
 
 .product-card .product-card-actions .action-btn:last-child:hover .action-icon {
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 .action-icon {
@@ -152,7 +152,7 @@
 }
 
 .action-icon.active {
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 .favourite-icon {
@@ -162,5 +162,5 @@
 }
 
 .favourite-icon.active {
-    color: var(--accent-color);
+    color: var(--primary-color);
 }

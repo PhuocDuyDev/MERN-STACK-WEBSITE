@@ -3,9 +3,17 @@
 }
 
 .sale {
+    position: relative;
     display: grid;
     grid-auto-flow: row;
     row-gap: 3rem;
+}
+
+.sale-btn {
+    position: absolute;
+    right: 0.8rem;
+    border-radius: var(--border-radius-m);
+    font-size: 1.2rem;
 }
 
 .sale-products {
