@@ -3,9 +3,18 @@
 }
 
 .featured {
+    position: relative;
     display: grid;
     grid-auto-flow: row;
     row-gap: 3rem;
+}
+
+.featured-btn {
+    position: absolute;
+    right: 0.8rem;
+    border-radius: var(--border-radius-m);
+    font-size: 1.2rem;
+    transition: .3s ease;
 }
 
 .featured-products {

@@ -48,7 +48,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--accent-color);
+    background-color: var(--primary-color);
 }
 
 .header-form-icon svg {
@@ -164,12 +164,12 @@
 }
 
 .header-action-item:hover p {
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 .header-action-item .cart-item-number {
     padding: 0.1rem 0.7rem;
-    background-color: var(--accent-color);
+    background-color: var(--primary-color);
     border-radius: 50%;
     color: white;
 }
@@ -194,6 +194,6 @@
 }
 
 .header-bottom ul li:hover a {
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 /* HEADER BOTTOM END */

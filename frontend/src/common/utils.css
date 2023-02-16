@@ -7,13 +7,13 @@
 }
 
 :root {
-    --primary-color: #131921;
-    --primary-light-color: #232f3e;
-    --primary-border-color: #3b4149;
+    --accent-color: #131921;
+    --accent-light-color: #232f3e;
+    --accent-border-color: #3b4149;
     --text-color-white: #fff;
-    --accent-color: #febd69;
-    --accent-tint-color: #ffdeb4;
-    --accent-shade-color: #bf4800;
+    --primary-color: #febd69;
+    --primary-tint-color: #ffdeb4;
+    --primary-shade-color: #bf4800;
     --border-radius-sm: 0.4rem;
     --border-radius-m: 0.8rem;
     --border-radius-l: 1.2rem;
@@ -23,7 +23,7 @@
     --gap-s: 0.8rem;
     --gap-m: 1.6rem;
     --gap-l: 2.4rem;
-    --box-shadow: 0 0.4rem .8rem rgba(0, 0, 0, 0.15);
+    --box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.15);
     --box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     --box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
     --box-shadow-inset: inset 0 1px 2px rgba(0, 0, 0.075);
@@ -63,8 +63,8 @@ li {
 
 header {
     padding: 1.6rem 0;
-    background-color: var(--primary-color);
-    border-bottom: 0.1rem solid var(--primary-border-color);
+    background-color: var(--accent-color);
+    border-bottom: 0.1rem solid var(--accent-border-color);
 }
 
 .btn {
@@ -79,26 +79,37 @@ header {
 }
 
 .btn:hover {
-    background-color: var(--primary-border-color);
+    background-color: var(--accent-border-color);
 }
 
 .add-to-cart-btn.btn {
     padding: 1.2rem 1.8rem;
-    background-color: var(--accent-color);
+    background-color: var(--primary-color);
 }
 
-.btn.add-to-cart-btn:hover {
+.see-more-btn {
+    padding: 1.2rem 1.8rem;
     background-color: var(--primary-color);
+    color: black;
+    transition: 0.3s ease;
+}
+
+.see-more-btn:hover {
+    background-color: var(--accent-color);
     color: white;
 }
 
-.container {
-    max-width: 132rem;
-    margin: 0 auto;
+.btn.add-to-cart-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
 }
 
 .section {
-    padding: 4rem 0;
+    padding: 4rem 0.8rem;
+}
+.container {
+    max-width: 132rem;
+    margin: 0 auto;
 }
 
 .section-heading {
