@@ -23,8 +23,8 @@ const ProductCard = ({ product, productId, sale }) => {
                 className={`${styles['product-card']}`}
             >
                 <div className={styles['product-img']}>
-                    <img src={product[0]} alt='watch front' />
-                    <img src={product[1]} alt='watch 2' />
+                    <img src={product[0]} loading='lazy' alt='watch front' />
+                    <img src={product[1]} loading='lazy' alt='watch 2' />
                 </div>
                 <div className={styles['product-details']}>
                     <p className={styles['product-details-tag']}>tag</p>
