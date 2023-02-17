@@ -1,0 +1,60 @@
+.cta-section {
+    position: relative;
+    padding: 0;
+    height: 48rem;
+}
+
+.cta-banner {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+.cta-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.cta-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-m);
+    max-width: 60rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.cta-details h3 {
+    font-size: 4rem;
+    color: white;
+}
+
+.cta-details p {
+    font-size: 2.4rem;
+    color: white;
+}
+
+.cta-btn {
+    padding: 1.2rem 1.8rem;
+    background-color: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: 0.3s ease;
+    flex: content;
+    border: none;
+    outline: none;
+    border-radius: var(--border-radius-sm);
+}
+
+.cta-btn:hover {
+    background-color: var(--primary-color);
+    color: black;
+}
