@@ -15,7 +15,8 @@ import {
 const ProductCard = ({ product, productId, sale }) => {
     const productPrice = Math.floor(Math.random() * (249 - 219 + 1)) + 219;
     const discount = Math.floor(Math.random() * (70 - 20 + 1)) + 20;
-    const productDiscount = Math.round((productPrice * discount) / 100);
+    const productDiscount =
+        productPrice - Math.round((productPrice * discount) / 100);
     return (
         <div className={styles['product-container']}>
             <Link
