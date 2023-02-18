@@ -1,10 +1,17 @@
 import React from 'react';
-import { Banner, FeaturedProducts, CTA,SaleProducts } from './modules';
+import {
+    Banner,
+    FeaturedProducts,
+    CTA,
+    SaleProducts,
+    Services,
+} from './modules';
 
 const Home = () => {
     return (
         <>
             <Banner />
+            <Services />
             <FeaturedProducts />
             <CTA />
             <SaleProducts />
