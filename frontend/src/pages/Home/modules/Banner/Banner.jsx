@@ -7,6 +7,13 @@ import rightBanner2 from '../../../../assets/images/category-02.jpg';
 import rightBanner3 from '../../../../assets/images/category-03.jpg';
 import rightBanner4 from '../../../../assets/images/category-04.jpg';
 import { PRODUCTS_PAGE } from '../../../../const/NavigateConst';
+import {
+    categoriesAll,
+    categoriesTShirt,
+    categoriesDresses,
+    categoriesJean,
+    categoriesJacket,
+} from './../../../../const/categoriesConst';
 
 const Banner = () => {
     return (
@@ -17,7 +24,7 @@ const Banner = () => {
                         <img src={mainBanner} alt='banner big' />
                         <div className={`${styles['banner-left-content']}`}>
                             <Link
-                                to={`${PRODUCTS_PAGE}/products?category=san.d`}
+                                to={`${PRODUCTS_PAGE}/products?category=${categoriesAll}`}
                                 className={`btn ${styles['button-content']}`}
                             >
                                 San.D Store
@@ -30,7 +37,7 @@ const Banner = () => {
                         <img src={rightBanner1} alt='banner big' />
                         <div className={`${styles['banner-right-content']}`}>
                             <Link
-                                to={`${PRODUCTS_PAGE}?category=tshirt`}
+                                to={`${PRODUCTS_PAGE}?category=${categoriesTShirt}`}
                                 className={`btn ${styles['button-content']}`}
                             >
                                 T-Shirt
@@ -41,7 +48,7 @@ const Banner = () => {
                         <img src={rightBanner2} alt='banner big' />
                         <div className={`${styles['banner-right-content']}`}>
                             <Link
-                                to={`${PRODUCTS_PAGE}?category=dresses`}
+                                to={`${PRODUCTS_PAGE}?category=${categoriesDresses}`}
                                 className={`btn ${styles['button-content']}`}
                             >
                                 Dresses
@@ -52,7 +59,7 @@ const Banner = () => {
                         <img src={rightBanner3} alt='banner big' />
                         <div className={`${styles['banner-right-content']}`}>
                             <Link
-                                to={`${PRODUCTS_PAGE}?category=jeans`}
+                                to={`${PRODUCTS_PAGE}?category=${categoriesJean}`}
                                 className={`btn ${styles['button-content']}`}
                             >
                                 Jeans
@@ -63,7 +70,7 @@ const Banner = () => {
                         <img src={rightBanner4} alt='banner big' />
                         <div className={`${styles['banner-right-content']}`}>
                             <Link
-                                to={`${PRODUCTS_PAGE}?category=jacket`}
+                                to={`${PRODUCTS_PAGE}?category=${categoriesJacket}`}
                                 className={`btn ${styles['button-content']}`}
                             >
                                 Jacket
