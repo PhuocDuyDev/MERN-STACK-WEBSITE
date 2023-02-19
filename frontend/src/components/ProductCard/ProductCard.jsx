@@ -12,7 +12,7 @@ import {
     BsHandbagFill,
 } from 'react-icons/bs';
 
-const ProductCard = ({ product, productId, sale }) => {
+const ProductCard = ({ productImg, productId, sale }) => {
     const productPrice = Math.floor(Math.random() * (249 - 219 + 1)) + 219;
     const discount = Math.floor(Math.random() * (70 - 20 + 1)) + 20;
     const productDiscount =
@@ -24,8 +24,8 @@ const ProductCard = ({ product, productId, sale }) => {
                 className={`${styles['product-card']}`}
             >
                 <div className={styles['product-img']}>
-                    <img src={product[0]} loading='lazy' alt='watch front' />
-                    <img src={product[1]} loading='lazy' alt='watch 2' />
+                    <img src={productImg[0]} loading='lazy' alt='watch front' />
+                    <img src={productImg[1]} loading='lazy' alt='watch 2' />
                 </div>
                 <div className={styles['product-details']}>
                     <p className={styles['product-details-tag']}>tag</p>

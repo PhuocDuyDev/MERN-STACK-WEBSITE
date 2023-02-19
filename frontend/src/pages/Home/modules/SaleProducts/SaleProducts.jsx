@@ -27,7 +27,7 @@ const SaleProducts = () => {
                         }
                         return (
                             <ProductCard
-                                product={product}
+                            productImg={product}
                                 key={index}
                                 productId={index}
                                 sale={true}

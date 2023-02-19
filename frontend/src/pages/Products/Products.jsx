@@ -1,7 +1,7 @@
 import React from 'react';
 // import { useLocation, useSearchParams } from 'react-router-dom';
 import styles from './Products.module.css';
-import { Categories, ListProducts } from './modules';
+import { FilterSearch, ListProducts } from './modules';
 
 const Products = () => {
     // const [filter, _] = useSearchParams();
@@ -11,7 +11,7 @@ const Products = () => {
     return (
         <section className={`${styles['products-section']} section`}>
             <div className={`container ${styles['products-container']}`}>
-                <Categories />
+                <FilterSearch />
                 <ListProducts />
             </div>
         </section>

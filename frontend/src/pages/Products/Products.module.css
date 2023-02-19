@@ -2,4 +2,5 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 25fr 75fr;
+    gap: var(--gap-l);
 }

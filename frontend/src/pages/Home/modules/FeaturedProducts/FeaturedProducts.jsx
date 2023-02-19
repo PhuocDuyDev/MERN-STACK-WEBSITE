@@ -27,7 +27,7 @@ const FeaturedProducts = () => {
                         }
                         return (
                             <ProductCard
-                                product={product}
+                            productImg={product}
                                 key={index}
                                 productId={index}
                                 sale={index % 2 == 0}
