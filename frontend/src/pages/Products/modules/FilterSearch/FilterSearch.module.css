@@ -1,3 +1,9 @@
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-l);
+}
+
 .categories-sidebar {
     padding: 2rem 2rem;
     background-color: var(--primary-tint-color);
@@ -7,11 +13,11 @@
 .categories {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-m)
+    gap: var(--gap-m);
 }
 
-.categories h1{
-    font-size: 4.2rem;
+.categories h1 {
+    font-size: 2.8rem;
     line-height: 1.2;
     color: var(--text-color-grey);
     user-select: none;
@@ -43,11 +49,13 @@
     transition: 0.3s ease;
 }
 
-.categories-item:hover, .active.categories-item {
+.categories-item:hover,
+.active.categories-item {
     padding-left: 2.4rem;
 }
 
-.categories-item:hover:before, .active.categories-item::before{
+.categories-item:hover:before,
+.active.categories-item::before {
     visibility: visible;
     opacity: 1;
     width: 1.2rem;
@@ -62,3 +70,18 @@
     color: var(--accent-color);
 }
 
+.products-random {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-m);
+    padding: 2rem 2rem;
+    background-color: var(--primary-tint-color);
+    border-radius: var(--border-radius-sm)
+}
+
+.products-random h1 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    color: var(--text-color-grey);
+    user-select: none;
+}

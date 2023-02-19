@@ -9,7 +9,7 @@ import product2b from '../../../../assets/images/product-2-2.jpg';
 const FilterSearch = () => {
     const productImg = [product2a, product2b];
     return (
-        <div>
+        <div className={`${styles['filter-container']}`}>
             <nav className={`${styles['categories-sidebar']}`}>
                 <div className={`${styles['categories']}`}>
                     <h1>Category</h1>
@@ -32,14 +32,18 @@ const FilterSearch = () => {
                     </ul>
                 </div>
             </nav>
-            <div className='products-random'>
-                {[0, 1].fill(0).map((_, index) => (
-                    <ProductCard
-                        productImg={productImg}
-                        productId={index}
-                        sale={index % 2 == 0}
-                    />
-                ))}
+            <div className={`${styles['products-random']}`}>
+                <h1>Random Products</h1>
+                <div className='products-list'>
+                    {[0, 1].fill(0).map((_, index) => (
+                        <ProductCard
+                            key={index}
+                            productImg={productImg}
+                            productId={index}
+                            sale={index % 2 == 0}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
