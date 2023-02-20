@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -10,23 +10,45 @@ import styles from './ListProducts.module.css';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
 import product2a from '../../../../assets/images/product-2-1.jpg';
 import product2b from '../../../../assets/images/product-2-2.jpg';
+import Pagination from './components/Pagination/Pagination';
+import { useEffect } from 'react';
 
 const ListProducts = () => {
-    const demoProduct = Array.from({ length: 123 }, (_, index) => [
-        {
-            id: index,
-            productPrice: Math.floor(Math.random() * (249 - 219 + 1)) + 219,
-            discount: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-        },
-    ]);
-    const demoTotalPage = 10;
-    const [pageNumbers] = useState(
-        Array.from({ length: demoTotalPage }, (_, index) => index + 1)
-    );
+    const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [filterSortTitle, setFilterSortTitle] = useState(null);
+
+    const demoProductsPerPage = 12;
+    const demoProductsQuantity = 101;
+    const demoProducts = useMemo(
+        () =>
+            Array.from({ length: demoProductsQuantity }, (_, index) => ({
+                id: index,
+                img: [product2a, product2b],
+                price: Math.floor(Math.random() * (249 - 169 + 1)) + 169,
+                discount: Math.floor(Math.random() * (50 - 10 + 1)) + 10,
+            })),
+        []
+    );
+
+    useEffect(() => {
+        setProducts([...demoProducts]);
+    }, []);
+
+    const filterSort = (event) => {
+        if (event.target.dataset.filter == 'low-to-high') {
+            setProducts([...products.sort((a, b) => a.price - b.price)]);
+        }
+        if (event.target.dataset.filter == 'high-to-low') {
+            setProducts([...products.sort((a, b) => b.price - a.price)]);
+        }
+        setFilterSortTitle(event.target.textContent);
+    };
+
     const onPageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
+
     return (
         <div className={`${styles['products-container']}`}>
             <div className={`${styles['filter-products']}`}>
@@ -50,48 +72,48 @@ const ListProducts = () => {
                         Hot Sale
                     </Link>
                     <div className={`${styles['filter-sort']}`}>
-                        <h2 className='filter-sort--selected'>Sort by</h2>
+                        <h2 className='filter-sort--selected'>
+                            {filterSortTitle ? filterSortTitle : 'Sort by'}
+                        </h2>
                         <ul>
-                            <li value='low-to-high'>Price: Low to high</li>
-                            <li value='high-to-low'>Price: High to low</li>
+                            <li data-filter='low-to-high' onClick={filterSort}>
+                                Price: Low to high
+                            </li>
+                            <li data-filter='high-to-low' onClick={filterSort}>
+                                Price: High to low
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div className={`${styles['products-list']}`}>
-                {demoProduct
-                    .slice(currentPage * 12, (currentPage + 1) * 12)
-                    .map((_, index) => (
-                        <ProductCard
-                            productId={index}
-                            productImg={[product2a, product2b]}
-                            key={index}
-                        />
-                    ))}
+                {products
+                    .slice(
+                        (currentPage - 1) * demoProductsPerPage,
+                        currentPage * demoProductsPerPage
+                    )
+                    .map((product, index) => {
+                        return (
+                            <ProductCard
+                                productId={product.id}
+                                productImg={product.img}
+                                productPrice={product.price}
+                                key={index}
+                                discount={
+                                    index % 2 == 0 ? product.discount : ''
+                                }
+                            />
+                        );
+                    })}
             </div>
-            <ul>
-                {pageNumbers.map((pageNumber) => (
-                    <li
-                        key={pageNumber}
-                        style={{
-                            margin: '0.5rem',
-                            padding: '0.5rem',
-                            borderRadius: '0.25rem',
-                            backgroundColor:
-                                pageNumber === currentPage
-                                    ? '#febd69'
-                                    : 'transparent',
-                            color:
-                                pageNumber === currentPage ? 'white' : 'black',
-                            cursor: 'pointer',
-                        }}
-                        onClick={() => onPageChange(pageNumber)}
-                    >
-                        {pageNumber}
-                    </li>
-                ))}
+            <ul className={`${styles['filter-pagination']}`}>
+                <Pagination
+                    currentPage={currentPage}
+                    productsPerPage={demoProductsPerPage}
+                    totalProducts={demoProductsQuantity}
+                    paginateHandle={onPageChange}
+                />
             </ul>
-            <div className={`${styles['filter-pagination']}`}>pagination</div>
         </div>
     );
 };
