@@ -17,7 +17,7 @@
 }
 
 .categories h1 {
-    font-size: 2.8rem;
+    font-size: 2rem;
     line-height: 1.2;
     color: var(--text-color-grey);
     user-select: none;
@@ -80,7 +80,7 @@
 }
 
 .products-random h1 {
-    font-size: 2.8rem;
+    font-size: 2rem;
     line-height: 1.2;
     color: var(--text-color-grey);
     user-select: none;

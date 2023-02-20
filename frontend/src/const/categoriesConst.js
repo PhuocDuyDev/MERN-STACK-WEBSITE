@@ -4,6 +4,8 @@ export const categoriesTShirt = 'tshirt';
 export const categoriesJean = 'jean';
 export const categoriesDresses = 'dresses';
 export const categoriesJacket = 'jacket';
+export const categoriesFeatured = 'featured';
+export const categoriesSale = 'sale';
 
 export const categoriesProductsPage = [
     { type: categoriesAll, title: 'All products' },

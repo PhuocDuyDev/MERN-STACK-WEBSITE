@@ -27,10 +27,10 @@ const FeaturedProducts = () => {
                         }
                         return (
                             <ProductCard
-                            productImg={product}
+                                productPrice={Math.floor(Math.random() * (249 - 219 + 1)) + 219}
+                                productImg={product}
                                 key={index}
                                 productId={index}
-                                sale={index % 2 == 0}
                             />
                         );
                     })}

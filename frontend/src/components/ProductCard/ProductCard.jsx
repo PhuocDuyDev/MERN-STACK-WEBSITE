@@ -12,11 +12,10 @@ import {
     BsHandbagFill,
 } from 'react-icons/bs';
 
-const ProductCard = ({ productImg, productId, sale }) => {
-    const productPrice = Math.floor(Math.random() * (249 - 219 + 1)) + 219;
-    const discount = Math.floor(Math.random() * (70 - 20 + 1)) + 20;
-    const productDiscount =
-        productPrice - Math.round((productPrice * discount) / 100);
+const ProductCard = ({ productPrice, discount, productImg, productId }) => {
+    const productDiscount = Math.round(
+        productPrice - (productPrice * discount) / 100
+    );
     return (
         <div className={styles['product-container']}>
             <Link
@@ -40,7 +39,7 @@ const ProductCard = ({ productImg, productId, sale }) => {
                         titleSeparator='/'
                     />
                     <div className={styles['product-details-price']}>
-                        {sale && (
+                        {discount && (
                             <span
                                 className={styles['product-details-price-sale']}
                             >
@@ -50,7 +49,7 @@ const ProductCard = ({ productImg, productId, sale }) => {
                         <span
                             className={`${
                                 styles['product-details-price-original']
-                            } ${!sale && styles['not-sale']}`}
+                            } ${!discount && styles['not-sale']}`}
                         >
                             ${productPrice}
                         </span>
@@ -120,7 +119,7 @@ const ProductCard = ({ productImg, productId, sale }) => {
                     />
                 </button>
             </Link>
-            {sale && (
+            {discount && (
                 <div className={styles['product-card-badget']}>
                     -{discount}%
                 </div>

@@ -27,10 +27,18 @@ const SaleProducts = () => {
                         }
                         return (
                             <ProductCard
-                            productImg={product}
+                                productPrice={
+                                    Math.floor(
+                                        Math.random() * (249 - 219 + 1)
+                                    ) + 219
+                                }
+                                productImg={product}
                                 key={index}
                                 productId={index}
-                                sale={true}
+                                discount={
+                                    Math.floor(Math.random() * (70 - 20 + 1)) +
+                                    20
+                                }
                             />
                         );
                     })}
