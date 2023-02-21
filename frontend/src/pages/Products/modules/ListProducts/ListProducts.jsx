@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import {
     categoriesAll,
@@ -8,39 +8,63 @@ import {
 } from '../../../../const/categoriesConst';
 import styles from './ListProducts.module.css';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
-import product2a from '../../../../assets/images/product-2-1.jpg';
-import product2b from '../../../../assets/images/product-2-2.jpg';
+
 import Pagination from './components/Pagination/Pagination';
 import { useEffect } from 'react';
+import { demoProducts } from './../../../../const/demoProducts';
 
 const ListProducts = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([...demoProducts]);
     const [currentPage, setCurrentPage] = useState(1);
     const [filterSortTitle, setFilterSortTitle] = useState(null);
-
-    const demoProductsPerPage = 12;
-    const demoProductsQuantity = 101;
-    const demoProducts = useMemo(
-        () =>
-            Array.from({ length: demoProductsQuantity }, (_, index) => ({
-                id: index,
-                img: [product2a, product2b],
-                price: Math.floor(Math.random() * (249 - 169 + 1)) + 169,
-                discount: Math.floor(Math.random() * (50 - 10 + 1)) + 10,
-            })),
-        []
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [sort, setSort] = useState(null);
+    const [category, setCategory] = useState(
+        new URLSearchParams(location.search).get('category') || 'all'
     );
 
+    const demoProductsPerPage = 12;
+
     useEffect(() => {
-        setProducts([...demoProducts]);
-    }, []);
+        const searchParams = new URLSearchParams(location.search);
+        setSort(searchParams.get('sort'));
+        setCategory(searchParams.get('category'));
+        setCurrentPage(parseInt(searchParams.get('page')) || 1);
+        setProducts(() => {
+            let filteredProducts = [...demoProducts];
+            if (category != 'all') {
+                filteredProducts = filteredProducts.filter(
+                    (product) => product.category == category
+                );
+            }
+            if (sort == 'low-to-high') {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            }
+            if (sort == 'high-to-low') {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            }
+            return [...filteredProducts];
+        });
+        console.log('first');
+    }, [location.search]);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams();
+        if (sort) searchParams.set('sort', sort);
+        if (category) searchParams.set('category', category);
+
+        if (currentPage) searchParams.set('page', currentPage.toString());
+        navigate({ search: searchParams.toString() });
+        console.log('second');
+    }, [sort, category, currentPage, navigate]);
 
     const filterSort = (event) => {
         if (event.target.dataset.filter == 'low-to-high') {
-            setProducts([...products.sort((a, b) => a.price - b.price)]);
+            setSort('low-to-high');
         }
         if (event.target.dataset.filter == 'high-to-low') {
-            setProducts([...products.sort((a, b) => b.price - a.price)]);
+            setSort('high-to-low');
         }
         setFilterSortTitle(event.target.textContent);
     };
@@ -99,9 +123,9 @@ const ListProducts = () => {
                                 productImg={product.img}
                                 productPrice={product.price}
                                 key={index}
-                                discount={
-                                    index % 2 == 0 ? product.discount : ''
-                                }
+                                // discount={
+                                //     index % 4 == 0 ? product.discount : ''
+                                // }
                             />
                         );
                     })}
@@ -110,7 +134,7 @@ const ListProducts = () => {
                 <Pagination
                     currentPage={currentPage}
                     productsPerPage={demoProductsPerPage}
-                    totalProducts={demoProductsQuantity}
+                    totalProducts={products.length}
                     paginateHandle={onPageChange}
                 />
             </ul>

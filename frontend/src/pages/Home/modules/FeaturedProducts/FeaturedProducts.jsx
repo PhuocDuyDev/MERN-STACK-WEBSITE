@@ -36,7 +36,8 @@ const FeaturedProducts = () => {
                     })}
                 </div>
                 <Link
-                    to={`${PRODUCTS_PAGE}/products?category=featured`}
+                    to={`${PRODUCTS_PAGE}?category=featured`}
+                    
                     className={`${styles['featured-btn']} see-more-btn`}
                 >
                     See More

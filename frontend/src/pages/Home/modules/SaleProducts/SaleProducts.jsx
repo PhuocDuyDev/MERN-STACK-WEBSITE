@@ -44,7 +44,7 @@ const SaleProducts = () => {
                     })}
                 </div>
                 <Link
-                    to={`${PRODUCTS_PAGE}/products?category=sale`}
+                    to={`${PRODUCTS_PAGE}?category=sale`}
                     className={`${styles['sale-btn']} see-more-btn`}
                 >
                     See More

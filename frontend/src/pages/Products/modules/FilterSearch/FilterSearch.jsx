@@ -3,11 +3,10 @@ import styles from './FilterSearch.module.css';
 import { Link } from 'react-router-dom';
 import { categoriesProductsPage } from '../../../../const/categoriesConst';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
-import product2a from '../../../../assets/images/product-2-1.jpg';
-import product2b from '../../../../assets/images/product-2-2.jpg';
+import { demoProducts } from './../../../../const/demoProducts';
 
 const FilterSearch = () => {
-    const productImg = [product2a, product2b];
+    const randomProduct = Math.floor(Math.random() * 99);
     return (
         <div className={`${styles['filter-container']}`}>
             <nav className={`${styles['categories-sidebar']}`}>
@@ -35,14 +34,17 @@ const FilterSearch = () => {
             <div className={`${styles['products-random']}`}>
                 <h1>Random Products</h1>
                 <div className='products-list'>
-                    {[0, 1].fill(0).map((_, index) => (
-                        <ProductCard
-                            key={index}
-                            productImg={productImg}
-                            productId={index}
-                            sale={index % 2 == 0}
-                        />
-                    ))}
+                    {demoProducts
+                        .slice(randomProduct, randomProduct + 2)
+                        .map((product) => (
+                            <ProductCard
+                                key={product.id}
+                                productPrice={product.price}
+                                productImg={product.img}
+                                productId={product.id}
+                                // discount={product.discount}
+                            />
+                        ))}
                 </div>
             </div>
         </div>
