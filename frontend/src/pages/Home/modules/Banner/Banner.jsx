@@ -24,7 +24,7 @@ const Banner = () => {
                         <img src={mainBanner} alt='banner big' />
                         <div className={`${styles['banner-left-content']}`}>
                             <Link
-                                to={`${PRODUCTS_PAGE}/products?category=${categoriesAll}`}
+                                to={`${PRODUCTS_PAGE}?category=${categoriesAll}`}
                                 className={`btn ${styles['button-content']}`}
                             >
                                 San.D Store

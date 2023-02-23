@@ -1,12 +1,14 @@
 import React from 'react';
 import styles from './FilterSearch.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { categoriesProductsPage } from '../../../../const/categoriesConst';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
 import { demoProducts } from './../../../../const/demoProducts';
 
 const FilterSearch = () => {
     const randomProduct = Math.floor(Math.random() * 99);
+    const searchParams = useSearchParams();
+    const categoryLink = searchParams[0].get('category');
     return (
         <div className={`${styles['filter-container']}`}>
             <nav className={`${styles['categories-sidebar']}`}>
@@ -14,13 +16,17 @@ const FilterSearch = () => {
                     <h1>Category</h1>
                     <ul className={`${styles['categories-list']}`}>
                         {categoriesProductsPage.map(
-                            ({ type, title }, index) => (
+                            ({ category, title }, index) => (
                                 <li
                                     key={index}
-                                    className={`${styles['categories-item']}`}
+                                    className={`${styles['categories-item']} ${
+                                        categoryLink === category
+                                            ? styles['active']
+                                            : undefined
+                                    }`}
                                 >
                                     <Link
-                                        to={`?category=${type}`}
+                                        to={`?category=${category}`}
                                         className={`${styles['categories-link']}`}
                                     >
                                         {title}

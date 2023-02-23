@@ -1,62 +1,48 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-
-import {
-    categoriesAll,
-    categoriesFeatured,
-    categoriesSale,
-} from '../../../../const/categoriesConst';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styles from './ListProducts.module.css';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
-
-import Pagination from './components/Pagination/Pagination';
-import { useEffect } from 'react';
-import { demoProducts } from './../../../../const/demoProducts';
+import { selectProductsByCategory } from '../../../../features/featureProduct';
+import { Pagination, FilterProducts } from './components/';
+import { productsPerPage } from './../../../../const/demoProducts';
 
 const ListProducts = () => {
-    const [products, setProducts] = useState([...demoProducts]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [filterSortTitle, setFilterSortTitle] = useState(null);
     const location = useLocation();
     const navigate = useNavigate();
+    const searchParams = useSearchParams();
+    const [filterSortTitle, setFilterSortTitle] = useState(null);
     const [sort, setSort] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
     const [category, setCategory] = useState(
-        new URLSearchParams(location.search).get('category') || 'all'
+        searchParams[0].get('category') || 'all'
     );
-
-    const demoProductsPerPage = 12;
+    const products = useSelector((state) =>
+        useMemo(
+            () =>
+                selectProductsByCategory(
+                    state,
+                    category,
+                    searchParams[0].get('sort') || 'default'
+                ),
+            [state, category, searchParams[0].get('sort')]
+        )
+    );
+    const isLoading = useSelector((state) => state.featureProduct.isLoading);
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
-        setSort(searchParams.get('sort'));
-        setCategory(searchParams.get('category'));
+        setSort(searchParams.get('sort') || 'default');
+        setCategory(searchParams.get('category') || 'all');
         setCurrentPage(parseInt(searchParams.get('page')) || 1);
-        setProducts(() => {
-            let filteredProducts = [...demoProducts];
-            if (category != 'all') {
-                filteredProducts = filteredProducts.filter(
-                    (product) => product.category == category
-                );
-            }
-            if (sort == 'low-to-high') {
-                filteredProducts.sort((a, b) => a.price - b.price);
-            }
-            if (sort == 'high-to-low') {
-                filteredProducts.sort((a, b) => b.price - a.price);
-            }
-            return [...filteredProducts];
-        });
-        console.log('first');
     }, [location.search]);
 
     useEffect(() => {
         const searchParams = new URLSearchParams();
         if (sort) searchParams.set('sort', sort);
         if (category) searchParams.set('category', category);
-
         if (currentPage) searchParams.set('page', currentPage.toString());
         navigate({ search: searchParams.toString() });
-        console.log('second');
     }, [sort, category, currentPage, navigate]);
 
     const filterSort = (event) => {
@@ -73,48 +59,18 @@ const ListProducts = () => {
         setCurrentPage(pageNumber);
     };
 
+    if (isLoading) return <div>loading...</div>;
     return (
         <div className={`${styles['products-container']}`}>
-            <div className={`${styles['filter-products']}`}>
-                <div className={`${styles['filter-category']}`}>
-                    <Link
-                        to={`?category=${categoriesAll}`}
-                        className={`${styles['filter-category-link']} ${styles['active']}`}
-                    >
-                        All
-                    </Link>
-                    <Link
-                        to={`?category=${categoriesFeatured}`}
-                        className={`${styles['filter-category-link']}`}
-                    >
-                        Featured
-                    </Link>
-                    <Link
-                        to={`?category=${categoriesSale}`}
-                        className={`${styles['filter-category-link']}`}
-                    >
-                        Hot Sale
-                    </Link>
-                    <div className={`${styles['filter-sort']}`}>
-                        <h2 className='filter-sort--selected'>
-                            {filterSortTitle ? filterSortTitle : 'Sort by'}
-                        </h2>
-                        <ul>
-                            <li data-filter='low-to-high' onClick={filterSort}>
-                                Price: Low to high
-                            </li>
-                            <li data-filter='high-to-low' onClick={filterSort}>
-                                Price: High to low
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <FilterProducts
+                filterSortBy={filterSort}
+                filterSortTitle={filterSortTitle}
+            />
             <div className={`${styles['products-list']}`}>
                 {products
                     .slice(
-                        (currentPage - 1) * demoProductsPerPage,
-                        currentPage * demoProductsPerPage
+                        (currentPage - 1) * productsPerPage,
+                        currentPage * productsPerPage
                     )
                     .map((product, index) => {
                         return (
@@ -123,9 +79,11 @@ const ListProducts = () => {
                                 productImg={product.img}
                                 productPrice={product.price}
                                 key={index}
-                                // discount={
-                                //     index % 4 == 0 ? product.discount : ''
-                                // }
+                                discount={
+                                    product.discount != 0
+                                        ? product.discount
+                                        : null
+                                }
                             />
                         );
                     })}
@@ -133,7 +91,7 @@ const ListProducts = () => {
             <ul className={`${styles['filter-pagination']}`}>
                 <Pagination
                     currentPage={currentPage}
-                    productsPerPage={demoProductsPerPage}
+                    productsPerPage={productsPerPage}
                     totalProducts={products.length}
                     paginateHandle={onPageChange}
                 />

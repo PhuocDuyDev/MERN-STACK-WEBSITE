@@ -8,10 +8,10 @@ export const categoriesFeatured = 'featured';
 export const categoriesSale = 'sale';
 
 export const categoriesProductsPage = [
-    { type: categoriesAll, title: 'All products' },
-    { type: categoriesSanD, title: 'San.D' },
-    { type: categoriesTShirt, title: 'T-Shirt' },
-    { type: categoriesJean, title: 'Jeans' },
-    { type: categoriesDresses, title: 'Dresses' },
-    { type: categoriesJacket, title: 'Jacket' },
+    { category: categoriesAll, title: 'All products' },
+    { category: categoriesSanD, title: 'San.D' },
+    { category: categoriesTShirt, title: 'T-Shirt' },
+    { category: categoriesJean, title: 'Jeans' },
+    { category: categoriesDresses, title: 'Dresses' },
+    { category: categoriesJacket, title: 'Jacket' },
 ];
