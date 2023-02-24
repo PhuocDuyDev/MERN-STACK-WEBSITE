@@ -43,7 +43,7 @@ const ProductCard = ({ productPrice, discount, productImg, productId }) => {
                         <span
                             className={`${
                                 styles['product-details-price-original']
-                            } ${!discount && styles['not-sale']}`}
+                            } ${!discount ? styles['not-sale'] : null}`}
                         >
                             ${productPrice}
                         </span>

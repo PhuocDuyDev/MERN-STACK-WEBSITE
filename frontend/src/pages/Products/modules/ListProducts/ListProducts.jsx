@@ -24,14 +24,14 @@ const ListProducts = () => {
                 filterSortBy={filterSort}
                 filterSortTitle={filterSortTitle}
             />
-            {isLoading && (
+            {isLoading ? (
                 <div className={styles['loading-spinner']}>
                     <GridLoader color='#febd69' />
                 </div>
-            )}
-            <div className={`${styles['products-list']}`}>
-                {!isLoading &&
-                    products
+            ) : null}
+            {!isLoading ? (
+                <div className={`${styles['products-list']}`}>
+                    {products
                         .slice(
                             (currentPage - 1) * productsPerPage,
                             currentPage * productsPerPage
@@ -51,7 +51,8 @@ const ListProducts = () => {
                                 />
                             );
                         })}
-            </div>
+                </div>
+            ) : null}
             <ul className={`${styles['filter-pagination']}`}>
                 <Pagination
                     currentPage={currentPage}

@@ -15,7 +15,7 @@ export const useFilteredProducts = () => {
         searchParams[0].get('category') || 'all'
     );
     const isLoading = useSelector((state) => state.featureProduct.isLoading); // real world
-    const { products, productsPerPage } = useSelector(
+    const { products, productsPerPage,  } = useSelector(
         (state) =>
             selectProductsFiltered(state)(
                 category,
