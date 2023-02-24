@@ -32,7 +32,7 @@ export const selectProductsInCart = createSelector(
     }
 );
 
-export const selectProductsAndWishlistAndCart = createSelector(
+export const selectProductsInWishlistAndCart = createSelector(
     [selectProducts, selectWishlist, selectCart, selectProductsPerPage],
     (products, wishlist, cart, productsPerPage) => {
         const productsWithCartAndWishlistStatus = products.map((product) => {
@@ -50,6 +50,7 @@ export const selectProductsAndWishlistAndCart = createSelector(
 
         return {
             products: productsWithCartAndWishlistStatus,
+            productsPerPage: productsPerPage,
             wishlist: wishlist.items,
             cart: cart.items,
         };
@@ -60,9 +61,7 @@ export const selectProductsFiltered = createSelector(
     [selectProducts, selectWishlist, selectCart, selectProductsPerPage],
     (products, wishlist, cart, productsPerPage) => {
         const productsWithCartAndWishlistStatus = products.map((product) => {
-            const isInCart = cart.some((item) => {
-                return item.id === product.id;
-            });
+            const isInCart = cart.some((item) => item.id === product.id);
             const isInWishlist = wishlist.some(
                 (item) => item.id === product.id
             );
@@ -73,28 +72,29 @@ export const selectProductsFiltered = createSelector(
                 isInWishlist,
             };
         });
-        return (category, sortBy) => {
-            let filteredProducts = [...productsWithCartAndWishlistStatus];
 
-            if (category != 'all' && category != 'sale') {
-                filteredProducts = filteredProducts.filter(
-                    (product) => product.category == category
-                );
-            } else if (category == 'sale') {
-                filteredProducts = filteredProducts.filter(
-                    (product) => product.discount > 0
-                );
-            }
-            if (sortBy == 'low-to-high') {
+        return (category, sortBy) => {
+            const filteredProducts =
+                category === 'all'
+                    ? productsWithCartAndWishlistStatus
+                    : category === 'sale'
+                    ? productsWithCartAndWishlistStatus.filter(
+                          (product) => product.discount > 0
+                      )
+                    : productsWithCartAndWishlistStatus.filter(
+                          (product) => product.category === category
+                      );
+
+            if (sortBy === 'low-to-high') {
                 filteredProducts.sort((a, b) => a.price - b.price);
             }
-            if (sortBy == 'high-to-low') {
+            if (sortBy === 'high-to-low') {
                 filteredProducts.sort((a, b) => b.price - a.price);
             }
 
             return {
                 products: filteredProducts,
-                productsPerPage: productsPerPage,
+                productsPerPage,
                 wishlist: wishlist.items,
                 cart: cart.items,
             };

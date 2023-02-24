@@ -11,9 +11,7 @@ const rootReducer = combineReducers({
 const store = configureStore({
     reducer: rootReducer,
 });
-
-const selectProducts = (state) => state.featureProduct.products;
 // Fetch the demo products when the app starts
-store.dispatch(fetchDemoProducts());
+// store.dispatch(fetchDemoProducts());
 
 export default store;

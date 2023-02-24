@@ -46,6 +46,11 @@ const Pagination = ({
             ),
         ];
     }
+
+    if (totalPages <= maxPagesShowInPagination) {
+        pageToShowArr = [...totalPagesArr.slice(0, totalPages)];
+    }
+
     return pageToShowArr.map((numPage, index) => (
         <li
             className={`${styles['pagination-item']} ${
