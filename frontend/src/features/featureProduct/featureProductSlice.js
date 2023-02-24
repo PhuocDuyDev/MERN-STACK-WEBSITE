@@ -3,6 +3,7 @@ import { demoProducts } from '../../const/demoProducts';
 
 const initialState = {
     products: [...demoProducts],
+    productsPerPage: 9,
     isLoading: false,
     error: null,
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './ProductCard.module.css';
 import { Link } from 'react-router-dom';
 import { PRODUCTS_PAGE } from '../../const/NavigateConst';
-import { Rating } from 'react-simple-star-rating';
 
 import {
     BsEye,
@@ -11,11 +10,13 @@ import {
     BsHandbag,
     BsHandbagFill,
 } from 'react-icons/bs';
+// import { selectProductsInWishlist } from '../../features/selector';
 
 const ProductCard = ({ productPrice, discount, productImg, productId }) => {
     const productDiscount = Math.round(
         productPrice - (productPrice * discount) / 100
     );
+
     return (
         <div className={styles['product-container']}>
             <Link
@@ -31,13 +32,6 @@ const ProductCard = ({ productPrice, discount, productImg, productId }) => {
                     <h4 className={styles['product-details-title']}>
                         T-Shirt Thailand brand MW T-Shirt Thailand brand MW
                     </h4>
-                    <Rating
-                        initialValue={Math.random() * 1 + 3.5}
-                        allowFraction={true}
-                        size={'2.4rem'}
-                        readonly={true}
-                        titleSeparator='/'
-                    />
                     <div className={styles['product-details-price']}>
                         {discount && (
                             <span

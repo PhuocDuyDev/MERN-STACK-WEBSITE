@@ -20,3 +20,9 @@
     place-content: center;
     gap: var(--gap-s);
 }
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
