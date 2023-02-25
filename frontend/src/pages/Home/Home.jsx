@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectProductsShuffle } from '../../features/selector';
 import {
     Banner,
     FeaturedProducts,
@@ -8,13 +10,14 @@ import {
 } from './modules';
 
 const Home = () => {
+    const products = useSelector(selectProductsShuffle);
     return (
         <>
             <Banner />
             <Services />
-            <FeaturedProducts />
+            <FeaturedProducts listProducts={products} />
             <CTA />
-            <SaleProducts />
+            <SaleProducts listProducts={products} />
         </>
     );
 };

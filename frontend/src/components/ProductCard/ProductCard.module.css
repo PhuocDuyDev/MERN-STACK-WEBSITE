@@ -65,6 +65,7 @@
 }
 
 .product-details .product-details-tag {
+    text-transform: capitalize;
     font-size: 1.3rem;
     color: var(--primary-shade-color);
     font-weight: 600;

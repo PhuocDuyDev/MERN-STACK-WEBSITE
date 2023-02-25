@@ -2,21 +2,18 @@ import React from 'react';
 import styles from './ListProducts.module.css';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
 import { Pagination, FilterProducts } from './components/';
-import { useFilteredProducts } from '../../../../hooks/useFilteredProducts';
 
 import GridLoader from 'react-spinners/GridLoader';
 
-const ListProducts = () => {
-    const {
-        filterSortTitle,
-        filterSort,
-        currentPage,
-        isLoading,
-        products,
-        onPageChange,
-        productsPerPage,
-    } = useFilteredProducts();
-
+const ListProducts = ({
+    filterSortTitle,
+    filterSort,
+    currentPage,
+    isLoading,
+    products,
+    onPageChange,
+    productsPerPage,
+}) => {
     return (
         <div className={`${styles['products-container']}`}>
             <FilterProducts
@@ -35,13 +32,15 @@ const ListProducts = () => {
                             (currentPage - 1) * productsPerPage,
                             currentPage * productsPerPage
                         )
-                        .map((product, index) => {
+                        .map((product) => {
                             return (
                                 <ProductCard
-                                    productId={product.id}
+                                    id={product.id}
                                     productImg={product.img}
-                                    productPrice={product.price}
-                                    key={index}
+                                    price={product.price}
+                                    category={product.category}
+                                    title={product.title}
+                                    key={product.id}
                                     discount={
                                         product.discount != 0
                                             ? product.discount

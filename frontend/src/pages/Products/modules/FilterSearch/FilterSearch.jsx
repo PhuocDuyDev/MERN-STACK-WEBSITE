@@ -3,12 +3,14 @@ import styles from './FilterSearch.module.css';
 import { Link, useSearchParams } from 'react-router-dom';
 import { categoriesProductsPage } from '../../../../const/categoriesConst';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
-import { demoProducts } from './../../../../const/demoProducts';
+import { selectProductsShuffle } from '../../../../features/selector';
+import { useSelector } from 'react-redux';
 
 const FilterSearch = () => {
-    const randomProduct = Math.floor(Math.random() * 99);
     const searchParams = useSearchParams();
     const categoryLink = searchParams[0].get('category');
+    const products = useSelector(selectProductsShuffle);
+
     return (
         <div className={`${styles['filter-container']}`}>
             <nav className={`${styles['categories-sidebar']}`}>
@@ -40,17 +42,19 @@ const FilterSearch = () => {
             <div className={`${styles['products-random']}`}>
                 <h1>Random Products</h1>
                 <div className='products-list'>
-                    {demoProducts
-                        .slice(randomProduct, randomProduct + 2)
-                        .map((product) => (
-                            <ProductCard
-                                key={product.id}
-                                productPrice={product.price}
-                                productImg={product.img}
-                                productId={product.id}
-                                // discount={product.discount}
-                            />
-                        ))}
+                    {products.slice(0, 2).map((product) => (
+                        <ProductCard
+                            id={product.id}
+                            productImg={product.img}
+                            price={product.price}
+                            category={product.category}
+                            title={product.title}
+                            key={product.id}
+                            discount={
+                                product.discount != 0 ? product.discount : null
+                            }
+                        />
+                    ))}
                 </div>
             </div>
         </div>

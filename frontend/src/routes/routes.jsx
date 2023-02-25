@@ -23,6 +23,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: PRODUCTS_PAGE,
+                // loader: 
                 element: <Products />,
             },
             {

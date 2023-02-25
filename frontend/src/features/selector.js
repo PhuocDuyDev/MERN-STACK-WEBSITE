@@ -19,6 +19,16 @@ export const selectProductsInWishlist = createSelector(
     }
 );
 
+export const selectProductsShuffle = createSelector(
+    [selectProducts],
+    (products) => {
+        const shuffleProducts = products
+            .slice()
+            .sort(() => 0.5 - Math.random());
+        return shuffleProducts
+    }
+);
+
 export const selectProductsInCart = createSelector(
     [selectProducts, selectCart, selectProductsPerPage],
     (products, cart, productsPerPage) => {

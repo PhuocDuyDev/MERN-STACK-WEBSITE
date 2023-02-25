@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { demoProducts } from '../../const/demoProducts';
 
 const initialState = {
-    products: [...demoProducts],
+    products: [],
     productsPerPage: 9,
     isLoading: false,
     error: null,

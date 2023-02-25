@@ -12,6 +12,5 @@ const store = configureStore({
     reducer: rootReducer,
 });
 // Fetch the demo products when the app starts
-store.dispatch(fetchDemoProducts());
 
 export default store;

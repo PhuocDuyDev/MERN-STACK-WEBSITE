@@ -4,24 +4,25 @@ import { Link } from 'react-router-dom';
 import styles from './SaleProducts.module.css';
 import { ProductCard } from '../../../../components';
 import { PRODUCTS_PAGE } from './../../../../const/NavigateConst';
-import { demoProducts } from './../../../../const/demoProducts';
 
-const SaleProducts = () => {
+const SaleProducts = ({ listProducts }) => {
     return (
         <section className={`${styles['sale-section']} section`}>
             <div className={`container ${styles['sale']}`}>
                 <h1 className='section-heading'>On Sale</h1>
                 <div className={`grid ${styles['sale-products']}`}>
-                    {demoProducts
+                    {listProducts
                         .filter((product) => product.discount > 0)
                         .slice(0, 8)
                         .map((product) => {
                             return (
                                 <ProductCard
-                                    productPrice={product.price}
+                                    id={product.id}
                                     productImg={product.img}
+                                    price={product.price}
+                                    category={product.category}
+                                    title={product.title}
                                     key={product.id}
-                                    productId={product.id}
                                     discount={
                                         product.discount != 0
                                             ? product.discount

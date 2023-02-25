@@ -12,15 +12,12 @@ import {
 } from 'react-icons/bs';
 // import { selectProductsInWishlist } from '../../features/selector';
 
-const ProductCard = ({ productPrice, discount, productImg, productId }) => {
-    const productDiscount = Math.round(
-        productPrice - (productPrice * discount) / 100
-    );
-
+const ProductCard = ({ price, discount, productImg, id, title, category }) => {
+    const productDiscount = Math.round(price - (price * discount) / 100);
     return (
         <div className={styles['product-container']}>
             <Link
-                to={`${PRODUCTS_PAGE}/:id`}
+                to={`${PRODUCTS_PAGE}/${id}`}
                 className={`${styles['product-card']}`}
             >
                 <div className={styles['product-img']}>
@@ -28,10 +25,8 @@ const ProductCard = ({ productPrice, discount, productImg, productId }) => {
                     <img src={productImg[1]} loading='lazy' alt='watch 2' />
                 </div>
                 <div className={styles['product-details']}>
-                    <p className={styles['product-details-tag']}>tag</p>
-                    <h4 className={styles['product-details-title']}>
-                        T-Shirt Thailand brand MW T-Shirt Thailand brand MW
-                    </h4>
+                    <p className={styles['product-details-tag']}>{category}</p>
+                    <h4 className={styles['product-details-title']}>{title}</h4>
                     <div className={styles['product-details-price']}>
                         {discount && (
                             <span
@@ -45,7 +40,7 @@ const ProductCard = ({ productPrice, discount, productImg, productId }) => {
                                 styles['product-details-price-original']
                             } ${!discount ? styles['not-sale'] : null}`}
                         >
-                            ${productPrice}
+                            ${price}
                         </span>
                     </div>
                 </div>
@@ -75,7 +70,7 @@ const ProductCard = ({ productPrice, discount, productImg, productId }) => {
                                         )} */}
                     <button
                         className={styles['action-btn']}
-                        data-product-id={productId}
+                        data-product-id={id}
                         // onClick={handleAddToCart}
                     >
                         <BsHandbag className={`${styles['action-icon']}`} />
@@ -88,7 +83,7 @@ const ProductCard = ({ productPrice, discount, productImg, productId }) => {
                     </button>
                 </div>
                 <button
-                    data-product-id={productId}
+                    data-product-id={id}
                     className={`${styles['product-card-favourite']}`}
                 >
                     {/* {product.favouriteList.includes(
@@ -109,7 +104,7 @@ const ProductCard = ({ productPrice, discount, productImg, productId }) => {
                     <BsSuitHeart
                         className={styles['favourite-icon']}
                         // onClick={handleToggleFavourite}
-                        data-product-id={productId}
+                        data-product-id={id}
                     />
                 </button>
             </Link>

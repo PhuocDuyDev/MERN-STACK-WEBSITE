@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { selectProductsFiltered } from '../features/selector';
-import { useDebounce } from './useDebounce';
+import { fetchDemoProducts } from '../features/featureProduct';
 
 export const useFilteredProducts = () => {
+    const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
     const searchParams = useSearchParams();
@@ -15,7 +16,7 @@ export const useFilteredProducts = () => {
         searchParams[0].get('category') || 'all'
     );
     const isLoading = useSelector((state) => state.featureProduct.isLoading); // real world
-    const { products, productsPerPage,  } = useSelector(
+    const { products, productsPerPage } = useSelector(
         (state) =>
             selectProductsFiltered(state)(
                 category,
@@ -24,9 +25,9 @@ export const useFilteredProducts = () => {
         shallowEqual
     );
 
-    const debouncedSort = useDebounce(sort, 200);
-    const debouncedCategory = useDebounce(category, 200);
-    const debouncedCurrentPage = useDebounce(currentPage, 200);
+    const handleCategoryChange = (category) => {
+        dispatch(fetchDemoProducts(category));
+    };
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -40,14 +41,16 @@ export const useFilteredProducts = () => {
 
     useEffect(() => {
         const searchParams = new URLSearchParams();
-        if (debouncedSort) searchParams.set('sort', debouncedSort);
-        if (debouncedCategory) {
-            searchParams.set('category', debouncedCategory);
+        if (sort) searchParams.set('sort', sort);
+        if (category) {
+            searchParams.set('category', category);
+            handleCategoryChange(category);
         }
-        if (debouncedCurrentPage)
-            searchParams.set('page', debouncedCurrentPage.toString());
+        if (currentPage) {
+            searchParams.set('page', currentPage.toString());
+        }
         navigate({ search: searchParams.toString() });
-    }, [debouncedSort, debouncedCategory, debouncedCurrentPage, navigate]);
+    }, [sort, category, currentPage, navigate]);
 
     const filterSort = (event) => {
         if (event.target.dataset.filter == 'low-to-high') {
@@ -62,6 +65,7 @@ export const useFilteredProducts = () => {
     const onPageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
+
     return {
         filterSort,
         filterSortTitle,
