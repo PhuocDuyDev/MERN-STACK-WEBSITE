@@ -1,0 +1,11 @@
+/* HEADER TOP BEGIN */
+.header-top {
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center space-between;
+}
+
+.header-top p {
+    font-weight: 400;
+    color: white;
+}
+/* HEADER TOP END */

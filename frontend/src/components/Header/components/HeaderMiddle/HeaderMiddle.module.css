@@ -1,0 +1,104 @@
+/* HEADER MIDDLE BEGIN */
+.header-middle {
+    display: grid;
+    grid-template-columns: 2fr 5fr 5fr;
+    gap: var(--gap-l);
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 3.2rem;
+    color: white;
+}
+
+.header-form {
+    position: relative;
+    width: 100%;
+    border-top-left-radius: var(--border-radius-sm);
+    border-bottom-left-radius: var(--border-radius-sm);
+}
+.header-form input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 1.6rem 2rem;
+    font-size: 1.8rem;
+    border-top-left-radius: var(--border-radius-sm);
+    border-bottom-left-radius: var(--border-radius-sm);
+}
+
+.header-form-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+}
+
+.header-form-icon svg {
+    font-size: 2.4rem;
+    color: black;
+    transition: 0.3s ease;
+}
+
+.header-form-icon:hover svg {
+    color: white;
+}
+
+.product-result {
+    position: absolute;
+    top: calc(100% + 1rem);
+    width: 100%;
+    min-height: 4.4rem;
+    padding: 1.6rem 0.8rem;
+    display: grid;
+    row-gap: var(--gap-s);
+    background-color: #fff;
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 0 1rem #0000001a;
+    z-index: 999;
+    max-height: 50vh;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s ease;
+}
+
+.product-result.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.header-action {
+    grid-auto-flow: column;
+    gap: var(--gap-m);
+    place-items: center;
+}
+
+.header-action-item {
+    grid-auto-flow: column;
+    place-items: center;
+    gap: var(--gap-s);
+    font-weight: 400;
+}
+
+.header-action-item p {
+    transition: 0.3s ease;
+}
+
+.header-action-item:hover p {
+    color: var(--primary-color);
+}
+
+.header-action-item .cart-item-number {
+    padding: 0.1rem 0.7rem;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    color: white;
+}
+
+/* HEADER MIDDLE END */

@@ -3,7 +3,6 @@ import styles from './ListProducts.module.css';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
 import { Pagination, FilterProducts } from './components/';
 import { useFilteredProducts } from '../../../../hooks/useFilteredProducts';
-import { productsPerPage } from './../../../../const/demoProducts';
 
 import GridLoader from 'react-spinners/GridLoader';
 

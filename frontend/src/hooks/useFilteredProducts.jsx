@@ -24,9 +24,9 @@ export const useFilteredProducts = () => {
         shallowEqual
     );
 
-    const debouncedSort = useDebounce(sort, 500);
-    const debouncedCategory = useDebounce(category, 500);
-    const debouncedCurrentPage = useDebounce(currentPage, 500);
+    const debouncedSort = useDebounce(sort, 200);
+    const debouncedCategory = useDebounce(category, 200);
+    const debouncedCurrentPage = useDebounce(currentPage, 200);
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);

@@ -1,0 +1,21 @@
+/* HEADER BOTTOM BEGIN */
+.header-bottom {
+    place-items: center;
+}
+
+.header-bottom ul {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 4rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.header-bottom ul li a {
+    transition: 0.3s ease;
+}
+
+.header-bottom ul li:hover a {
+    color: var(--primary-color);
+}
+/* HEADER BOTTOM END */
