@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ProductCard.module.css';
 import { Link } from 'react-router-dom';
-import { PRODUCTS_PAGE } from '../../const/NavigateConst';
+import { PRODUCTS_PAGE } from '../../const/';
 
 import {
     BsEye,
@@ -10,10 +10,41 @@ import {
     BsHandbag,
     BsHandbagFill,
 } from 'react-icons/bs';
-// import { selectProductsInWishlist } from '../../features/selector';
+import { useDispatch } from 'react-redux';
+import {
+    addToWishlist,
+    removeFromWishlist,
+} from '../../features/featureWishlish/featureWishlish';
+import { addToCart } from '../../features/featureCart/featureCartSlice';
 
-const ProductCard = ({ price, discount, productImg, id, title, category }) => {
+const ProductCard = ({
+    price,
+    discount,
+    productImg,
+    id,
+    name,
+    category,
+    isInCart,
+    isInWishlist,
+}) => {
     const productDiscount = Math.round(price - (price * discount) / 100);
+    const dispatch = useDispatch();
+
+    const handleAddToWishlist = (event, id) => {
+        event.preventDefault();
+        dispatch(addToWishlist(id));
+    };
+
+    const handleRemoveFromWishlist = (event, id) => {
+        event.preventDefault();
+        dispatch(removeFromWishlist(id));
+    };
+
+    const handleAddToCart = (event, id) => {
+        event.preventDefault();
+        dispatch(addToCart({ id: id, quantity: 1 }));
+    };
+
     return (
         <div className={styles['product-container']}>
             <Link
@@ -26,7 +57,7 @@ const ProductCard = ({ price, discount, productImg, id, title, category }) => {
                 </div>
                 <div className={styles['product-details']}>
                     <p className={styles['product-details-tag']}>{category}</p>
-                    <h4 className={styles['product-details-title']}>{title}</h4>
+                    <h4 className={styles['product-details-title']}>{name}</h4>
                     <div className={styles['product-details-price']}>
                         {discount && (
                             <span
@@ -45,36 +76,24 @@ const ProductCard = ({ price, discount, productImg, id, title, category }) => {
                     </div>
                 </div>
                 <div className={styles['product-card-actions']}>
-                    {/* {product.cartList.includes(
-                                            productId.toString()
-                                        ) ? (
-                                            <button
-                                                className={styles['action-btn']}
-                                                data-product-id={productId}
-                                                onClick={handleAddToCart}
-                                            >
-                                                <BsHandbagFill
-                                                    className={`${styles['action-icon']} ${styles['active']}`}
-                                                />
-                                            </button>
-                                        ) : (
-                                            <button
-                                                className={styles['action-btn']}
-                                                data-product-id={productId}
-                                                onClick={handleAddToCart}
-                                            >
-                                                <BsHandbag
-                                                    className={`${styles['action-icon']}`}
-                                                />
-                                            </button>
-                                        )} */}
-                    <button
-                        className={styles['action-btn']}
-                        data-product-id={id}
-                        // onClick={handleAddToCart}
-                    >
-                        <BsHandbag className={`${styles['action-icon']}`} />
-                    </button>
+                    {isInCart ? (
+                        <button
+                            className={styles['action-btn']}
+                            onClick={(event) => handleAddToCart(event, id)}
+                        >
+                            <BsHandbagFill
+                                className={`${styles['action-icon']} ${styles['active']}`}
+                            />
+                        </button>
+                    ) : (
+                        <button
+                            className={styles['action-btn']}
+                            data-product-id={id}
+                            onClick={(event) => handleAddToCart(event, id)}
+                        >
+                            <BsHandbag className={`${styles['action-icon']}`} />
+                        </button>
+                    )}
                     <button
                         className={styles['action-btn']}
                         // onClick={handleQuickViewProduct}
@@ -86,26 +105,19 @@ const ProductCard = ({ price, discount, productImg, id, title, category }) => {
                     data-product-id={id}
                     className={`${styles['product-card-favourite']}`}
                 >
-                    {/* {product.favouriteList.includes(
-                                            productId.toString()
-                                        ) ? (
-                                            <BsSuitHeartFill
-                                                className={`${styles['favourite-icon']} ${styles['active']}`}
-                                                onClick={handleToggleFavourite}
-                                                data-product-id={productId}
-                                            />
-                                        ) : (
-                                            <BsSuitHeart
-                                                className={styles['favourite-icon']}
-                                                onClick={handleToggleFavourite}
-                                                data-product-id={productId}
-                                            />
-                                        )} */}
-                    <BsSuitHeart
-                        className={styles['favourite-icon']}
-                        // onClick={handleToggleFavourite}
-                        data-product-id={id}
-                    />
+                    {isInWishlist ? (
+                        <BsSuitHeartFill
+                            className={`${styles['favourite-icon']} ${styles['active']}`}
+                            onClick={(event) =>
+                                handleRemoveFromWishlist(event, id)
+                            }
+                        />
+                    ) : (
+                        <BsSuitHeart
+                            className={styles['favourite-icon']}
+                            onClick={(event) => handleAddToWishlist(event, id)}
+                        />
+                    )}
                 </button>
             </Link>
             {discount && (

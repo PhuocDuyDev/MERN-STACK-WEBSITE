@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { PRODUCTS_PAGE } from '../../../../const/NavigateConst';
+import { PRODUCTS_PAGE } from '../../../../const/';
 import styles from './HeaderBottom.module.css';
 
 const HeaderBottom = () => {
@@ -13,7 +13,7 @@ const HeaderBottom = () => {
                         <Link to={'/'}>Home</Link>
                     </li>
                     <li>
-                        <Link to={PRODUCTS_PAGE}>Our Store</Link>
+                        <Link to={`${PRODUCTS_PAGE}`}>Our Store</Link>
                     </li>
                     <li>
                         <Link to={'/contact'}>Contact</Link>

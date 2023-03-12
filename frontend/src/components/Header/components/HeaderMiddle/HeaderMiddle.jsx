@@ -1,22 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { CiSearch } from 'react-icons/ci';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CiSearch } from 'react-icons/ci';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { selectProducts } from './../../../../features/selector';
 
-import wishlist from '../../../../assets/images/wishlist.svg';
-import user from '../../../../assets/images/user.svg';
 import cart from '../../../../assets/images/cart.svg';
+import user from '../../../../assets/images/user.svg';
+import wishlist from '../../../../assets/images/wishlist.svg';
 
-import styles from './HeaderMiddle.module.css';
 import { ProductCardSearch } from './../../../';
+import { CART_PAGE, LOGIN_PAGE, WISHLIST_PAGE } from './../../../../const/';
+import styles from './HeaderMiddle.module.css';
+
+import { useAuthContext } from '../../../../context/AuthContext';
+import { useLogoutMutation } from '../../../../operations/mutations/';
+import JWTManager from './../../../../utils/jwt';
 
 const HeaderMiddle = () => {
     const [search, setSearch] = useState('');
     const [isInputFocus, setIsInputFocus] = useState(false);
     const deboundedSearch = useDebounce(search, 500);
     const products = useSelector(selectProducts);
+    const { isAuthenticated, logoutClient, checkAuth } = useAuthContext();
+    const [loadingCheckAuth, setLoadingCheckAuth] = useState(true);
+    const { setIsAuthenticated } = useAuthContext();
+    const { mutate: logoutMutation } = useLogoutMutation();
+
+    useEffect(() => {
+        const authenticate = async () => {
+            await checkAuth();
+            setLoadingCheckAuth(false);
+        };
+        authenticate();
+    }, [checkAuth]);
 
     const handleInputFocus = () => {
         setIsInputFocus(true);
@@ -28,6 +45,14 @@ const HeaderMiddle = () => {
 
     const handleSearchChange = (event) => {
         setSearch(event.target.value);
+    };
+
+    const handleLogout = async () => {
+        await logoutMutation({
+            variables: { userId: JWTManager.getUserId() },
+        });
+        logoutClient();
+        setIsAuthenticated(false);
     };
 
     const filteredProducts = products.filter((product) => {
@@ -77,7 +102,7 @@ const HeaderMiddle = () => {
                             })
                         ) : (
                             <p className={`${styles['message']}`}>
-                                No items found. Search something in here!
+                                No items found. Please try again!
                             </p>
                         )}
                         {/* Product search result end */}
@@ -85,7 +110,7 @@ const HeaderMiddle = () => {
                 </form>
                 <div className={`grid ${styles['header-action']}`}>
                     <Link
-                        to={'/favourite'}
+                        to={WISHLIST_PAGE}
                         className={`grid ${styles['header-action-item']}`}
                     >
                         <img src={wishlist} alt='favourite' />
@@ -93,17 +118,33 @@ const HeaderMiddle = () => {
                             Favourite <br /> wishlish
                         </p>
                     </Link>
+                    {/* Login Start */}
+                    {loadingCheckAuth ? (
+                        <h1>loading...</h1>
+                    ) : isAuthenticated ? (
+                        <div className={styles['menu-user']}>
+                            <h2>Duy Tran Phuoc</h2>
+                            <ul>
+                                <Link to={'/myprofile'}>My account</Link>
+                                <Link to={'/myorder'}>My order</Link>
+                                <p onClick={handleLogout}>Log out</p>
+                            </ul>
+                        </div>
+                    ) : (
+                        <Link
+                            to={LOGIN_PAGE}
+                            className={`grid ${styles['header-action-item']}`}
+                        >
+                            <img src={user} alt='user action' />
+                            <p>
+                                Login <br /> My account
+                            </p>
+                        </Link>
+                    )}
+
+                    {/* Login End */}
                     <Link
-                        to={'/login'}
-                        className={`grid ${styles['header-action-item']}`}
-                    >
-                        <img src={user} alt='user action' />
-                        <p>
-                            Login <br /> My account
-                        </p>
-                    </Link>
-                    <Link
-                        to={'/cart'}
+                        to={CART_PAGE}
                         className={`grid ${styles['header-action-item']}`}
                     >
                         <img src={cart} alt='cart item' />

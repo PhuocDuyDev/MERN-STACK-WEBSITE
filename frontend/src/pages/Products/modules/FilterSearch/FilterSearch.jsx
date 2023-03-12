@@ -1,37 +1,41 @@
 import React from 'react';
-import styles from './FilterSearch.module.css';
-import { Link, useSearchParams } from 'react-router-dom';
-import { categoriesProductsPage } from '../../../../const/categoriesConst';
+import { Link } from 'react-router-dom';
+import { categoryFilterVar } from '../../../../client/client';
+import { CategoryFilters } from '../../../../models';
+import { filterProductsMutations } from '../../../../operations/mutations';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
-import { selectProductsShuffle } from '../../../../features/selector';
-import { useSelector } from 'react-redux';
+import styles from './FilterSearch.module.css';
 
-const FilterSearch = () => {
-    const searchParams = useSearchParams();
-    const categoryLink = searchParams[0].get('category');
-    const products = useSelector(selectProductsShuffle);
-
+const FilterSearch = ({ productsRandom }) => {
+    productsRandom = [...productsRandom.slice(0, 2)];
+    const { setCategoryFilter } = filterProductsMutations;
     return (
         <div className={`${styles['filter-container']}`}>
             <nav className={`${styles['categories-sidebar']}`}>
                 <div className={`${styles['categories']}`}>
                     <h1>Category</h1>
                     <ul className={`${styles['categories-list']}`}>
-                        {categoriesProductsPage.map(
-                            ({ category, title }, index) => (
+                        {Object.values(CategoryFilters).map(
+                            ({ id, displayName }) => (
                                 <li
-                                    key={index}
+                                    key={id}
                                     className={`${styles['categories-item']} ${
-                                        categoryLink === category
+                                        categoryFilterVar().id === id
                                             ? styles['active']
                                             : undefined
                                     }`}
                                 >
                                     <Link
-                                        to={`?category=${category}`}
+                                        to={`?category=${id}`}
+                                        onClick={() => {
+                                            setCategoryFilter({
+                                                id,
+                                                displayName,
+                                            });
+                                        }}
                                         className={`${styles['categories-link']}`}
                                     >
-                                        {title}
+                                        {displayName}
                                     </Link>
                                 </li>
                             )
@@ -42,10 +46,10 @@ const FilterSearch = () => {
             <div className={`${styles['products-random']}`}>
                 <h1>Random Products</h1>
                 <div className='products-list'>
-                    {products.slice(0, 2).map((product) => (
+                    {productsRandom.map((product) => (
                         <ProductCard
                             id={product.id}
-                            productImg={product.img}
+                            productImg={product.images}
                             price={product.price}
                             category={product.category}
                             title={product.title}
@@ -53,6 +57,8 @@ const FilterSearch = () => {
                             discount={
                                 product.discount != 0 ? product.discount : null
                             }
+                            isInCart={product.inCart}
+                            isInWishlist={product.inWishlist}
                         />
                     ))}
                 </div>

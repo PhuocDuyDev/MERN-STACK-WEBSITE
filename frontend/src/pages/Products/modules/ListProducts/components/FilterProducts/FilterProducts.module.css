@@ -72,15 +72,16 @@
     visibility: visible;
 }
 
-.filter-sort ul li {
+.filter-sort ul a {
     font-size: 1.4rem;
     font-weight: 600;
     cursor: pointer;
     padding: 1.2rem 1.2rem;
     transition: 0.3s ease;
     border-radius: var(--border-radius-sm);
+    color: var(--text-color-black);
 }
 
-.filter-sort ul li:hover {
+.filter-sort ul a:hover {
     background-color: var(--primary-color);
 }

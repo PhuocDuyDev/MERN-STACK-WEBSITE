@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectProductsShuffle } from '../../features/selector';
+// import { useQuery, gql } from '@apollo/client';
 import {
     Banner,
     FeaturedProducts,

@@ -1,0 +1,65 @@
+type Product {
+    id: ID!
+    name: String!
+    images: [String!]!
+    category: String!
+    description: String
+    price: Float!
+    discount: Float
+    size: [SizeType!]!
+    feature: Boolean
+}
+
+type SizeType {
+    size: String!
+    quantity: Int!
+}
+
+input SizeTypeInput {
+    size: String!
+    quantity: Int!
+}
+
+extend type Product {
+    inCart: Boolean
+    inWishlist: Boolean
+}
+
+type Query {
+    products: [Product]
+    product(id: ID!): Product
+}
+
+type MessageProduct {
+    message: String!
+    productInfo: Product!
+}
+type Message {
+    message: String!
+}
+
+type Mutation {
+    addProduct(
+        name: String!
+        images: [String!]!
+        description: String
+        price: Float!
+        discount: Float
+        category: String!
+        size: [SizeTypeInput!]!
+        feature: Boolean
+    ): MessageProduct
+    updateProduct(
+        id: ID!
+        name: String
+        images: [String]
+        description: String
+        price: Float
+        discount: Float
+        category: String
+        size: [SizeTypeInput]
+        feature: Boolean
+    ): Product
+    deleteProduct(id: ID!): MessageProduct
+    deleteProducts(ids: [ID!]!): Message!
+}

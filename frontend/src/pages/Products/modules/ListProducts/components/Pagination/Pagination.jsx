@@ -3,7 +3,7 @@ import styles from './Pagination.module.css';
 const Pagination = ({
     productsPerPage,
     totalProducts,
-    paginateHandle,
+    pageChangeHandler,
     currentPage,
 }) => {
     const totalPages = Math.ceil(totalProducts / productsPerPage);
@@ -58,7 +58,9 @@ const Pagination = ({
             }`}
             key={index}
         >
-            <button onClick={() => paginateHandle(numPage)}>{numPage}</button>
+            <button onClick={() => pageChangeHandler(numPage)}>
+                {numPage}
+            </button>
         </li>
     ));
 };

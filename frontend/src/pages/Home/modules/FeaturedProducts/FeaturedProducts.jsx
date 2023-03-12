@@ -3,9 +3,14 @@ import { Link } from 'react-router-dom';
 
 import styles from './FeaturedProducts.module.css';
 import { ProductCard } from '../../../../components';
-import { PRODUCTS_PAGE } from './../../../../const/NavigateConst';
+import { PRODUCTS_PAGE } from './../../../../const/';
+import { categoriesFeature } from './../../../../const/index';
+import { filterProductsMutations } from '../../../../operations/mutations';
+import { CategoryFilters } from '../../../../models';
+import { sortFilterVar } from '../../../../client/client';
 
 const FeaturedProducts = ({ listProducts }) => {
+    const { setCategoryFilter } = filterProductsMutations;
     return (
         <section className={`${styles['featured-section']} section`}>
             <div className={`container ${styles['featured']}`}>
@@ -25,12 +30,21 @@ const FeaturedProducts = ({ listProducts }) => {
                                         ? product.discount
                                         : null
                                 }
+                                isInCart={product.isInCart}
+                                isInWishlist={product.isInWishlist}
                             />
                         );
                     })}
                 </div>
                 <Link
-                    to={`${PRODUCTS_PAGE}?category=featured`}
+                    to={`${PRODUCTS_PAGE}?category=${categoriesFeature}`}
+                    onClick={() =>
+                        setCategoryFilter({
+                            ...Object.values(CategoryFilters).find(
+                                (category) => category.id === categoriesFeature
+                            ),
+                        }) || { ...CategoryFilters.ALL }
+                    }
                     className={`${styles['featured-btn']} see-more-btn`}
                 >
                     See More

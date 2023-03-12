@@ -6,6 +6,30 @@ export const selectProductsPerPage = (state) =>
 export const selectWishlist = (state) => state.featureWishlish.items;
 export const selectCart = (state) => state.featureCart.items;
 
+export const selectSingleProductInWishlistAndCart = createSelector(
+    [selectProducts, selectWishlist, selectCart],
+    (products, wishlist, cart) => {
+        return (productId) => {
+            const [existingProduct] = products.filter((product) => {
+                return product.id === +productId;
+            });
+
+            const isInCart = cart
+                ? cart.some((item) => item.id === existingProduct.id)
+                : false;
+            const isInWishlist = wishlist
+                ? wishlist.some((item) => item.id === existingProduct.id)
+                : false;
+
+            return {
+                ...existingProduct,
+                isInCart,
+                isInWishlist,
+            };
+        };
+    }
+);
+
 export const selectProductsInWishlist = createSelector(
     [selectProducts, selectWishlist, selectProductsPerPage],
     (products, wishlist, productsPerPage) => {
@@ -20,21 +44,40 @@ export const selectProductsInWishlist = createSelector(
 );
 
 export const selectProductsShuffle = createSelector(
-    [selectProducts],
-    (products) => {
-        const shuffleProducts = products
+    [selectProducts, selectCart, selectWishlist],
+    (products, cart, wishlist) => {
+        const productsWithCartAndWishlistStatus = products.map((product) => {
+            const isInCart = cart.some((item) => item.id === product.id);
+            const isInWishlist = wishlist.some(
+                (item) => item.id === product.id
+            );
+
+            return {
+                ...product,
+                isInCart,
+                isInWishlist,
+            };
+        });
+        const shuffleProducts = productsWithCartAndWishlistStatus
             .slice()
             .sort(() => 0.5 - Math.random());
-        return shuffleProducts
+        return shuffleProducts;
     }
 );
 
 export const selectProductsInCart = createSelector(
     [selectProducts, selectCart, selectProductsPerPage],
     (products, cart, productsPerPage) => {
-        const productsInCart = products.filter((product) =>
-            cart.includes(product.id)
-        );
+        const productsInCart = products
+            .map((product) => {
+                const existingItem = cart.find(
+                    (productInCart) => productInCart.id === product.id
+                );
+                if (!existingItem) return null;
+                return { ...product, quantity: existingItem.quantity };
+            })
+            .filter((productInCart) => productInCart !== null);
+
         return {
             products: productsInCart,
             productsPerPage: productsPerPage,
@@ -46,10 +89,12 @@ export const selectProductsInWishlistAndCart = createSelector(
     [selectProducts, selectWishlist, selectCart, selectProductsPerPage],
     (products, wishlist, cart, productsPerPage) => {
         const productsWithCartAndWishlistStatus = products.map((product) => {
-            const isInCart = cart.items.some((item) => item.id === product.id);
-            const isInWishlist = wishlist.items.some(
-                (item) => item.id === product.id
-            );
+            const isInCart = cart
+                ? cart.some((item) => item.id === product.id)
+                : false;
+            const isInWishlist = wishlist
+                ? wishlist.some((item) => item.id === product.id)
+                : false;
 
             return {
                 ...product,
@@ -71,10 +116,12 @@ export const selectProductsFiltered = createSelector(
     [selectProducts, selectWishlist, selectCart, selectProductsPerPage],
     (products, wishlist, cart, productsPerPage) => {
         const productsWithCartAndWishlistStatus = products.map((product) => {
-            const isInCart = cart.some((item) => item.id === product.id);
-            const isInWishlist = wishlist.some(
-                (item) => item.id === product.id
-            );
+            const isInCart = cart
+                ? cart.some((item) => item.id === product.id)
+                : false;
+            const isInWishlist = wishlist
+                ? wishlist.some((item) => item.id === product.id)
+                : false;
 
             return {
                 ...product,
@@ -84,17 +131,16 @@ export const selectProductsFiltered = createSelector(
         });
 
         return (category, sortBy) => {
-            const filteredProducts =
-                category === 'all'
-                    ? productsWithCartAndWishlistStatus
-                    : category === 'sale'
-                    ? productsWithCartAndWishlistStatus.filter(
-                          (product) => product.discount > 0
-                      )
-                    : productsWithCartAndWishlistStatus.filter(
-                          (product) => product.category === category
-                      );
-
+            let filteredProducts =
+                category !== 'all'
+                    ? category !== 'sale'
+                        ? productsWithCartAndWishlistStatus.filter(
+                              (product) => product.category === category
+                          )
+                        : productsWithCartAndWishlistStatus.filter(
+                              (product) => product.discount > 0
+                          )
+                    : productsWithCartAndWishlistStatus;
             if (sortBy === 'low-to-high') {
                 filteredProducts.sort((a, b) => a.price - b.price);
             }

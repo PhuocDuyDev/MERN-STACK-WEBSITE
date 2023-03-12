@@ -3,19 +3,19 @@ import { createSlice } from '@reduxjs/toolkit';
 const wishlistSlice = createSlice({
     name: 'wishlist',
     initialState: {
-        items: [{id: 4}, {id: 5}, {id: 16}],
+        items: [],
     },
     reducers: {
         addToWishlist: (state, action) => {
-            const item = action.payload;
-            if (!state.items.includes(item)) {
-                state.items.push(item);
+            const id = action.payload;
+            if (!state.items.some((wishlistItem) => wishlistItem.id === id)) {
+                state.items.push({ id: id });
             }
         },
         removeFromWishlist: (state, action) => {
-            const item = action.payload;
+            const id = action.payload;
             state.items = state.items.filter(
-                (wishlistItem) => wishlistItem !== item
+                (wishlistItem) => wishlistItem.id !== id
             );
         },
         clearWishlist: (state) => {

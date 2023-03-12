@@ -75,6 +75,10 @@
     font-size: 1.5rem;
     line-height: 1.4;
     font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .product-details .product-details-price {

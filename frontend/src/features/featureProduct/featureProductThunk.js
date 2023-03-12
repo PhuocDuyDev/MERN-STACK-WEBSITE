@@ -6,24 +6,14 @@ import {
 } from './featureProductSlice';
 
 // Async action creator to fetch demo products
-export const fetchDemoProducts = (category) => {
+export const fetchDemoProducts = () => {
     return async (dispatch) => {
         dispatch(fetchProductsStart());
-
         // Simulate network request with a delay
         const fakeNetworkRequest = new Promise((resolve) => {
             setTimeout(() => {
-                resolve([
-                    ...demoProducts.filter((product) => {
-                        if (category === 'all') {
-                            return product;
-                        } else if (category === 'sale') {
-                            return product.discount > 0;
-                        }
-                        return product.category === category;
-                    }),
-                ]);
-            }, Math.random() * 800);
+                resolve([...demoProducts]);
+            }, Math.random() * 3000);
         });
 
         try {
@@ -34,3 +24,13 @@ export const fetchDemoProducts = (category) => {
         }
     };
 };
+
+// import { fetchProducts, addProduct } from './featureProductSlice';
+
+// export const loadProducts = () => (dispatch) => {
+//     dispatch(fetchProducts());
+// };
+
+// export const createProduct = (input) => (dispatch) => {
+//     dispatch(addProduct(input));
+// };

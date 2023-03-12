@@ -1,0 +1,26 @@
+type Order {
+    id: ID!
+    user: User!
+    products: [OrderProduct!]!
+    total: Float!
+    status: String!
+}
+
+type OrderProduct {
+    product: Product!
+    quantity: Int!
+}
+
+input OrderProductInput {
+    productId: ID!
+    quantity: Int!
+}
+
+extend type Mutation {
+    createOrder(products: [OrderProductInput!]!): Order!
+    updateOrderStatus(orderId: ID!, status: String!): Order!
+}
+
+extend type Query {
+    orders: [Order!]!
+}

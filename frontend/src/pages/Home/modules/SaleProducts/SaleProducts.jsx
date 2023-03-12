@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { sortFilterVar } from '../../../../client/client';
 
-import styles from './SaleProducts.module.css';
 import { ProductCard } from '../../../../components';
-import { PRODUCTS_PAGE } from './../../../../const/NavigateConst';
+import { CategoryFilters } from '../../../../models';
+import { filterProductsMutations } from '../../../../operations/mutations';
+import { categoriesSale, PRODUCTS_PAGE } from './../../../../const/';
+import styles from './SaleProducts.module.css';
 
 const SaleProducts = ({ listProducts }) => {
+    const { setCategoryFilter } = filterProductsMutations;
     return (
         <section className={`${styles['sale-section']} section`}>
             <div className={`container ${styles['sale']}`}>
@@ -28,12 +32,23 @@ const SaleProducts = ({ listProducts }) => {
                                             ? product.discount
                                             : null
                                     }
+                                    isInCart={product.isInCart}
+                                    isInWishlist={product.isInWishlist}
                                 />
                             );
                         })}
                 </div>
                 <Link
-                    to={`${PRODUCTS_PAGE}?category=sale`}
+                    to={`${PRODUCTS_PAGE}?category=${categoriesSale}`}
+                    onClick={() =>
+                        setCategoryFilter(
+                            {
+                                ...Object.values(CategoryFilters).find(
+                                    (category) => category.id === categoriesSale
+                                ),
+                            } || { ...CategoryFilters.ALL }
+                        )
+                    }
                     className={`${styles['sale-btn']} see-more-btn`}
                 >
                     See More

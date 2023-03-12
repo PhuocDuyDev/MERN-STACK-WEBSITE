@@ -3,7 +3,7 @@ import product2b from '../assets/images/product-2-2.jpg';
 export const demoProducts = [
     {
         id: 0,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 206,
         discount: 0,
         category: 'jean',
@@ -11,7 +11,7 @@ export const demoProducts = [
     },
     {
         id: 1,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 204,
         discount: 0,
         category: 'jean',
@@ -19,7 +19,7 @@ export const demoProducts = [
     },
     {
         id: 2,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 233,
         discount: 10,
         category: 'jean',
@@ -27,7 +27,7 @@ export const demoProducts = [
     },
     {
         id: 3,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 172,
         discount: 0,
         category: 'jean',
@@ -35,15 +35,23 @@ export const demoProducts = [
     },
     {
         id: 4,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 182,
         discount: 15,
         category: 'jean',
         title: 'Bootcut Jeans',
     },
     {
+        id: 15,
+        img: [product2a, product2b, product2a, product2b],
+        price: 220,
+        discount: 45,
+        category: 'tshirt',
+        title: 'Long-Sleeve T-Shirt',
+    },
+    {
         id: 5,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 226,
         discount: 0,
         category: 'jean',
@@ -51,7 +59,7 @@ export const demoProducts = [
     },
     {
         id: 6,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 170,
         discount: 0,
         category: 'jean',
@@ -59,7 +67,7 @@ export const demoProducts = [
     },
     {
         id: 7,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 204,
         discount: 0,
         category: 'jean',
@@ -67,7 +75,7 @@ export const demoProducts = [
     },
     {
         id: 8,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 198,
         discount: 0,
         category: 'jean',
@@ -75,7 +83,7 @@ export const demoProducts = [
     },
     {
         id: 9,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 200,
         discount: 0,
         category: 'tshirt',
@@ -83,7 +91,7 @@ export const demoProducts = [
     },
     {
         id: 10,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 200,
         discount: 0,
         category: 'tshirt',
@@ -91,7 +99,7 @@ export const demoProducts = [
     },
     {
         id: 11,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 211,
         discount: 0,
         category: 'tshirt',
@@ -99,7 +107,7 @@ export const demoProducts = [
     },
     {
         id: 12,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 211,
         discount: 45,
         category: 'tshirt',
@@ -107,7 +115,7 @@ export const demoProducts = [
     },
     {
         id: 13,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 238,
         discount: 45,
         category: 'tshirt',
@@ -115,23 +123,16 @@ export const demoProducts = [
     },
     {
         id: 14,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 182,
         discount: 45,
         category: 'tshirt',
         title: 'Solid Color T-Shirt',
     },
-    {
-        id: 15,
-        img: [product2a, product2b],
-        price: 220,
-        discount: 45,
-        category: 'tshirt',
-        title: 'Long-Sleeve T-Shirt',
-    },
+
     {
         id: 16,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 237,
         discount: 45,
         category: 'tshirt',
@@ -139,7 +140,7 @@ export const demoProducts = [
     },
     {
         id: 17,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 233,
         discount: 45,
         category: 'tshirt',
@@ -147,7 +148,7 @@ export const demoProducts = [
     },
     {
         id: 18,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 226,
         discount: 45,
         category: 'tshirt',
@@ -155,7 +156,7 @@ export const demoProducts = [
     },
     {
         id: 19,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 221,
         discount: 45,
         category: 'jean',
@@ -163,7 +164,7 @@ export const demoProducts = [
     },
     {
         id: 20,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 217,
         discount: 45,
         category: 'dresses',
@@ -171,7 +172,7 @@ export const demoProducts = [
     },
     {
         id: 21,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 212,
         discount: 45,
         category: 'dresses',
@@ -179,7 +180,7 @@ export const demoProducts = [
     },
     {
         id: 22,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 214,
         discount: 45,
         category: 'dresses',
@@ -187,7 +188,7 @@ export const demoProducts = [
     },
     {
         id: 23,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 220,
         discount: 45,
         category: 'dresses',
@@ -195,7 +196,7 @@ export const demoProducts = [
     },
     {
         id: 24,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 208,
         discount: 45,
         category: 'dresses',
@@ -203,7 +204,7 @@ export const demoProducts = [
     },
     {
         id: 25,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 191,
         discount: 0,
         category: 'dresses',
@@ -211,7 +212,7 @@ export const demoProducts = [
     },
     {
         id: 26,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 205,
         discount: 0,
         category: 'dresses',
@@ -219,7 +220,7 @@ export const demoProducts = [
     },
     {
         id: 27,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 198,
         discount: 0,
         category: 'dresses',
@@ -227,7 +228,7 @@ export const demoProducts = [
     },
     {
         id: 28,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 206,
         discount: 0,
         category: 'dresses',
@@ -235,7 +236,7 @@ export const demoProducts = [
     },
     {
         id: 29,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 176,
         discount: 0,
         category: 'dresses',
@@ -243,7 +244,7 @@ export const demoProducts = [
     },
     {
         id: 30,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 169,
         discount: 0,
         category: 'dresses',
@@ -251,7 +252,7 @@ export const demoProducts = [
     },
     {
         id: 31,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 200,
         discount: 0,
         category: 'dresses',
@@ -259,7 +260,7 @@ export const demoProducts = [
     },
     {
         id: 32,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 173,
         discount: 0,
         category: 'jean',
@@ -267,7 +268,7 @@ export const demoProducts = [
     },
     {
         id: 33,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 190,
         discount: 30,
         category: 'jean',
@@ -275,7 +276,7 @@ export const demoProducts = [
     },
     {
         id: 34,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 206,
         discount: 30,
         category: 'jean',
@@ -283,7 +284,7 @@ export const demoProducts = [
     },
     {
         id: 35,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 195,
         discount: 30,
         category: 'jean',
@@ -291,7 +292,7 @@ export const demoProducts = [
     },
     {
         id: 36,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 211,
         discount: 30,
         category: 'jacket',
@@ -299,7 +300,7 @@ export const demoProducts = [
     },
     {
         id: 37,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 228,
         discount: 30,
         category: 'jacket',
@@ -307,7 +308,7 @@ export const demoProducts = [
     },
     {
         id: 38,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 231,
         discount: 30,
         category: 'jacket',
@@ -315,7 +316,7 @@ export const demoProducts = [
     },
     {
         id: 39,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 227,
         discount: 30,
         category: 'jacket',
@@ -323,7 +324,7 @@ export const demoProducts = [
     },
     {
         id: 40,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 221,
         discount: 30,
         category: 'jacket',
@@ -331,7 +332,7 @@ export const demoProducts = [
     },
     {
         id: 41,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 179,
         discount: 30,
         category: 'jacket',
@@ -339,7 +340,7 @@ export const demoProducts = [
     },
     {
         id: 42,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 192,
         discount: 30,
         category: 'jacket',
@@ -347,7 +348,7 @@ export const demoProducts = [
     },
     {
         id: 43,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 193,
         discount: 30,
         category: 'jacket',
@@ -355,7 +356,7 @@ export const demoProducts = [
     },
     {
         id: 44,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 218,
         discount: 30,
         category: 'jacket',
@@ -363,7 +364,7 @@ export const demoProducts = [
     },
     {
         id: 45,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 212,
         discount: 30,
         category: 'jacket',
@@ -371,7 +372,7 @@ export const demoProducts = [
     },
     {
         id: 46,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 211,
         discount: 30,
         category: 'jacket',
@@ -379,7 +380,7 @@ export const demoProducts = [
     },
     {
         id: 47,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 205,
         discount: 30,
         category: 'jacket',
@@ -387,7 +388,7 @@ export const demoProducts = [
     },
     {
         id: 48,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 197,
         discount: 30,
         category: 'jacket',
@@ -395,7 +396,7 @@ export const demoProducts = [
     },
     {
         id: 49,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 188,
         discount: 30,
         category: 'jacket',
@@ -403,7 +404,7 @@ export const demoProducts = [
     },
     {
         id: 50,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 228,
         discount: 0,
         category: 'jacket',
@@ -411,7 +412,7 @@ export const demoProducts = [
     },
     {
         id: 51,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 194,
         discount: 0,
         category: 'jacket',
@@ -419,7 +420,7 @@ export const demoProducts = [
     },
     {
         id: 52,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 241,
         discount: 0,
         category: 'jacket',
@@ -427,7 +428,7 @@ export const demoProducts = [
     },
     {
         id: 53,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 190,
         discount: 0,
         category: 'jacket',
@@ -435,7 +436,7 @@ export const demoProducts = [
     },
     {
         id: 54,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 194,
         discount: 0,
         category: 'jacket',
@@ -443,7 +444,7 @@ export const demoProducts = [
     },
     {
         id: 55,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 177,
         discount: 0,
         category: 'jacket',
@@ -451,7 +452,7 @@ export const demoProducts = [
     },
     {
         id: 56,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 237,
         discount: 0,
         category: 'jacket',
@@ -459,7 +460,7 @@ export const demoProducts = [
     },
     {
         id: 57,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 172,
         discount: 0,
         category: 'jacket',
@@ -467,7 +468,7 @@ export const demoProducts = [
     },
     {
         id: 58,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 247,
         discount: 0,
         category: 'jacket',
@@ -475,7 +476,7 @@ export const demoProducts = [
     },
     {
         id: 59,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 192,
         discount: 0,
         category: 'jacket',
@@ -483,7 +484,7 @@ export const demoProducts = [
     },
     {
         id: 60,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 170,
         discount: 0,
         category: 'jacket',
@@ -491,7 +492,7 @@ export const demoProducts = [
     },
     {
         id: 61,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 224,
         discount: 0,
         category: 'jacket',
@@ -499,7 +500,7 @@ export const demoProducts = [
     },
     {
         id: 62,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 224,
         discount: 20,
         category: 'jean',
@@ -507,7 +508,7 @@ export const demoProducts = [
     },
     {
         id: 63,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 229,
         discount: 20,
         category: 'san.d',
@@ -515,7 +516,7 @@ export const demoProducts = [
     },
     {
         id: 64,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 244,
         discount: 20,
         category: 'san.d',
@@ -523,7 +524,7 @@ export const demoProducts = [
     },
     {
         id: 65,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 185,
         discount: 20,
         category: 'san.d',
@@ -531,7 +532,7 @@ export const demoProducts = [
     },
     {
         id: 66,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 213,
         discount: 20,
         category: 'san.d',
@@ -539,7 +540,7 @@ export const demoProducts = [
     },
     {
         id: 67,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 179,
         discount: 20,
         category: 'san.d',
@@ -547,7 +548,7 @@ export const demoProducts = [
     },
     {
         id: 68,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 231,
         discount: 20,
         category: 'san.d',
@@ -555,7 +556,7 @@ export const demoProducts = [
     },
     {
         id: 69,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 212,
         discount: 20,
         category: 'jean',
@@ -563,7 +564,7 @@ export const demoProducts = [
     },
     {
         id: 70,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 242,
         discount: 20,
         category: 'jean',
@@ -571,7 +572,7 @@ export const demoProducts = [
     },
     {
         id: 71,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 222,
         discount: 20,
         category: 'jean',
@@ -579,7 +580,7 @@ export const demoProducts = [
     },
     {
         id: 72,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 247,
         discount: 20,
         category: 'jean',
@@ -587,7 +588,7 @@ export const demoProducts = [
     },
     {
         id: 73,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 245,
         discount: 0,
         category: 'jean',
@@ -595,7 +596,7 @@ export const demoProducts = [
     },
     {
         id: 74,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 219,
         discount: 0,
         category: 'jean',
@@ -603,7 +604,7 @@ export const demoProducts = [
     },
     {
         id: 75,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 220,
         discount: 0,
         category: 'jean',
@@ -611,7 +612,7 @@ export const demoProducts = [
     },
     {
         id: 76,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 209,
         discount: 0,
         category: 'jean',
@@ -619,7 +620,7 @@ export const demoProducts = [
     },
     {
         id: 77,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 235,
         discount: 0,
         category: 'jean',
@@ -627,7 +628,7 @@ export const demoProducts = [
     },
     {
         id: 78,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 239,
         discount: 0,
         category: 'jean',
@@ -635,7 +636,7 @@ export const demoProducts = [
     },
     {
         id: 79,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 246,
         discount: 0,
         category: 'jean',
@@ -643,7 +644,7 @@ export const demoProducts = [
     },
     {
         id: 80,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 191,
         discount: 0,
         category: 'featured',
@@ -651,7 +652,7 @@ export const demoProducts = [
     },
     {
         id: 81,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 211,
         discount: 0,
         category: 'featured',
@@ -659,7 +660,7 @@ export const demoProducts = [
     },
     {
         id: 82,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 205,
         discount: 0,
         category: 'featured',
@@ -667,7 +668,7 @@ export const demoProducts = [
     },
     {
         id: 83,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 198,
         discount: 0,
         category: 'featured',
@@ -675,7 +676,7 @@ export const demoProducts = [
     },
     {
         id: 84,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 171,
         discount: 17,
         category: 'featured',
@@ -683,7 +684,7 @@ export const demoProducts = [
     },
     {
         id: 85,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 248,
         discount: 17,
         category: 'featured',
@@ -691,7 +692,7 @@ export const demoProducts = [
     },
     {
         id: 86,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 205,
         discount: 17,
         category: 'featured',
@@ -699,7 +700,7 @@ export const demoProducts = [
     },
     {
         id: 87,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 177,
         discount: 17,
         category: 'jean',
@@ -707,7 +708,7 @@ export const demoProducts = [
     },
     {
         id: 88,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 187,
         discount: 17,
         category: 'jean',
@@ -715,7 +716,7 @@ export const demoProducts = [
     },
     {
         id: 89,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 195,
         discount: 17,
         category: 'jean',
@@ -723,7 +724,7 @@ export const demoProducts = [
     },
     {
         id: 90,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 225,
         discount: 17,
         category: 'jean',
@@ -731,7 +732,7 @@ export const demoProducts = [
     },
     {
         id: 91,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 246,
         discount: 17,
         category: 'jean',
@@ -739,7 +740,7 @@ export const demoProducts = [
     },
     {
         id: 92,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 179,
         discount: 17,
         category: 'jean',
@@ -747,7 +748,7 @@ export const demoProducts = [
     },
     {
         id: 93,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 184,
         discount: 17,
         category: 'jean',
@@ -755,7 +756,7 @@ export const demoProducts = [
     },
     {
         id: 94,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 179,
         discount: 17,
         category: 'jean',
@@ -763,7 +764,7 @@ export const demoProducts = [
     },
     {
         id: 95,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 169,
         discount: 17,
         category: 'jean',
@@ -771,7 +772,7 @@ export const demoProducts = [
     },
     {
         id: 96,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 216,
         discount: 17,
         category: 'jean',
@@ -779,7 +780,7 @@ export const demoProducts = [
     },
     {
         id: 97,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 227,
         discount: 0,
         category: 'san.d',
@@ -787,7 +788,7 @@ export const demoProducts = [
     },
     {
         id: 98,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 171,
         discount: 0,
         category: 'san.d',
@@ -795,7 +796,7 @@ export const demoProducts = [
     },
     {
         id: 99,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 207,
         discount: 0,
         category: 'san.d',
@@ -803,7 +804,7 @@ export const demoProducts = [
     },
     {
         id: 100,
-        img: [product2a, product2b],
+        img: [product2a, product2b, product2a, product2b],
         price: 231,
         discount: 0,
         category: 'san.d',

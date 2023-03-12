@@ -1,0 +1,9 @@
+.product-img {
+    display: grid;
+    gap: var(--gap-s);
+}
+.product-slider-main,
+.product-slider-sub {
+    max-width: 100%;
+    border: 1px solid var(--primary-color);
+}

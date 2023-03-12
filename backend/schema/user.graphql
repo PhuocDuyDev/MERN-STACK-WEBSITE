@@ -1,0 +1,93 @@
+type User {
+    id: ID!
+    name: String
+    email: String
+    password: String
+    role: String
+    cart: Cart
+    wishlist: Wishlist
+    refreshToken: String
+    tokenVersion: Int
+}
+
+type Cart {
+    items: [CartItem!]!
+    itemsInfo: [Product]
+}
+
+extend type Product {
+    quantity: Int
+    inCart: Boolean
+    inWishlist: Boolean
+}
+
+type CartItem {
+    productId: ID!
+    quantity: Int!
+}
+type Wishlist {
+    items: [WishlistItem!]!
+}
+
+type WishlistItem {
+    productId: ID!
+}
+
+type AuthPayload {
+    user: User!
+    accessToken: String!
+}
+
+type MessageProducts {
+    message: String!
+    products: [Product]!
+}
+
+type Query {
+    users: [User!]!
+    user(id: ID!): User!
+    currentUser: User!
+    getProductsInCartWithStatus: MessageProducts!
+}
+
+type Message {
+    message: String!
+}
+
+type ResigerResponse {
+    message: String!
+    user: User!
+}
+
+type LoginResponse {
+    message: String!
+    authPayload: AuthPayload!
+}
+
+type Message {
+    message: String!
+}
+
+type AccessToken {
+    accessToken: String!
+}
+
+type Mutation {
+    refreshToken: AccessToken!
+    register(name: String!, email: String!, password: String!): ResigerResponse!
+    login(email: String!, password: String!): LoginResponse!
+    logout(userId: ID!): Message!
+    updateUser(
+        id: ID!
+        name: String!
+        email: String!
+        password: String!
+        role: String!
+    ): User!
+    deleteUser(id: ID!): String!
+    addToCart(productId: ID!, quantity: Int!): User!
+    addProductToWishlist(productId: ID!): User!
+    removeProductFromWishlist(productId: ID!): User!
+    deleteItemFromCart(productId: ID!): User!
+    clearCart: User!
+}

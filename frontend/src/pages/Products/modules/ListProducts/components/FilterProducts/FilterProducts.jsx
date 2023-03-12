@@ -1,27 +1,25 @@
 import React from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { categoryFilterVar } from '../../../../../../client/client';
 import {
     categoriesAll,
-    categoriesFeatured,
+    categoriesFeature,
     categoriesSale,
-} from '../../../../../../const/categoriesConst';
+} from '../../../../../../const/';
 import styles from './FilterProducts.module.css';
+import { filterProductsMutations } from './../../../../../../operations/mutations/index';
+import { SortFilters } from '../../../../../../models';
+import { sortFilterVar } from './../../../../../../client/client';
 
-const FilterProducts = ({ filterSortTitle, filterSortBy }) => {
-    const searchParams = useSearchParams();
-    const categoryLink = searchParams[0].get('category');
-
+const FilterProducts = () => {
+    const { setSortFilter } = filterProductsMutations;
     return (
         <div className={`${styles['filter-products']}`}>
             <div className={`${styles['filter-category']}`}>
                 <Link
                     to={`?category=${categoriesAll}`}
-                    // className={({ isActive }) => {
-                    //     console.log(isActive);
-                    //     return `${styles['filter-category-link']} ${}`;
-                    // }}
                     className={`${styles['filter-category-link']} ${
-                        categoryLink === categoriesAll
+                        categoryFilterVar().id === categoriesAll
                             ? styles['active']
                             : undefined
                     }`}
@@ -29,9 +27,9 @@ const FilterProducts = ({ filterSortTitle, filterSortBy }) => {
                     All
                 </Link>
                 <Link
-                    to={`?category=${categoriesFeatured}`}
+                    to={`?category=${categoriesFeature}`}
                     className={`${styles['filter-category-link']} ${
-                        categoryLink === categoriesFeatured
+                        categoryFilterVar().id === categoriesFeature
                             ? styles['active']
                             : undefined
                     }`}
@@ -41,7 +39,7 @@ const FilterProducts = ({ filterSortTitle, filterSortBy }) => {
                 <Link
                     to={`?category=${categoriesSale}`}
                     className={`${styles['filter-category-link']} ${
-                        categoryLink === categoriesSale
+                        categoryFilterVar().id === categoriesSale
                             ? styles['active']
                             : undefined
                     }`}
@@ -50,15 +48,24 @@ const FilterProducts = ({ filterSortTitle, filterSortBy }) => {
                 </Link>
                 <div className={`${styles['filter-sort']}`}>
                     <h2 className='filter-sort--selected'>
-                        {filterSortTitle ? filterSortTitle : 'Sort by'}
+                        {sortFilterVar().displayName}
                     </h2>
                     <ul>
-                        <li data-filter='low-to-high' onClick={filterSortBy}>
-                            Price: Low to high
-                        </li>
-                        <li data-filter='high-to-low' onClick={filterSortBy}>
-                            Price: High to low
-                        </li>
+                        {Object.values(SortFilters).map(
+                            ({ id, displayName }) => (
+                                <Link
+                                    to={`?category=${
+                                        categoryFilterVar().id
+                                    }&sort=${id}`}
+                                    key={id}
+                                    onClick={() => {
+                                        setSortFilter({ id, displayName });
+                                    }}
+                                >
+                                    {displayName}
+                                </Link>
+                            )
+                        )}
                     </ul>
                 </div>
             </div>
