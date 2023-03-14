@@ -9,7 +9,9 @@ const REGISTER_MUTATION = gql`
 `;
 const useRegisterMutation = () => {
     const [mutate, { loading, error, data }] = useMutation(REGISTER_MUTATION, {
-        onError: (error) => error.message,
+        onError: (err) => {
+            throw err.graphQLErrors[0];
+        }
     });
     return { mutate, data, error, loading };
 };

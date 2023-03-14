@@ -1,24 +1,28 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectProductsShuffle } from '../../features/selector';
-// import { useQuery, gql } from '@apollo/client';
+import { productsVar } from '../../client/client';
+import { useGetProductsQuery } from '../../operations/queries';
 import {
     Banner,
-    FeaturedProducts,
     CTA,
+    FeaturedProducts,
     SaleProducts,
     Services,
 } from './modules';
 
 const Home = () => {
-    const products = useSelector(selectProductsShuffle);
+    const { data } = useGetProductsQuery();
+    productsVar(data?.products);
+
     return (
         <>
             <Banner />
             <Services />
-            <FeaturedProducts listProducts={products} />
+
+            <FeaturedProducts listProducts={productsVar()} />
+
             <CTA />
-            <SaleProducts listProducts={products} />
+
+            <SaleProducts listProducts={productsVar()} />
         </>
     );
 };

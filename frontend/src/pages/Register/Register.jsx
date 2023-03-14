@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
 
 import { useAuthContext } from '../../context/AuthContext';
 
-import styles from './Register.module.css';
 import { LOGIN_PAGE } from '../../const/';
 import { useRegisterMutation } from '../../operations/mutations/';
+import { notifyWarning } from '../../utils/toast';
+import styles from './Register.module.css';
 
 const Register = () => {
     const { isAuthenticated } = useAuthContext();
@@ -30,12 +30,7 @@ const Register = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            const notify = () =>
-                toast.warning('You must logout before register!', {
-                    autoClose: 1.5 * 1000,
-                    closeOnClick: true,
-                });
-            notify();
+            notifyWarning('You must logout before register!');
             navigate('/products');
         }
         if (data && !error) {

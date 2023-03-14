@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
     categoryFilterVar,
     productsVar,
-    sortFilterVar,
+    sortFilterVar
 } from '../../client/client';
 import { CategoryFilters, SortFilters } from '../../models';
 import {
     filterProductByCategory,
     filterProductsBySort,
-    filterProductsMutations,
+    filterProductsMutations
 } from '../../operations/mutations';
 import { useGetProductsQuery } from '../../operations/queries';
 import { FilterSearch, ListProducts } from './modules';
 import styles from './Products.module.css';
 
 const Products = () => {
-    const { data, loading } = useGetProductsQuery();
+    const { data } = useGetProductsQuery();
     const [search, setSearch] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(
         parseInt(search.get('page')) || 1
@@ -39,6 +39,7 @@ const Products = () => {
         setSortFilter(
             sortFilter ? { ...sortFilter } : { ...SortFilters.DEFAULT }
         );
+
         navigate(
             `?category=${categoryFilterVar().id}&sort=${
                 sortFilterVar().id
@@ -50,8 +51,8 @@ const Products = () => {
         setCurrentPage(numPage);
     };
 
-    if (!loading) {
-        productsVar(data.products);
+    productsVar(data?.products);
+    if (productsVar()?.length > 0) {
         productsVar(
             filterProductsBySort(
                 sortFilterVar(),

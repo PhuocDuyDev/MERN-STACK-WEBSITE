@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ProductCardSearch.module.css';
 
-const ProductCardSearch = ({ id, title, img, price, discount }) => {
+const ProductCardSearch = ({ id, name, img, price, discount }) => {
     const productDiscount =
         discount > 0 ? Math.round(price - (price * discount) / 100) : null;
     return (
@@ -11,9 +11,9 @@ const ProductCardSearch = ({ id, title, img, price, discount }) => {
             to={`/products/${id}`}
             className={`${styles['product-card']}`}
         >
-            <img src={img[0]} alt={title} />
+            <img src={img[0]} alt={name} />
             <div className={`${styles['product-content']}`}>
-                <h2 className={`${styles['product-name']}`}>{title}</h2>
+                <h2 className={`${styles['product-name']}`}>{name}</h2>
                 <div className={`${styles['product-price']}`}>
                     <div>
                         {productDiscount ? (

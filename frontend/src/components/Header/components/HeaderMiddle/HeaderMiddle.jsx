@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useDebounce } from '../../../../hooks/useDebounce';
-import { selectProducts } from './../../../../features/selector';
 
 import cart from '../../../../assets/images/cart.svg';
 import user from '../../../../assets/images/user.svg';
@@ -16,16 +13,25 @@ import styles from './HeaderMiddle.module.css';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { useLogoutMutation } from '../../../../operations/mutations/';
 import JWTManager from './../../../../utils/jwt';
+import { productsVar } from '../../../../client/client';
+import { useDebounce } from './../../../../hooks/useDebounce';
+import { useGetProductsQuery } from '../../../../operations/queries';
 
 const HeaderMiddle = () => {
     const [search, setSearch] = useState('');
+    const debouncedSearch = useDebounce(search, 500);
     const [isInputFocus, setIsInputFocus] = useState(false);
-    const deboundedSearch = useDebounce(search, 500);
-    const products = useSelector(selectProducts);
-    const { isAuthenticated, logoutClient, checkAuth } = useAuthContext();
+    const {
+        isAuthenticated,
+        logoutClient,
+        checkAuth,
+        currentUser,
+        setIsAuthenticated,
+        setCurrentUser,
+    } = useAuthContext();
     const [loadingCheckAuth, setLoadingCheckAuth] = useState(true);
-    const { setIsAuthenticated } = useAuthContext();
     const { mutate: logoutMutation } = useLogoutMutation();
+    const { data, loading } = useGetProductsQuery();
 
     useEffect(() => {
         const authenticate = async () => {
@@ -52,16 +58,31 @@ const HeaderMiddle = () => {
             variables: { userId: JWTManager.getUserId() },
         });
         logoutClient();
+        setCurrentUser(false);
         setIsAuthenticated(false);
     };
+    productsVar(data?.products);
 
-    const filteredProducts = products.filter((product) => {
-        const productTitle = product.title.toLowerCase();
+    const filteredProducts = productsVar()?.filter((product) => {
+        const productName = product.name.toLowerCase();
         const searchName =
-            deboundedSearch == '' ? null : deboundedSearch.toLowerCase(); // add guard clause here
+            debouncedSearch == '' ? null : debouncedSearch.toLowerCase(); // add guard clause here
 
-        return productTitle.includes(searchName);
+        return productName.includes(searchName);
     });
+
+    const priceOfCart = currentUser.id
+        ? currentUser.cart.itemsInfo.reduce((prev, curr) => {
+              const priceDiscount = Math.floor(
+                  curr.price - (curr.price * curr.discount) / 100
+              );
+              return curr.discount
+                  ? prev + priceDiscount * curr.quantity
+                  : prev + curr.price * curr.quantity;
+          }, 0)
+        : 0;
+    const itemsInCart = currentUser.id ? currentUser.cart.itemsInfo.length : 0;
+
     return (
         <header>
             <div className={`container grid ${styles['header-middle']}`}>
@@ -86,16 +107,15 @@ const HeaderMiddle = () => {
                             isInputFocus ? styles['show'] : null
                         }`}
                     >
-                        {/* Product search result */}
                         {filteredProducts?.length > 0 ? (
                             filteredProducts.map((product) => {
                                 return (
                                     <ProductCardSearch
                                         key={product.id}
                                         id={product.id}
-                                        img={product.img}
+                                        img={product.images}
                                         price={product.price}
-                                        title={product.title}
+                                        name={product.name}
                                         discount={product.discount}
                                     />
                                 );
@@ -105,7 +125,6 @@ const HeaderMiddle = () => {
                                 No items found. Please try again!
                             </p>
                         )}
-                        {/* Product search result end */}
                     </div>
                 </form>
                 <div className={`grid ${styles['header-action']}`}>
@@ -123,7 +142,7 @@ const HeaderMiddle = () => {
                         <h1>loading...</h1>
                     ) : isAuthenticated ? (
                         <div className={styles['menu-user']}>
-                            <h2>Duy Tran Phuoc</h2>
+                            <h2>{currentUser.name}</h2>
                             <ul>
                                 <Link to={'/myprofile'}>My account</Link>
                                 <Link to={'/myorder'}>My order</Link>
@@ -150,9 +169,9 @@ const HeaderMiddle = () => {
                         <img src={cart} alt='cart item' />
                         <p>
                             <span className={`${styles['cart-item-number']}`}>
-                                0
+                                {itemsInCart}
                             </span>
-                            <br /> $500
+                            <br /> ${currentUser.id ? priceOfCart : 0}
                         </p>
                     </Link>
                 </div>

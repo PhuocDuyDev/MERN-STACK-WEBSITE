@@ -4,12 +4,12 @@ import { categoryFilterVar } from '../../../../../../client/client';
 import {
     categoriesAll,
     categoriesFeature,
-    categoriesSale,
+    categoriesSale
 } from '../../../../../../const/';
-import styles from './FilterProducts.module.css';
-import { filterProductsMutations } from './../../../../../../operations/mutations/index';
 import { SortFilters } from '../../../../../../models';
 import { sortFilterVar } from './../../../../../../client/client';
+import { filterProductsMutations } from './../../../../../../operations/mutations/index';
+import styles from './FilterProducts.module.css';
 
 const FilterProducts = () => {
     const { setSortFilter } = filterProductsMutations;

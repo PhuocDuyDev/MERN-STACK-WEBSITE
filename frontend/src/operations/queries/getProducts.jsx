@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 
-const GET_PRODUCTS_QUERY = gql`
+export const GET_PRODUCTS_QUERY = gql`
     query Products {
         products {
             id
@@ -19,7 +19,10 @@ const GET_PRODUCTS_QUERY = gql`
 
 const useGetProductsQuery = () => {
     const { data, error, loading } = useQuery(GET_PRODUCTS_QUERY, {
-        onError: (err) => err.message,
+        onError: (err) => {
+            throw err.graphQLErrors[0];
+        },
+        fetchPolicy: 'no-cache',
     });
     return { data, error, loading };
 };

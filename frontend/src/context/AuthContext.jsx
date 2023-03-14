@@ -1,10 +1,13 @@
 import { useState, createContext, useContext, useCallback } from 'react';
+import { currentUserVar } from '../client/client';
 import JWTManager from '../utils/jwt';
 
 const defaultIsAuthenticated = false;
 
 export const AuthContext = createContext({
     isAuthenticated: defaultIsAuthenticated,
+    currentUser: null,
+    setCurrentUser: () => {},
     setIsAuthenticated: () => {},
     checkAuth: () => Promise.resolve(),
     logoutClient: () => {},
@@ -16,6 +19,7 @@ const AuthContextProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(
         defaultIsAuthenticated
     );
+    const [currentUser, setCurrentUser] = useState(currentUserVar());
 
     const checkAuth = useCallback(async () => {
         const token = JWTManager.getToken();
@@ -24,7 +28,9 @@ const AuthContextProvider = ({ children }) => {
             const success = await JWTManager.getRefreshToken();
             if (success) {
                 setIsAuthenticated(true);
+                setCurrentUser(currentUserVar())
             } else {
+                setCurrentUser(false);
                 setIsAuthenticated(false);
             }
         }
@@ -37,6 +43,8 @@ const AuthContextProvider = ({ children }) => {
 
     const authContextData = {
         isAuthenticated,
+        currentUser,
+        setCurrentUser,
         setIsAuthenticated,
         checkAuth,
         logoutClient,

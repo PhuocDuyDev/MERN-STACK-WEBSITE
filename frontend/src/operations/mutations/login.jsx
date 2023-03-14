@@ -4,6 +4,26 @@ const LOGIN_MUTATION = gql`
     mutation MUTATION($email: String!, $password: String!) {
         login(email: $email, password: $password) {
             authPayload {
+                user {
+                    id
+                    name
+                    email
+                    role
+                    wishlist {
+                        items {
+                            productId
+                        }
+                    }
+                    cart {
+                        itemsInfo {
+                            id
+                            name
+                            price
+                            quantity
+                            discount
+                        }
+                    }
+                }
                 accessToken
             }
             message

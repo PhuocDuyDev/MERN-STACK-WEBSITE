@@ -10,7 +10,9 @@ export const LOGOUT_MUTATION = gql`
 
 const useLogoutMutation = () => {
     const [mutate, { loading, error, data }] = useMutation(LOGOUT_MUTATION, {
-        onError: (error) => error.message,
+        onError: (err) => {
+            throw err.graphQLErrors[0];
+        },
     });
     return { mutate, loading, error, data };
 };

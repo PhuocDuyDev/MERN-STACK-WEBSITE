@@ -10,13 +10,6 @@
     font-size: 1.4rem;
 }
 
-.loading-spinner {
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .product-container {
     display: grid;
     grid-template-columns: 4fr 8fr;

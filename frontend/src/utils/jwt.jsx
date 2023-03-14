@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode';
+import { currentUserVar } from '../client/client';
 
 const JWTManager = () => {
     const LOGOUT_EVENT_NAME = 'jwt-logout';
@@ -51,12 +52,33 @@ const JWTManager = () => {
                     query: `mutation RefreshToken {
                         refreshToken {
                             accessToken
+                            user {
+                                id
+                                name
+                                email
+                                role
+                                wishlist {
+                                    items {
+                                        productId
+                                    }
+                                }
+                                cart {
+                                    itemsInfo {
+                                        name
+                                        images
+                                        price
+                                        quantity
+                                    }
+                                }
+                            }
                         }
+                        
                     }`,
                 }),
             });
             const { data } = await response.json();
             setToken(data.refreshToken.accessToken);
+            currentUserVar(data.refreshToken.user);
             return true;
         } catch (error) {
             deleteToken();

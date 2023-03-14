@@ -1,25 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import GridLoader from 'react-spinners/GridLoader';
 import { Layout } from './components';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
-    Home,
-    Products,
-    Product as SingleProduct,
-    Login,
+    CART_PAGE,
+    CHECKOUT_PAGE,
+    LOGIN_PAGE,
+    PRODUCTS_PAGE,
+    REGISTER_PAGE
+} from './const/';
+import { useAuthContext } from './context/AuthContext';
+import {
     Cart,
     Checkout,
+    Home,
+    Login,
+    Product as SingleProduct,
+    Products,
     Register
 } from './pages/';
 import PrivateRoutes from './utils/PrivateRoutes';
-import {
-    LOGIN_PAGE,
-    PRODUCTS_PAGE,
-    CART_PAGE,
-    CHECKOUT_PAGE,
-    REGISTER_PAGE,
-} from './const/';
 
 const App = () => {
+    const [loadingCheckAuth, setLoadingCheckAuth] = useState(true);
+    const { checkAuth } = useAuthContext();
+    useEffect(() => {
+        const authenticate = async () => {
+            await checkAuth();
+            setLoadingCheckAuth(false);
+        };
+
+        authenticate();
+    }, [checkAuth]);
+
+    if (loadingCheckAuth) {
+        return (
+            <div
+                style={{
+                    height: '100vh',
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <GridLoader color='#febd69' />
+            </div>
+        );
+    }
+
     return (
         <BrowserRouter>
             <main className='main'>

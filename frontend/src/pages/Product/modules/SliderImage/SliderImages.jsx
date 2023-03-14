@@ -10,7 +10,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import styles from './SliderImages.module.css';
 
-const SliderImages = ({ productImg, productTitle }) => {
+const SliderImages = ({ productImg, productName }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     return (
@@ -31,7 +31,7 @@ const SliderImages = ({ productImg, productTitle }) => {
                         <SwiperSlide key={index}>
                             <img
                                 src={img}
-                                title={productTitle + ' img ' + index}
+                                title={productName + ' img ' + index}
                             />
                         </SwiperSlide>
                     );
@@ -52,7 +52,7 @@ const SliderImages = ({ productImg, productTitle }) => {
                         <SwiperSlide key={index}>
                             <img
                                 src={img}
-                                title={productTitle + ' img ' + index}
+                                title={productName + ' img ' + index}
                             />
                         </SwiperSlide>
                     );

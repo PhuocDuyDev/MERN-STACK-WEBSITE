@@ -1,21 +1,21 @@
-import React from 'react';
-import styles from './ProductCard.module.css';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { PRODUCTS_PAGE } from '../../const/';
+import styles from './ProductCard.module.css';
 
 import {
-    BsEye,
-    BsSuitHeart,
-    BsSuitHeartFill,
     BsHandbag,
     BsHandbagFill,
+    BsSuitHeart,
+    BsSuitHeartFill,
 } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
+import { useAuthContext } from '../../context/AuthContext';
 import {
-    addToWishlist,
-    removeFromWishlist,
-} from '../../features/featureWishlish/featureWishlish';
-import { addToCart } from '../../features/featureCart/featureCartSlice';
+    useAddToCartMutation,
+    useAddToWishlist,
+    useRemoveFromWishlist,
+} from '../../operations/mutations';
+import { notifyInfo, notifySuccess, notifyWarning } from '../../utils/toast';
 
 const ProductCard = ({
     price,
@@ -28,21 +28,93 @@ const ProductCard = ({
     isInWishlist,
 }) => {
     const productDiscount = Math.round(price - (price * discount) / 100);
-    const dispatch = useDispatch();
+    const { mutate: addToCartHandler } = useAddToCartMutation();
+    const { mutate: addToWishlishHandler } = useAddToWishlist();
+    const { mutate: removeFromWishlistHandler } = useRemoveFromWishlist();
+    const [addCartSuccess, setAddCartSuccess] = useState(isInCart);
+    const [addWishlistSuccess, setAddWishlistSuccess] = useState(isInWishlist);
+    const { setCurrentUser } = useAuthContext();
+    const navigate = useNavigate();
 
-    const handleAddToWishlist = (event, id) => {
+    const handleAddToWishlist = async (event, productId) => {
         event.preventDefault();
-        dispatch(addToWishlist(id));
+
+        try {
+            const data = await addToWishlishHandler({
+                variables: {
+                    productId,
+                },
+            });
+            setCurrentUser(data.data.addProductToWishlist);
+            notifySuccess('Added success product to wishlist!');
+            setAddWishlistSuccess(true);
+        } catch (error) {
+            // already has product
+            if (error.extensions.http.status === 409) {
+                setAddWishlistSuccess(true);
+            } else {
+                setAddWishlistSuccess(false);
+                setTimeout(() => navigate('/login'), 500);
+                notifyWarning('Please login to use this feature!');
+            }
+            notifyWarning(error.message);
+            return error;
+        }
     };
 
-    const handleRemoveFromWishlist = (event, id) => {
+    const handleRemoveFromWishlist = async (event, productId) => {
         event.preventDefault();
-        dispatch(removeFromWishlist(id));
+        try {
+            const data = await removeFromWishlistHandler({
+                variables: {
+                    productId,
+                },
+            });
+            if (data.errors) {
+                throw Error(data.errors.message);
+            }
+            setCurrentUser(data.data.removeProductFromWishlist);
+            notifyInfo('Remove product from wishlist success!');
+            setAddWishlistSuccess(false);
+        } catch (error) {
+            // not in wishlist to remove
+            if (error.extensions.http.status === 409) {
+                setAddWishlistSuccess(false);
+            } else if (error.extensions.http.status === 401) {
+                setAddWishlistSuccess(false);
+                setTimeout(() => navigate('/login'), 500);
+                notifyWarning('Please login to use this feature!');
+            } else {
+                setAddWishlistSuccess(true);
+            }
+            notifyWarning(error.message);
+            return error;
+        }
     };
 
-    const handleAddToCart = (event, id) => {
+    const handleAddToCart = async (event, productId) => {
         event.preventDefault();
-        dispatch(addToCart({ id: id, quantity: 1 }));
+        try {
+            const data = await addToCartHandler({
+                variables: {
+                    productId,
+                    quantity: 1,
+                },
+            });
+            if (data.errors) {
+                throw Error(data.errors.message);
+            }
+            setCurrentUser(data.data.addToCart);
+            notifySuccess('Added success product to cart!');
+            setAddCartSuccess(true);
+        } catch (error) {
+            if (error.extensions.http.status === 401) {
+                setTimeout(() => navigate('/login'), 500);
+            }
+            setAddCartSuccess(false);
+            notifyWarning(error.message);
+            return error;
+        }
     };
 
     return (
@@ -76,7 +148,7 @@ const ProductCard = ({
                     </div>
                 </div>
                 <div className={styles['product-card-actions']}>
-                    {isInCart ? (
+                    {addCartSuccess ? (
                         <button
                             className={styles['action-btn']}
                             onClick={(event) => handleAddToCart(event, id)}
@@ -94,18 +166,18 @@ const ProductCard = ({
                             <BsHandbag className={`${styles['action-icon']}`} />
                         </button>
                     )}
-                    <button
+                    {/* <button
                         className={styles['action-btn']}
                         // onClick={handleQuickViewProduct}
                     >
                         <BsEye className={styles['action-icon']} />
-                    </button>
+                    </button> */}
                 </div>
                 <button
                     data-product-id={id}
                     className={`${styles['product-card-favourite']}`}
                 >
-                    {isInWishlist ? (
+                    {addWishlistSuccess ? (
                         <BsSuitHeartFill
                             className={`${styles['favourite-icon']} ${styles['active']}`}
                             onClick={(event) =>

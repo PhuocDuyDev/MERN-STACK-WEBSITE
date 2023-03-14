@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
 
 import { useAuthContext } from '../../context/AuthContext';
+import { useLoginMutation } from '../../operations/mutations/';
 import JWTManager from './../../utils/jwt';
-import {useLoginMutation} from '../../operations/mutations/';
 
-import styles from './Login.module.css';
 import { REGISTER_PAGE } from '../../const/';
+import { notifyInfo } from '../../utils/toast';
+import styles from './Login.module.css';
 
 const Login = () => {
-    const { setIsAuthenticated, isAuthenticated } = useAuthContext();
+    const { setIsAuthenticated, isAuthenticated, setCurrentUser } =
+        useAuthContext();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { mutate: loginMutation, data, error, loading } = useLoginMutation();
@@ -23,16 +24,12 @@ const Login = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            const notify = () =>
-                toast.info('You already logged in! Shopping now', {
-                    autoClose: 1.5 * 1000,
-                    closeOnClick: true,
-                });
-            notify();
+            notifyInfo('You already logged in! Shopping now');
             navigate('/products');
         }
         if (data && !error) {
             const { accessToken } = data?.login.authPayload;
+            setCurrentUser(data?.login.authPayload.user);
             JWTManager.setToken(accessToken);
             setIsAuthenticated(true);
         }

@@ -7,6 +7,9 @@ import { filterProductsBySort } from './setSortFilter';
 export { default as useLoginMutation } from './login';
 export { default as useRegisterMutation } from './register';
 export { default as useLogoutMutation } from './logout';
+export { default as useAddToCartMutation } from './addToCart';
+export { default as useAddToWishlist } from './addToWishlist';
+export { default as useRemoveFromWishlist } from './removeFromWishlist';
 
 export const filterProductsMutations = {
     setSortFilter: createSetSortFilter(sortFilterVar),

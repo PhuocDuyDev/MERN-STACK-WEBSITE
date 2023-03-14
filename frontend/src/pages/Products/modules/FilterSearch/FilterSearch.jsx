@@ -4,10 +4,10 @@ import { categoryFilterVar } from '../../../../client/client';
 import { CategoryFilters } from '../../../../models';
 import { filterProductsMutations } from '../../../../operations/mutations';
 import ProductCard from './../../../../components/ProductCard/ProductCard';
+import { Spinner } from './../../../../components/';
 import styles from './FilterSearch.module.css';
 
 const FilterSearch = ({ productsRandom }) => {
-    productsRandom = [...productsRandom.slice(0, 2)];
     const { setCategoryFilter } = filterProductsMutations;
     return (
         <div className={`${styles['filter-container']}`}>
@@ -46,21 +46,27 @@ const FilterSearch = ({ productsRandom }) => {
             <div className={`${styles['products-random']}`}>
                 <h1>Random Products</h1>
                 <div className='products-list'>
-                    {productsRandom.map((product) => (
-                        <ProductCard
-                            id={product.id}
-                            productImg={product.images}
-                            price={product.price}
-                            category={product.category}
-                            title={product.title}
-                            key={product.id}
-                            discount={
-                                product.discount != 0 ? product.discount : null
-                            }
-                            isInCart={product.inCart}
-                            isInWishlist={product.inWishlist}
-                        />
-                    ))}
+                    {productsRandom ? (
+                        [...productsRandom.slice(0, 2)].map((product) => (
+                            <ProductCard
+                                id={product.id}
+                                productImg={product.images}
+                                price={product.price}
+                                category={product.category}
+                                title={product.title}
+                                key={product.id}
+                                discount={
+                                    product.discount != 0
+                                        ? product.discount
+                                        : null
+                                }
+                                isInCart={product.inCart}
+                                isInWishlist={product.inWishlist}
+                            />
+                        ))
+                    ) : (
+                        <Spinner />
+                    )}
                 </div>
             </div>
         </div>
