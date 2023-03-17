@@ -9,6 +9,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import styles from './SliderImages.module.css';
+import { MyImage } from '../../../../components';
 
 const SliderImages = ({ productImg, productName }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -29,9 +30,9 @@ const SliderImages = ({ productImg, productName }) => {
                 {productImg.map((img, index) => {
                     return (
                         <SwiperSlide key={index}>
-                            <img
+                            <MyImage
                                 src={img}
-                                title={productName + ' img ' + index}
+                                alt={productName + ' img ' + index}
                             />
                         </SwiperSlide>
                     );
@@ -50,9 +51,9 @@ const SliderImages = ({ productImg, productName }) => {
                 {productImg.map((img, index) => {
                     return (
                         <SwiperSlide key={index}>
-                            <img
+                            <MyImage
                                 src={img}
-                                title={productName + ' img ' + index}
+                                alt={productName + ' img ' + index}
                             />
                         </SwiperSlide>
                     );

@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy } from 'react';
+import { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import GridLoader from 'react-spinners/GridLoader';
-import { Layout } from './components';
+import { Layout, Spinner } from './components';
 import {
     CART_PAGE,
     CHECKOUT_PAGE,
     LOGIN_PAGE,
     PRODUCTS_PAGE,
-    REGISTER_PAGE
+    REGISTER_PAGE,
 } from './const/';
 import { useAuthContext } from './context/AuthContext';
-import {
-    Cart,
-    Checkout,
-    Home,
-    Login,
-    Product as SingleProduct,
-    Products,
-    Register
-} from './pages/';
-import PrivateRoutes from './utils/PrivateRoutes';
+
+const PrivateRoutes = lazy(() => import('./utils/PrivateRoutes'));
+const Cart = lazy(() => import('./pages/Cart/Cart'));
+const Checkout = lazy(() => import('./pages/Checkout/Checkout'));
+const Home = lazy(() => import('./pages/Home/Home'));
+const Login = lazy(() => import('./pages/Login/Login'));
+const SingleProduct = lazy(() => import('./pages/Product/Product'));
+const Products = lazy(() => import('./pages/Products/Products'));
+const Register = lazy(() => import('./pages/Register/Register'));
 
 const App = () => {
     const [loadingCheckAuth, setLoadingCheckAuth] = useState(true);
@@ -34,19 +33,7 @@ const App = () => {
     }, [checkAuth]);
 
     if (loadingCheckAuth) {
-        return (
-            <div
-                style={{
-                    height: '100vh',
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <GridLoader color='#febd69' />
-            </div>
-        );
+        return <Spinner fullPage={true} />;
     }
 
     return (
@@ -64,19 +51,85 @@ const App = () => {
                             />
                         }
                     >
-                        <Route path='/' index element={<Home />} />
-                        <Route path={PRODUCTS_PAGE} element={<Products />} />
+                        <Route
+                            path='/'
+                            index
+                            element={
+                                <Suspense
+                                    fallback={<Spinner fullPage={true} />}
+                                >
+                                    <Home />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path={PRODUCTS_PAGE}
+                            element={
+                                <Suspense
+                                    fallback={<Spinner fullPage={true} />}
+                                >
+                                    <Products />
+                                </Suspense>
+                            }
+                        />
                         <Route
                             path={`${PRODUCTS_PAGE}/:productId`}
-                            element={<SingleProduct />}
+                            element={
+                                <Suspense
+                                    fallback={<Spinner fullPage={true} />}
+                                >
+                                    <SingleProduct />
+                                </Suspense>
+                            }
                         />
-                        <Route path={LOGIN_PAGE} element={<Login />} />
-                        <Route path={REGISTER_PAGE} element={<Register />} />
-                        <Route element={<PrivateRoutes />}>
-                            <Route path={CART_PAGE} element={<Cart />} />
+                        <Route
+                            path={LOGIN_PAGE}
+                            element={
+                                <Suspense
+                                    fallback={<Spinner fullPage={true} />}
+                                >
+                                    <Login />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path={REGISTER_PAGE}
+                            element={
+                                <Suspense
+                                    fallback={<Spinner fullPage={true} />}
+                                >
+                                    <Register />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            element={
+                                <Suspense
+                                    fallback={<Spinner fullPage={true} />}
+                                >
+                                    <PrivateRoutes />
+                                </Suspense>
+                            }
+                        >
+                            <Route
+                                path={CART_PAGE}
+                                element={
+                                    <Suspense
+                                        fallback={<Spinner fullPage={true} />}
+                                    >
+                                        <Cart />
+                                    </Suspense>
+                                }
+                            />
                             <Route
                                 path={CHECKOUT_PAGE}
-                                element={<Checkout />}
+                                element={
+                                    <Suspense
+                                        fallback={<Spinner fullPage={true} />}
+                                    >
+                                        <Checkout />
+                                    </Suspense>
+                                }
                             />
                         </Route>
                     </Route>

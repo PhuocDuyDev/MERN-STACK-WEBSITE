@@ -17,11 +17,8 @@ const Home = () => {
         <>
             <Banner />
             <Services />
-
             <FeaturedProducts listProducts={productsVar()} />
-
             <CTA />
-
             <SaleProducts listProducts={productsVar()} />
         </>
     );

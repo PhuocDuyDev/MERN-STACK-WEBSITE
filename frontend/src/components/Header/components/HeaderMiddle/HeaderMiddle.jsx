@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 
@@ -6,18 +6,18 @@ import cart from '../../../../assets/images/cart.svg';
 import user from '../../../../assets/images/user.svg';
 import wishlist from '../../../../assets/images/wishlist.svg';
 
-import { ProductCardSearch } from './../../../';
+import { ProductCardSearch, Spinner } from './../../../';
 import { CART_PAGE, LOGIN_PAGE, WISHLIST_PAGE } from './../../../../const/';
 import styles from './HeaderMiddle.module.css';
 
+import { productsVar } from '../../../../client/client';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { useLogoutMutation } from '../../../../operations/mutations/';
-import JWTManager from './../../../../utils/jwt';
-import { productsVar } from '../../../../client/client';
 import { useDebounce } from './../../../../hooks/useDebounce';
-import { useGetProductsQuery } from '../../../../operations/queries';
+import JWTManager from './../../../../utils/jwt';
 
-const HeaderMiddle = () => {
+const HeaderMiddle = memo(() => {
+    console.log('HeaderMiddle re-render');
     const [search, setSearch] = useState('');
     const debouncedSearch = useDebounce(search, 500);
     const [isInputFocus, setIsInputFocus] = useState(false);
@@ -31,7 +31,6 @@ const HeaderMiddle = () => {
     } = useAuthContext();
     const [loadingCheckAuth, setLoadingCheckAuth] = useState(true);
     const { mutate: logoutMutation } = useLogoutMutation();
-    const { data, loading } = useGetProductsQuery();
 
     useEffect(() => {
         const authenticate = async () => {
@@ -61,7 +60,6 @@ const HeaderMiddle = () => {
         setCurrentUser(false);
         setIsAuthenticated(false);
     };
-    productsVar(data?.products);
 
     const filteredProducts = productsVar()?.filter((product) => {
         const productName = product.name.toLowerCase();
@@ -73,7 +71,7 @@ const HeaderMiddle = () => {
 
     const priceOfCart = currentUser.id
         ? currentUser.cart.itemsInfo.reduce((prev, curr) => {
-              const priceDiscount = Math.floor(
+              const priceDiscount = Math.round(
                   curr.price - (curr.price * curr.discount) / 100
               );
               return curr.discount
@@ -139,7 +137,7 @@ const HeaderMiddle = () => {
                     </Link>
                     {/* Login Start */}
                     {loadingCheckAuth ? (
-                        <h1>loading...</h1>
+                        <Spinner />
                     ) : isAuthenticated ? (
                         <div className={styles['menu-user']}>
                             <h2>{currentUser.name}</h2>
@@ -178,6 +176,6 @@ const HeaderMiddle = () => {
             </div>
         </header>
     );
-};
+});
 
 export default HeaderMiddle;

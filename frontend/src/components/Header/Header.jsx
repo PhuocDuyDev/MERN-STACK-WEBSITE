@@ -1,12 +1,11 @@
 import React from 'react';
 
-
-import { HeaderMiddle, HeaderTop, HeaderBottom } from './components';
+import { HeaderMiddle, HeaderBottom } from './components';
 
 const Header = () => {
     return (
         <>
-            <HeaderTop />
+            {/* <HeaderTop /> */}
             <HeaderMiddle />
             <HeaderBottom />
         </>

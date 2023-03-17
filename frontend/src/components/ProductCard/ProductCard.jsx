@@ -16,6 +16,7 @@ import {
     useRemoveFromWishlist,
 } from '../../operations/mutations';
 import { notifyInfo, notifySuccess, notifyWarning } from '../../utils/toast';
+import { MyImage } from '../';
 
 const ProductCard = ({
     price,
@@ -124,8 +125,16 @@ const ProductCard = ({
                 className={`${styles['product-card']}`}
             >
                 <div className={styles['product-img']}>
-                    <img src={productImg[0]} loading='lazy' alt='watch front' />
-                    <img src={productImg[1]} loading='lazy' alt='watch 2' />
+                    <MyImage
+                        src={productImg[0]}
+                        alt='product images front'
+                        classNames={styles['img-lazy']}
+                    />
+                    <MyImage
+                        src={productImg[1]}
+                        alt='product images back'
+                        classNames={styles['img-lazy']}
+                    />
                 </div>
                 <div className={styles['product-details']}>
                     <p className={styles['product-details-tag']}>{category}</p>

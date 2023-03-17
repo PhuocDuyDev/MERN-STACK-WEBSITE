@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { sortFilterVar } from '../../../../client/client';
 
 import { ProductCard, Spinner } from '../../../../components';
 import { CategoryFilters } from '../../../../models';
 import { filterProductsMutations } from '../../../../operations/mutations';
 import { categoriesSale, PRODUCTS_PAGE } from './../../../../const/';
-import GridLoader from 'react-spinners/GridLoader';
 import styles from './SaleProducts.module.css';
 
 const SaleProducts = ({ listProducts }) => {
@@ -64,4 +62,4 @@ const SaleProducts = ({ listProducts }) => {
     );
 };
 
-export default SaleProducts;
+export default SaleProducts

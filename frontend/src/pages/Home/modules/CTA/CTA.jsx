@@ -1,17 +1,18 @@
 import React from 'react';
 import styles from './CTA.module.css';
-
+import { MyImage } from '../../../../components';
 import bannerCTA from '../../../../assets/images/banner-cta.jpg';
 import { Link } from 'react-router-dom';
 const CTA = () => {
     return (
         <section className={`${styles['cta-section']}`}>
-            <img
-                loading='lazy'
-                src={bannerCTA}
-                alt='banner cta'
-                className={`${styles['cta-banner']}`}
-            />
+            <div className={styles['cta-banner']}>
+                <MyImage
+                    src={bannerCTA}
+                    alt='banner cta'
+                    classNames={styles['img-lazy']}
+                />
+            </div>
             <div className={`container ${styles['cta-container']}`}>
                 <div className={styles['cta-details']}>
                     <h3>ARE YOU READY FOR GREAT SHOPPING DAY?</h3>

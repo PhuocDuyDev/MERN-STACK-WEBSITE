@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import rightBanner1 from '../../../../assets/images/category-01.jpg';
-import rightBanner2 from '../../../../assets/images/category-02.jpg';
-import rightBanner3 from '../../../../assets/images/category-03.jpg';
-import rightBanner4 from '../../../../assets/images/category-04.jpg';
+import rightBanner from '../../../../assets/images/category-04.jpg';
 import mainBanner from '../../../../assets/images/main-banner-1.png';
+import { MyImage } from '../../../../components';
 import { PRODUCTS_PAGE } from '../../../../const/';
 import { CategoryFilters } from '../../../../models';
 import { filterProductsMutations } from '../../../../operations/mutations';
@@ -24,7 +22,12 @@ const Banner = () => {
             <div className={`grid ${styles['banner']}`}>
                 <div className={styles['banner-left']}>
                     <div className={`${styles['banner-left-img']}`}>
-                        <img src={mainBanner} alt='banner big' />
+                        <MyImage
+                            src={mainBanner}
+                            alt='mainBanner'
+                            classNames={styles['img-lazy']}
+                        />
+
                         <div className={`${styles['banner-left-content']}`}>
                             <Link
                                 to={`${PRODUCTS_PAGE}?category=${categoriesAll}`}
@@ -45,7 +48,11 @@ const Banner = () => {
                 </div>
                 <div className={`grid ${styles['banner-right']}`}>
                     <div className={`${styles['banner-right-img']}`}>
-                        <img src={rightBanner1} alt='banner big' />
+                        <MyImage
+                            src={rightBanner}
+                            alt='rightBanner1'
+                            classNames={styles['img-lazy']}
+                        />
                         <div className={`${styles['banner-right-content']}`}>
                             <Link
                                 to={`${PRODUCTS_PAGE}?category=${categoriesTShirt}`}
@@ -64,7 +71,12 @@ const Banner = () => {
                         </div>
                     </div>
                     <div className={`${styles['banner-right-img']}`}>
-                        <img src={rightBanner2} alt='banner big' />
+                        <MyImage
+                            src={rightBanner}
+                            alt='rightBanner2'
+                            classNames={styles['img-lazy']}
+                        />
+
                         <div className={`${styles['banner-right-content']}`}>
                             <Link
                                 to={`${PRODUCTS_PAGE}?category=${categoriesDresses}`}
@@ -84,7 +96,12 @@ const Banner = () => {
                         </div>
                     </div>
                     <div className={`${styles['banner-right-img']}`}>
-                        <img src={rightBanner3} alt='banner big' />
+                        <MyImage
+                            src={rightBanner}
+                            alt='rightBanner3'
+                            classNames={styles['img-lazy']}
+                        />
+
                         <div className={`${styles['banner-right-content']}`}>
                             <Link
                                 to={`${PRODUCTS_PAGE}?category=${categoriesJean}`}
@@ -103,7 +120,12 @@ const Banner = () => {
                         </div>
                     </div>
                     <div className={`${styles['banner-right-img']}`}>
-                        <img src={rightBanner4} alt='banner big' />
+                        <MyImage
+                            src={rightBanner}
+                            alt='rightBanner4'
+                            classNames={styles['img-lazy']}
+                        />
+
                         <div className={`${styles['banner-right-content']}`}>
                             <Link
                                 to={`${PRODUCTS_PAGE}?category=${categoriesJacket}`}

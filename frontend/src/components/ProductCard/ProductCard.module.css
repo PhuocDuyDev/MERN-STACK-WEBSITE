@@ -41,19 +41,19 @@
     justify-content: center;
 }
 
-.product-card .product-img img {
+.product-card .product-img .img-lazy {
     max-width: 80%;
     aspect-ratio: 1/1;
 }
 
-.product-card .product-img img:last-child {
+.product-card .product-img span:last-child img {
     display: none;
 }
-.product-card:hover .product-img img:first-child {
+.product-card:hover .product-img span:first-child img {
     display: none;
 }
 
-.product-card:hover .product-img img:last-child {
+.product-card:hover .product-img span:last-child img {
     display: block;
 }
 

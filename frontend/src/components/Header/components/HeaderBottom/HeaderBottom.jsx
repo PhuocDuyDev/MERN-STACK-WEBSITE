@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PRODUCTS_PAGE } from '../../../../const/';
 import styles from './HeaderBottom.module.css';
 
-const HeaderBottom = () => {
+const HeaderBottom = memo(() => {
+    console.log('headerBottom re-render');
     return (
         <header>
             <div className={`container grid ${styles['header-bottom']}`}>
@@ -22,6 +23,6 @@ const HeaderBottom = () => {
             </div>
         </header>
     );
-};
+});
 
 export default HeaderBottom;

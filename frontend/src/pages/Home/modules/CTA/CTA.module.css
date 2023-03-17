@@ -11,6 +11,10 @@
     z-index: -1;
 }
 
+.cta-banner .img-lazy {
+    object-fit: scale-down;
+}
+
 .cta-container {
     display: flex;
     justify-content: center;

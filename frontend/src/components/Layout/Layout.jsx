@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
-const Layout = ({ hideHeaderPaths = ['login'] }) => {
+const Layout = ({ hideHeaderPaths }) => {
     const { pathname } = useLocation();
     return (
         <>
