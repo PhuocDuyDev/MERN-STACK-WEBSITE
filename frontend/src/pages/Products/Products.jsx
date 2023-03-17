@@ -3,13 +3,13 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
     categoryFilterVar,
     productsVar,
-    sortFilterVar
+    sortFilterVar,
 } from '../../client/client';
 import { CategoryFilters, SortFilters } from '../../models';
 import {
     filterProductByCategory,
     filterProductsBySort,
-    filterProductsMutations
+    filterProductsMutations,
 } from '../../operations/mutations';
 import { useGetProductsQuery } from '../../operations/queries';
 import { FilterSearch, ListProducts } from './modules';
@@ -45,6 +45,7 @@ const Products = () => {
                 sortFilterVar().id
             }&page=${currentPage}`
         );
+        window.scrollTo(0, 0);
     }, [search, currentPage]);
 
     const pageChangeHandler = (numPage) => {

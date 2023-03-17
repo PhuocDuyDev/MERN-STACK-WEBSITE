@@ -5,7 +5,6 @@ import { PRODUCTS_PAGE } from '../../../../const/';
 import styles from './HeaderBottom.module.css';
 
 const HeaderBottom = memo(() => {
-    console.log('headerBottom re-render');
     return (
         <header>
             <div className={`container grid ${styles['header-bottom']}`}>

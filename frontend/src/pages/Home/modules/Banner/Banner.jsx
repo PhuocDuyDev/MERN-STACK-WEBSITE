@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import rightBanner from '../../../../assets/images/category-04.jpg';
+import jeanImg from '../../../../assets/images/jean.jpg';
+import tshirtImg from '../../../../assets/images/tshirt.jpg';
+import jacketImg from '../../../../assets/images/jacket.jpg';
+import dressesImg from '../../../../assets/images/dresses.jpg';
 import mainBanner from '../../../../assets/images/main-banner-1.png';
 import { MyImage } from '../../../../components';
 import { PRODUCTS_PAGE } from '../../../../const/';
@@ -49,8 +52,8 @@ const Banner = () => {
                 <div className={`grid ${styles['banner-right']}`}>
                     <div className={`${styles['banner-right-img']}`}>
                         <MyImage
-                            src={rightBanner}
-                            alt='rightBanner1'
+                            src={tshirtImg}
+                            alt='category t-shirt'
                             classNames={styles['img-lazy']}
                         />
                         <div className={`${styles['banner-right-content']}`}>
@@ -72,8 +75,8 @@ const Banner = () => {
                     </div>
                     <div className={`${styles['banner-right-img']}`}>
                         <MyImage
-                            src={rightBanner}
-                            alt='rightBanner2'
+                            src={dressesImg}
+                            alt='category dress'
                             classNames={styles['img-lazy']}
                         />
 
@@ -97,8 +100,8 @@ const Banner = () => {
                     </div>
                     <div className={`${styles['banner-right-img']}`}>
                         <MyImage
-                            src={rightBanner}
-                            alt='rightBanner3'
+                            src={jeanImg}
+                            alt='category jean'
                             classNames={styles['img-lazy']}
                         />
 
@@ -121,8 +124,8 @@ const Banner = () => {
                     </div>
                     <div className={`${styles['banner-right-img']}`}>
                         <MyImage
-                            src={rightBanner}
-                            alt='rightBanner4'
+                            src={jacketImg}
+                            alt='category jacket'
                             classNames={styles['img-lazy']}
                         />
 

@@ -17,7 +17,6 @@ import { useDebounce } from './../../../../hooks/useDebounce';
 import JWTManager from './../../../../utils/jwt';
 
 const HeaderMiddle = memo(() => {
-    console.log('HeaderMiddle re-render');
     const [search, setSearch] = useState('');
     const debouncedSearch = useDebounce(search, 500);
     const [isInputFocus, setIsInputFocus] = useState(false);

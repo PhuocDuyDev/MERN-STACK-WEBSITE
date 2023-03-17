@@ -52,14 +52,16 @@ const Login = () => {
         };
     });
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        loginMutation({
+        const data = await loginMutation({
             variables: {
                 email,
                 password,
             },
         });
+        console.log(data);
+        setCurrentUser(data.data?.login.authPayload.user);
     };
 
     const emailChangeHandler = (e) => {
