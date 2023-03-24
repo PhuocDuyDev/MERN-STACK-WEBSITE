@@ -35,6 +35,7 @@ const Register = () => {
         }
         if (data && !error) {
             setSuccessMsg(data?.register.message);
+            setErrorMsg(null);
         }
         if (error) {
             setErrorMsg(error.message);

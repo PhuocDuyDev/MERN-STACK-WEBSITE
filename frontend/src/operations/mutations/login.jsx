@@ -18,9 +18,11 @@ const LOGIN_MUTATION = gql`
                         itemsInfo {
                             id
                             name
+                            images
                             price
                             quantity
                             discount
+                            sizeProductUser
                         }
                     }
                 }

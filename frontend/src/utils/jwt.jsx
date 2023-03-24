@@ -64,10 +64,13 @@ const JWTManager = () => {
                                 }
                                 cart {
                                     itemsInfo {
+                                        id
                                         name
                                         images
                                         price
+                                        discount
                                         quantity
+                                        sizeProductUser
                                     }
                                 }
                             }

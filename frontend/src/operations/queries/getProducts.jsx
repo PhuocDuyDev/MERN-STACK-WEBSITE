@@ -13,6 +13,12 @@ export const GET_PRODUCTS_QUERY = gql`
             inCart
             inWishlist
             feature
+            size {
+                items {
+                    size
+                    quantity
+                }
+            }
         }
     }
 `;

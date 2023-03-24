@@ -40,7 +40,6 @@
 /* Set the background color of the scrollbar */
 ::-webkit-scrollbar-track {
     background: var(--accent-light-color);
-    /* border-radius: 4px; */
 }
 
 /* Set the color and shape of the scrollbar thumb */
@@ -79,6 +78,14 @@ a {
     font-weight: 500;
     transition: 0.3s ease;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: 1.2;
+}
 
 ul,
 li {
@@ -115,6 +122,8 @@ img {
 
 .btn:hover {
     background-color: var(--accent-border-color);
+    color: white;
+    box-shadow: var(--box-shadow);
 }
 
 .add-to-cart-btn.btn {
@@ -132,11 +141,13 @@ img {
 .see-more-btn:hover {
     background-color: var(--accent-color);
     color: white;
+    box-shadow: var(--box-shadow);
 }
 
 .btn.add-to-cart-btn:hover {
     background-color: var(--accent-color);
     color: white;
+    box-shadow: var(--box-shadow);
 }
 
 .section {

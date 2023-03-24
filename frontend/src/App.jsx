@@ -45,7 +45,8 @@ const App = () => {
                             <Layout
                                 hideHeaderPaths={[
                                     LOGIN_PAGE,
-                                    '/register',
+                                    REGISTER_PAGE,
+                                    CART_PAGE,
                                     'forgot-password',
                                 ]}
                             />

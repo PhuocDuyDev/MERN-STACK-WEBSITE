@@ -23,10 +23,11 @@
     height: 100%;
 }
 
-.banner-left-img img {
+.banner-left-img .img-lazy {
     height: 100%;
 }
-.banner-left-img .img-lazy{
+
+.banner-left-img .img-lazy img {
     max-width: 100%;
     height: 100%;
     display: block;
@@ -63,8 +64,8 @@
     box-shadow: var(--box-shadow);
 }
 
-.banner-right-img .img-lazy {
-    max-width: 100%;
+.banner-right-img .img-lazy img {
+    aspect-ratio: 16 / 9;
 }
 
 .banner-right-content {

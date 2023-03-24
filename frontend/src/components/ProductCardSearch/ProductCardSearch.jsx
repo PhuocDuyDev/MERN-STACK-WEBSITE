@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
 import { useAddToCartMutation } from '../../operations/mutations';
 import { notifySuccess, notifyWarning } from '../../utils/toast';
@@ -10,6 +10,7 @@ const ProductCardSearch = ({ id, name, img, price, discount }) => {
         discount > 0 ? Math.round(price - (price * discount) / 100) : null;
     const { mutate: addToCartHandler } = useAddToCartMutation();
     const { setCurrentUser } = useAuthContext();
+    const { productId } = useParams();
 
     const handleAddToCart = async (event, productId) => {
         event.preventDefault();
@@ -18,6 +19,7 @@ const ProductCardSearch = ({ id, name, img, price, discount }) => {
                 variables: {
                     productId,
                     quantity: 1,
+                    size: 'S',
                 },
             });
             if (data.errors) {
@@ -40,7 +42,9 @@ const ProductCardSearch = ({ id, name, img, price, discount }) => {
         <Link
             key={id}
             to={`/products/${id}`}
-            className={`${styles['product-card']}`}
+            className={`${styles['product-card']} ${
+                productId === id ? styles['active'] : null
+            }`}
         >
             <img src={img[0]} alt={name} />
             <div className={`${styles['product-content']}`}>
@@ -62,12 +66,12 @@ const ProductCardSearch = ({ id, name, img, price, discount }) => {
                             ${price}
                         </span>
                     </div>
-                    <button
+                    {/* <button
                         className='add-to-cart-btn btn'
                         onClick={(event) => handleAddToCart(event, id)}
                     >
                         Add to cart
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </Link>

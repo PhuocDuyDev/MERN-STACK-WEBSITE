@@ -36,6 +36,7 @@ const FeaturedProducts = ({ listProducts }) => {
                                         }
                                         isInCart={product.inCart}
                                         isInWishlist={product.inWishlist}
+                                        size={product.size}
                                     />
                                 );
                             })}

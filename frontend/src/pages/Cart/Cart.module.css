@@ -1,0 +1,147 @@
+.cart {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: var(--accent-light-color);
+}
+
+.cart-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 75fr 25fr;
+    gap: var(--gap-l);
+    min-width: 80%;
+    height: 80%;
+    padding: 2.4rem;
+    border-radius: var(--border-radius-l);
+    background-color: var(--primary-tint-color);
+}
+
+.cart-infomation,
+.cart-summary {
+    display: grid;
+    grid-template-rows: 10fr 80% 10fr;
+    gap: var(--gap-m);
+    /* grid-template-columns: max-content; */
+}
+
+.cart-list,
+.summary-list {
+    position: relative;
+    height: calc(100% - 3.8rem);
+    padding: 2.2rem 1.6rem 1.6rem;
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    overflow: auto;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: calc(100% / 5);
+    row-gap: var(--gap-m);
+}
+
+.cart-fields {
+    position: absolute;
+    width: calc(100% - 3.2rem);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 20fr 20fr 10fr 30fr 20fr;
+    text-align: center;
+}
+
+.cart-box {
+    width: 100%; /* Set the width of each cart-box to 100% */
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 20fr 20fr 10fr 30fr 20fr;
+    text-align: center;
+}
+
+.cart-box-img img {
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+.cart-box-name {
+    place-self: center;
+}
+
+.cart-box-size {
+    display: grid;
+    place-items: center;
+}
+.cart-box-quantity {
+    display: grid;
+    place-items: center;
+}
+.cart-box-price {
+    place-self: center;
+}
+
+/* BUTTON */
+.cart-button-home {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.5);
+    transition: 0.3s ease;
+    cursor: pointer;
+    text-transform: capitalize;
+    border: 1px solid var(--accent-border-color);
+}
+
+.cart-button-home:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.cart-button-checkout {
+    width: max-content;
+    padding: 0 2rem;
+    border: none;
+    outline: none;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-color-white);
+    background-color: var(--accent-light-color);
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-transform: uppercase;
+    border-radius: var(--border-radius-l);
+}
+
+.cart-button-checkout:hover {
+    color: var(--text-color-white);
+    background-color: var(--accent-color);
+}
+
+/* SCROLL BAR */
+.cart-list::-webkit-scrollbar,
+.summary-list::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+/* Set the background color of the scrollbar */
+.cart-list::-webkit-scrollbar-track,
+.summary-list::-webkit-scrollbar-track {
+    background: var(--accent-light-color);
+    border-radius: 4px;
+}
+
+/* Set the color and shape of the scrollbar thumb */
+.cart-list::-webkit-scrollbar-thumb,
+.summary-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+/* Set the color and shape of the scrollbar thumb when hovering */
+.cart-list::-webkit-scrollbar-thumb:hover,
+.summary-list::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-shade-color);
+}

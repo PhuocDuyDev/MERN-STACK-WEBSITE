@@ -46,6 +46,21 @@
     aspect-ratio: 1/1;
 }
 
+.product-card .product-img img:last-child {
+    display: none;
+}
+.product-card:hover .product-img img:first-child {
+    display: none;
+}
+
+.product-card:hover .product-img img:last-child {
+    display: block;
+}
+/* .product-card .product-img .img-lazy {
+    max-width: 80%;
+    aspect-ratio: 1/1;
+}
+
 .product-card .product-img span:last-child img {
     display: none;
 }
@@ -55,7 +70,7 @@
 
 .product-card:hover .product-img span:last-child img {
     display: block;
-}
+} */
 
 .product-card .product-details {
     color: black;

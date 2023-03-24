@@ -25,6 +25,7 @@ const ListProducts = ({ products, pageChangeHandler, currentPage }) => {
                                     price={product.price}
                                     category={product.category}
                                     name={product.name}
+                                    description={product.description}
                                     key={product.id}
                                     discount={
                                         product.discount != 0
@@ -33,6 +34,7 @@ const ListProducts = ({ products, pageChangeHandler, currentPage }) => {
                                     }
                                     isInCart={product.inCart}
                                     isInWishlist={product.inWishlist}
+                                    size={product.size}
                                 />
                             );
                         })}

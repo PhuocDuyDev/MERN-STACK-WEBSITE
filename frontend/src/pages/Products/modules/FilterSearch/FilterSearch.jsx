@@ -60,6 +60,7 @@ const FilterSearch = ({ productsRandom }) => {
                                         ? product.discount
                                         : null
                                 }
+                                size={product.size}
                                 isInCart={product.inCart}
                                 isInWishlist={product.inWishlist}
                             />

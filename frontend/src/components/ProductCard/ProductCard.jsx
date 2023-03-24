@@ -4,10 +4,11 @@ import { PRODUCTS_PAGE } from '../../const/';
 import styles from './ProductCard.module.css';
 
 import {
-    BsHandbag,
-    BsHandbagFill,
     BsSuitHeart,
     BsSuitHeartFill,
+    BsEye,
+    // BsHandbag,
+    // BsHandbagFill,
 } from 'react-icons/bs';
 import { useAuthContext } from '../../context/AuthContext';
 import {
@@ -17,6 +18,7 @@ import {
 } from '../../operations/mutations';
 import { notifyInfo, notifySuccess, notifyWarning } from '../../utils/toast';
 import { MyImage } from '../';
+import ModalAddToCart from '../Modal/ModalAddToCart/ModalAddToCart';
 
 const ProductCard = ({
     price,
@@ -27,15 +29,18 @@ const ProductCard = ({
     category,
     isInCart,
     isInWishlist,
+    description,
+    size,
 }) => {
     const productDiscount = Math.round(price - (price * discount) / 100);
     const { mutate: addToCartHandler } = useAddToCartMutation();
     const { mutate: addToWishlishHandler } = useAddToWishlist();
     const { mutate: removeFromWishlistHandler } = useRemoveFromWishlist();
-    const [addCartSuccess, setAddCartSuccess] = useState(isInCart);
+    // const [addCartSuccess, setAddCartSuccess] = useState(isInCart);
     const [addWishlistSuccess, setAddWishlistSuccess] = useState(isInWishlist);
     const { setCurrentUser } = useAuthContext();
     const navigate = useNavigate();
+    const [isOpenModal, setisOpenModal] = useState(false);
 
     const handleAddToWishlist = async (event, productId) => {
         event.preventDefault();
@@ -93,26 +98,31 @@ const ProductCard = ({
         }
     };
 
-    const handleAddToCart = async (event, productId) => {
+    const handleQuickViewProduct = (event) => {
         event.preventDefault();
+        setisOpenModal(true);
+    };
+
+    const handleAddToCart = async (event, inputProductCart) => {
+        event.preventDefault();
+        const { productId, quantity, size } = inputProductCart;
         try {
             const data = await addToCartHandler({
                 variables: {
                     productId,
-                    quantity: 1,
+                    quantity: +quantity,
+                    size: size,
                 },
             });
-            if (data.errors) {
-                throw Error(data.errors.message);
-            }
+
             setCurrentUser(data.data.addToCart);
             notifySuccess('Added success product to cart!');
-            setAddCartSuccess(true);
+            // setAddCartSuccess(true);
         } catch (error) {
             if (error.extensions.http.status === 401) {
                 setTimeout(() => navigate('/login'), 500);
             }
-            setAddCartSuccess(false);
+            // setAddCartSuccess(false);
             notifyWarning(error.message);
             return error;
         }
@@ -125,28 +135,38 @@ const ProductCard = ({
                 className={`${styles['product-card']}`}
             >
                 <div className={styles['product-img']}>
-                    <MyImage
+                    <img
                         src={productImg[0]}
                         alt='product images front'
-                        classNames={styles['img-lazy']}
+                        className={styles['img-lazy']}
                     />
+                    {/* <img
+                        src={productImg[1]}
+                        alt='product images back'
+                        className={styles['img-lazy']}
+                    /> */}
+                    {/* <MyImage
+                        src={productImg[0]}
+                        alt='product images front'
+                        classnames={styles['img-lazy']}
+                    /> */}
                     <MyImage
                         src={productImg[1]}
                         alt='product images back'
-                        classNames={styles['img-lazy']}
+                        classnames={styles['img-lazy']}
                     />
                 </div>
                 <div className={styles['product-details']}>
                     <p className={styles['product-details-tag']}>{category}</p>
                     <h4 className={styles['product-details-title']}>{name}</h4>
                     <div className={styles['product-details-price']}>
-                        {discount && (
+                        {discount > 0 ? (
                             <span
                                 className={styles['product-details-price-sale']}
                             >
                                 ${productDiscount}
                             </span>
-                        )}
+                        ) : null}
                         <span
                             className={`${
                                 styles['product-details-price-original']
@@ -157,30 +177,42 @@ const ProductCard = ({
                     </div>
                 </div>
                 <div className={styles['product-card-actions']}>
-                    {addCartSuccess ? (
-                        <button
-                            className={styles['action-btn']}
-                            onClick={(event) => handleAddToCart(event, id)}
-                        >
+                    {/* {addCartSuccess ? (
+                        <button className={styles['action-btn']}>
                             <BsHandbagFill
                                 className={`${styles['action-icon']} ${styles['active']}`}
                             />
                         </button>
                     ) : (
-                        <button
-                            className={styles['action-btn']}
-                            data-product-id={id}
-                            onClick={(event) => handleAddToCart(event, id)}
-                        >
+                        <button className={styles['action-btn']}>
                             <BsHandbag className={`${styles['action-icon']}`} />
                         </button>
-                    )}
-                    {/* <button
+                    )} */}
+                    <button
                         className={styles['action-btn']}
-                        // onClick={handleQuickViewProduct}
+                        onClick={handleQuickViewProduct}
                     >
                         <BsEye className={styles['action-icon']} />
-                    </button> */}
+                    </button>
+                    <ModalAddToCart
+                        open={isOpenModal}
+                        onClose={(e) => {
+                            e.preventDefault();
+                            setisOpenModal(false);
+                        }}
+                        addCart={handleAddToCart}
+                        key={id}
+                        price={price}
+                        discount={discount}
+                        productImg={productImg}
+                        id={id}
+                        name={name}
+                        category={category}
+                        description={description}
+                        isInCart={isInCart}
+                        isInWishlist={isInWishlist}
+                        size={size}
+                    />
                 </div>
                 <button
                     data-product-id={id}

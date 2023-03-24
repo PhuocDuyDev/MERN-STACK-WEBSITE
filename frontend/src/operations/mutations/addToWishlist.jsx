@@ -14,6 +14,7 @@ const ADD_TO_WISHLIST_MUTATION = gql`
                     price
                     quantity
                     discount
+                    sizeProductUser
                 }
             }
             wishlist {

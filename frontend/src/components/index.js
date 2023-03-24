@@ -5,3 +5,5 @@ export { default as ProductCard } from './ProductCard/ProductCard';
 export { default as ProductCardSearch } from './ProductCardSearch/ProductCardSearch';
 export { default as Spinner } from './Spinner/Spinner';
 export { default as MyImage } from './MyImage/MyImage';
+export { default as SliderImages } from './SliderImages/SliderImages';
+export { default as Modal } from './Modal/Modal';

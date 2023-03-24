@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 // Import Swiper React components
 
 import styles from './Product.module.css';
-
-import GridLoader from 'react-spinners/GridLoader';
-import SliderImages from './modules/SliderImage/SliderImages';
 import { useGetProductById } from '../../operations/queries';
 
 // import required modules
 import { Spinner } from './../../components/';
+import { PRODUCTS_PAGE } from './../../const/index';
+import { categoriesProductsPage } from '../../const/';
+import {SliderImages} from './../../components/';
 
 const Product = () => {
     const { productId } = useParams();
@@ -17,13 +17,20 @@ const Product = () => {
     if (loading) {
         return <Spinner />;
     }
+
+    const [category] = categoriesProductsPage.filter(
+        ({ category }) => category === data.product.category
+    );
+
     return (
         <>
             <div className={`${styles['breadcrumb']}`}>
                 <Link to={'/'}>Home</Link>
                 <span> / </span>
+                <Link to={PRODUCTS_PAGE}>Products</Link>
+                <span> / </span>
                 <Link to={`/products?category=${data.product.category}`}>
-                    {data.product.category}
+                    {category.title}
                 </Link>
             </div>
             <section className={`${styles['product-section']} section`}>

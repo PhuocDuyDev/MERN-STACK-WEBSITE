@@ -11,10 +11,6 @@
     z-index: -1;
 }
 
-.cta-banner .img-lazy {
-    object-fit: scale-down;
-}
-
 .cta-container {
     display: flex;
     justify-content: center;
@@ -31,22 +27,23 @@
     max-width: 60rem;
     margin: 0 auto;
     text-align: center;
+    color: var(--text-color-black);
 }
 
 .cta-details h3 {
     font-size: 4rem;
-    color: white;
+    color: var(--text-color-black);
 }
 
 .cta-details p {
     font-size: 2.4rem;
-    color: white;
+    color: var(--text-color-black);
 }
 
 .cta-btn {
     padding: 1.2rem 1.8rem;
     background-color: var(--accent-color);
-    color: white;
+    color: var(--text-color-white);
     cursor: pointer;
     font-size: 2rem;
     font-weight: 600;
@@ -60,5 +57,5 @@
 
 .cta-btn:hover {
     background-color: var(--primary-color);
-    color: black;
+    color: var(--text-color-black);
 }

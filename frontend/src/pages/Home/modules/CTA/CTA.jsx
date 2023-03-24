@@ -10,7 +10,7 @@ const CTA = () => {
                 <MyImage
                     src={bannerCTA}
                     alt='banner cta'
-                    classNames={styles['img-lazy']}
+                    classnames={styles['img-lazy']}
                 />
             </div>
             <div className={`container ${styles['cta-container']}`}>

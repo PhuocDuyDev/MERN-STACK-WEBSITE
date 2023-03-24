@@ -28,7 +28,7 @@ const Banner = () => {
                         <MyImage
                             src={mainBanner}
                             alt='mainBanner'
-                            classNames={styles['img-lazy']}
+                            classnames={styles['img-lazy']}
                         />
 
                         <div className={`${styles['banner-left-content']}`}>
@@ -54,7 +54,7 @@ const Banner = () => {
                         <MyImage
                             src={tshirtImg}
                             alt='category t-shirt'
-                            classNames={styles['img-lazy']}
+                            classnames={styles['img-lazy']}
                         />
                         <div className={`${styles['banner-right-content']}`}>
                             <Link
@@ -77,7 +77,7 @@ const Banner = () => {
                         <MyImage
                             src={dressesImg}
                             alt='category dress'
-                            classNames={styles['img-lazy']}
+                            classnames={styles['img-lazy']}
                         />
 
                         <div className={`${styles['banner-right-content']}`}>
@@ -102,7 +102,7 @@ const Banner = () => {
                         <MyImage
                             src={jeanImg}
                             alt='category jean'
-                            classNames={styles['img-lazy']}
+                            classnames={styles['img-lazy']}
                         />
 
                         <div className={`${styles['banner-right-content']}`}>
@@ -126,7 +126,7 @@ const Banner = () => {
                         <MyImage
                             src={jacketImg}
                             alt='category jacket'
-                            classNames={styles['img-lazy']}
+                            classnames={styles['img-lazy']}
                         />
 
                         <div className={`${styles['banner-right-content']}`}>

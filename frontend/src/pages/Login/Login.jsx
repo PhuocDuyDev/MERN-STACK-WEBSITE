@@ -60,7 +60,6 @@ const Login = () => {
                 password,
             },
         });
-        console.log(data);
         setCurrentUser(data.data?.login.authPayload.user);
     };
 

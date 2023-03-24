@@ -2,9 +2,9 @@ import React, { useEffect, useState, memo } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 
-import cart from '../../../../assets/images/cart.svg';
-import user from '../../../../assets/images/user.svg';
-import wishlist from '../../../../assets/images/wishlist.svg';
+import cart from '../../../../assets/icons/cart.svg';
+import user from '../../../../assets/icons/user.svg';
+import wishlist from '../../../../assets/icons/wishlist.svg';
 
 import { ProductCardSearch, Spinner } from './../../../';
 import { CART_PAGE, LOGIN_PAGE, WISHLIST_PAGE } from './../../../../const/';
@@ -13,7 +13,7 @@ import styles from './HeaderMiddle.module.css';
 import { productsVar } from '../../../../client/client';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { useLogoutMutation } from '../../../../operations/mutations/';
-import { useDebounce } from './../../../../hooks/useDebounce';
+import { useDebounce } from './../../../../hooks/';
 import JWTManager from './../../../../utils/jwt';
 
 const HeaderMiddle = memo(() => {
@@ -78,7 +78,14 @@ const HeaderMiddle = memo(() => {
                   : prev + curr.price * curr.quantity;
           }, 0)
         : 0;
-    const itemsInCart = currentUser.id ? currentUser.cart.itemsInfo.length : 0;
+    const itemsInCart = currentUser.id
+        ? [
+              ...new Set(
+                  currentUser.cart.itemsInfo.map((cartItem) => cartItem.id)
+              ),
+          ].length
+        : // if different size (keep length of items)
+          0;
 
     return (
         <header>

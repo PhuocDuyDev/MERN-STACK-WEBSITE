@@ -34,6 +34,7 @@ const SaleProducts = ({ listProducts }) => {
                                         }
                                         isInCart={product.inCart}
                                         isInWishlist={product.isInWishlist}
+                                        size={product.size}
                                     />
                                 );
                             })}
@@ -62,4 +63,4 @@ const SaleProducts = ({ listProducts }) => {
     );
 };
 
-export default SaleProducts
+export default SaleProducts;

@@ -9,7 +9,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import styles from './SliderImages.module.css';
-import { MyImage } from '../../../../components';
+import { MyImage } from '../';
 
 const SliderImages = ({ productImg, productName }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -19,6 +19,7 @@ const SliderImages = ({ productImg, productName }) => {
             <Swiper
                 style={{
                     '--swiper-navigation-color': '#febd69',
+                    '--swiper-navigation-size': '20px',
                 }}
                 loop={true}
                 spaceBetween={10}
@@ -54,6 +55,7 @@ const SliderImages = ({ productImg, productName }) => {
                             <MyImage
                                 src={img}
                                 alt={productName + ' img ' + index}
+                                classnames={styles['img-lazy']}
                             />
                         </SwiperSlide>
                     );
