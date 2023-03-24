@@ -19,11 +19,13 @@ extend type Product {
     quantity: Int
     inCart: Boolean
     inWishlist: Boolean
+    sizeProductUser: String
 }
 
 type CartItem {
     productId: ID!
     quantity: Int!
+    sizeProductUser: String!
 }
 type Wishlist {
     items: [WishlistItem!]!
@@ -70,6 +72,7 @@ type Message {
 
 type AccessToken {
     accessToken: String!
+    user: User!
 }
 
 type Mutation {
@@ -85,7 +88,7 @@ type Mutation {
         role: String!
     ): User!
     deleteUser(id: ID!): String!
-    addToCart(productId: ID!, quantity: Int!): User!
+    addToCart(productId: ID!, quantity: Int!, size: String!): User!
     addProductToWishlist(productId: ID!): User!
     removeProductFromWishlist(productId: ID!): User!
     deleteItemFromCart(productId: ID!): User!

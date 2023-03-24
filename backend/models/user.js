@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema(
                         required: true,
                     },
                     quantity: { type: Number, required: true, default: 1 },
+                    sizeProductUser: { type: String, required: true, default: 'S' },
                 },
             ],
         },

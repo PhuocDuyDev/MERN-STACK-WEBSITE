@@ -191,7 +191,8 @@ const userResolvers = {
             const { name, email, password } = args;
 
             const existingUser = await User.findOne({ email });
-            if (!email.trim() || !password.trim() || name.trim()) {
+            console.log(existingUser)
+            if (!email.trim() || !password.trim() || !name.trim()) {
                 throw new GraphQLError(
                     'Fullname, email and password are required fields.',
                     {
@@ -369,7 +370,7 @@ const userResolvers = {
                 }
 
                 const accessToken = createToken('accessToken', decodedUser);
-                return { accessToken };
+                return { accessToken, user: decodedUser };
             } catch (error) {
                 throw Error(error);
             }
@@ -383,19 +384,84 @@ const userResolvers = {
                     },
                 });
             }
-            const { productId, quantity } = args;
+            const { productId, quantity, size } = args;
 
-            const cartProductIndex = currentUser.cart.items.findIndex(
+            const productInfo = await Product.findById(productId);
+            if (!productId) {
+                throw new GraphQLError('Product not found', {
+                    extensions: {
+                        code: 'NOT FOUND',
+                        http: { status: 404 },
+                    },
+                });
+            }
+
+            const [dataCartUserBySize] = currentUser.cart.items.filter(
                 (cartItem) =>
-                    cartItem.productId.toString() === productId.toString()
+                    cartItem.productId.toString() ===
+                        productInfo._id.toString() &&
+                    cartItem.sizeProductUser === size
             );
 
-            if (cartProductIndex !== -1) {
-                currentUser.cart.items[cartProductIndex].quantity += quantity;
+            const [dataProductSize] = productInfo.size.items.filter(
+                (sizeItem) => sizeItem.size === size
+            );
+
+            if (
+                dataCartUserBySize.quantity + quantity >
+                dataProductSize.quantity
+            ) {
+                throw new GraphQLError(
+                    `You already has: ${dataCartUserBySize.quantity} in cart. You can not add more than quantity in stocks`,
+                    {
+                        extensions: {
+                            code: 'NOT ACCEPTABLE',
+                            http: { status: 406 },
+                        },
+                    }
+                );
+            }
+
+            // get all product id match productId from args.
+            const cartProductIndexes = currentUser.cart.items.reduce(
+                (acc, cartItem, i) =>
+                    cartItem.productId.toString() === productId.toString()
+                        ? [...acc, i]
+                        : acc,
+                []
+            );
+
+            // if cartProductsIndexes exist => length > 0
+            if (cartProductIndexes.length > 0) {
+                // flag for same size or not.
+                let hasSameSize = false;
+
+                // same size => size from args === exist sizeProductUser in db
+                // set hasSameSize => true if match
+                cartProductIndexes.forEach((cartProductIndex) => {
+                    if (
+                        size ===
+                        currentUser.cart.items[cartProductIndex].sizeProductUser
+                    ) {
+                        currentUser.cart.items[cartProductIndex].quantity +=
+                            quantity;
+                        hasSameSize = true;
+                    }
+                });
+
+                // not samesize => create new product in cart
+                if (!hasSameSize) {
+                    currentUser.cart.items.push({
+                        productId,
+                        quantity: quantity,
+                        sizeProductUser: size,
+                    });
+                }
             } else {
                 currentUser.cart.items.push({
                     productId,
-                    quantity: 1,
+                    quantity: quantity,
+                    sizeProductUser: size,
                 });
             }
 
@@ -475,7 +541,24 @@ const userResolvers = {
             }
             const { productId } = args;
 
-            currentUser.wishlist.items.push({ productId });
+            const wishlistProductIndex = currentUser.wishlist.items.findIndex(
+                (wishlistItem) =>
+                    wishlistItem.productId.toString() === productId.toString()
+            );
+
+            if (wishlistProductIndex === -1) {
+                throw new GraphQLError(
+                    "Failed. Product not in user'wishlist.",
+                    {
+                        extensions: {
+                            code: 'CONFLICT',
+                            http: { status: 409 },
+                        },
+                    }
+                );
+            }
+
+            currentUser.wishlist.items.splice(wishlistProductIndex, 1);
             await currentUser.save();
             return currentUser;
         },
@@ -484,9 +567,10 @@ const userResolvers = {
         itemsInfo: async (parent) => {
             const cartProducts = parent.items;
 
-            const cartProductIds = cartProducts.map((product) =>
-                product.productId.toString()
+            const cartProductIds = cartProducts.map((cartProduct) =>
+                cartProduct.productId.toString()
             );
+
             const productsInDb = await Product.find({
                 _id: {
                     $in: cartProductIds,
@@ -499,20 +583,62 @@ const userResolvers = {
                     description: product.description,
                     images: product.images,
                     price: product.price,
+                    size: product.size,
                 }));
             });
 
             // add quantity to product.
-            const productsInDbWithQuantity = productsInDb.map((product) => {
-                const index = cartProductIds.indexOf(product.id);
-                // always exist index.
+            const cartUserProduct = productsInDb.map((product, i) => {
+                // always at least 1 index
+                const currentProductIds = cartProductIds.reduce(
+                    (acc, id, i) =>
+                        id.toString() === product.id.toString()
+                            ? [...acc, i]
+                            : acc,
+                    []
+                );
+
+                // if 2 id exist mean : size is different
+                if (currentProductIds.length > 1) {
+                    return cartProducts
+                        .map((cartProduct) => {
+                            return cartProduct.productId.toString() ===
+                                product.id.toString()
+                                ? {
+                                      ...product,
+                                      quantity: cartProduct.quantity,
+                                      sizeProductUser:
+                                          cartProduct.sizeProductUser,
+                                  }
+                                : null;
+                        })
+                        .filter((p) => p !== null);
+                    // [
+                    //     {
+                    //         ...product,
+                    //         quantity: cartProducts[index].quantity,
+                    //         sizeProductUser:
+                    //             cartProducts[index].sizeProductUser,
+                    //     },
+                    //     {
+                    //         ...product,
+                    //         quantity: cartProducts[index].quantity,
+                    //         sizeProductUser:
+                    //             cartProducts[index].sizeProductUser,
+                    //     },
+                    // ];
+                }
+
                 return {
                     ...product,
-                    quantity: cartProducts[index].quantity,
+                    quantity: cartProducts[currentProductIds[0]].quantity,
+                    sizeProductUser:
+                        cartProducts[currentProductIds[0]].sizeProductUser,
                 };
             });
+            const cartUserProductFlat = cartUserProduct.flat(Infinity);
 
-            return productsInDbWithQuantity;
+            return cartUserProductFlat;
         },
     },
 };

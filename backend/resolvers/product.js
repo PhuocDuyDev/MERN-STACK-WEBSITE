@@ -65,6 +65,7 @@ const productResolvers = {
                         images: product.images,
                         category: product.category,
                         price: product.price,
+                        size: product.size,
                         inCart: null,
                         inWishlist: null,
                     };
@@ -87,7 +88,6 @@ const productResolvers = {
                     images: product.images,
                     category: product.category,
                     price: product.price,
-                    feature: product.feature,
                     size: product.size,
                     feature: product.feature,
                     inCart:
@@ -116,10 +116,31 @@ const productResolvers = {
             if (currentUser.role !== ROLE_ADMIN) {
                 throw new Error('User not authorized');
             }
+            const { input } = args;
 
             const newProduct = new Product({
-                ...args,
+                ...input,
                 price: Math.floor(Math.random() * (220 - 170) + 170),
+                size: {
+                    items: [
+                        {
+                            size: 'S',
+                            quantity: Math.floor(
+                                Math.random() * (50 - 10) + 10
+                            ),
+                        },
+                        {
+                            size: 'M',
+                            quantity: Math.floor(
+                                Math.random() * (60 - 20) + 20
+                            ),
+                        },
+                        {
+                            size: 'L',
+                            quantity: Math.floor(Math.random() * (40 - 5) + 5),
+                        },
+                    ],
+                },
             });
 
             const productInfo = await newProduct.save();
@@ -165,6 +186,11 @@ const productResolvers = {
             return {
                 message: `Delete products success`,
             };
+        },
+    },
+    SizeItems: {
+        items: async (parent) => {
+            return parent.items;
         },
     },
 };

@@ -6,16 +6,34 @@ type Product {
     description: String
     price: Float!
     discount: Float
-    size: [SizeType!]!
+    size: SizeItems
     feature: Boolean
 }
 
-type SizeType {
+input ProductInput {
+    name: String!
+    images: [String!]!
+    category: String!
+    description: String
+    price: Float!
+    discount: Float
+    size: SizeItemsInput!
+    feature: Boolean
+}
+
+input SizeItemsInput {
+    items: [SizeTypeInput!]!
+}
+
+input SizeTypeInput {
     size: String!
     quantity: Int!
 }
 
-input SizeTypeInput {
+type SizeItems {
+    items: [SizeType!]!
+}
+type SizeType {
     size: String!
     quantity: Int!
 }
@@ -39,16 +57,7 @@ type Message {
 }
 
 type Mutation {
-    addProduct(
-        name: String!
-        images: [String!]!
-        description: String
-        price: Float!
-        discount: Float
-        category: String!
-        size: [SizeTypeInput!]!
-        feature: Boolean
-    ): MessageProduct
+    addProduct(input: ProductInput!): MessageProduct
     updateProduct(
         id: ID!
         name: String
