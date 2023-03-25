@@ -15,6 +15,12 @@ const ADD_TO_WISHLIST_MUTATION = gql`
                     quantity
                     discount
                     sizeProductUser
+                    size {
+                        items {
+                            size
+                            quantity
+                        }
+                    }
                 }
             }
             wishlist {

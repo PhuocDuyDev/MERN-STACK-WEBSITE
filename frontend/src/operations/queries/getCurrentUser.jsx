@@ -19,7 +19,12 @@ const GET_CURRENT_USER_QUERY = gql`
                     price
                     quantity
                     discount
-                    discount
+                    size {
+                        items {
+                            size
+                            quantity
+                        }
+                    }
                 }
             }
         }

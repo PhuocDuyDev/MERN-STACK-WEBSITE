@@ -158,7 +158,8 @@
     visibility: visible;
 }
 
-.menu-user ul a, .menu-user ul p {
+.menu-user ul a,
+.menu-user ul p {
     height: 100%;
     padding: 0.8rem 1.6rem;
     font-size: 1.4rem;
@@ -167,6 +168,7 @@
     background-color: #fff;
 }
 
-.menu-user ul a:hover, .menu-user ul p:hover {
+.menu-user ul a:hover,
+.menu-user ul p:hover {
     color: var(--primary-color);
 }

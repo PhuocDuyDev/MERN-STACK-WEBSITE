@@ -15,6 +15,12 @@ const REMOVE_FROM_WISHLIST_MUTATION = gql`
                     quantity
                     discount
                     sizeProductUser
+                    size {
+                        items {
+                            size
+                            quantity
+                        }
+                    }
                 }
             }
             wishlist {

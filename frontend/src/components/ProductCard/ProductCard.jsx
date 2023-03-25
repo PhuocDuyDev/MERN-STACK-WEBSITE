@@ -105,13 +105,17 @@ const ProductCard = ({
 
     const handleAddToCart = async (event, inputProductCart) => {
         event.preventDefault();
-        const { productId, quantity, size } = inputProductCart;
+        const { productId, quantity, size, isEditQuantity } = inputProductCart;
+
         try {
             const data = await addToCartHandler({
                 variables: {
-                    productId,
-                    quantity: +quantity,
-                    size: size,
+                    inputProduct: {
+                        productId,
+                        quantity: +quantity,
+                        size: size,
+                        isEditQuantity: isEditQuantity,
+                    },
                 },
             });
 
@@ -119,6 +123,7 @@ const ProductCard = ({
             notifySuccess('Added success product to cart!');
             // setAddCartSuccess(true);
         } catch (error) {
+            console.log(error);
             if (error.extensions.http.status === 401) {
                 setTimeout(() => navigate('/login'), 500);
             }

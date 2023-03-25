@@ -1,18 +1,19 @@
 import { toast } from 'react-toastify';
-export const notifyWarning = (errMsg) =>
+const TIME_DEFAULT = 1.5;
+export const notifyWarning = (errMsg, timeOut = TIME_DEFAULT) =>
     toast.warning(errMsg, {
-        autoClose: 1.5 * 1000,
+        autoClose: timeOut * 1000,
         closeOnClick: true,
     });
 
-export const notifyInfo = (infoMsg) =>
+export const notifyInfo = (infoMsg, timeOut = TIME_DEFAULT) =>
     toast.info(infoMsg, {
-        autoClose: 1.5 * 1000,
+        autoClose: timeOut * 1000,
         closeOnClick: true,
     });
 
-export const notifySuccess = (successMsg) =>
+export const notifySuccess = (successMsg, timeOut = TIME_DEFAULT) =>
     toast.success(successMsg, {
-        autoClose: 1.5 * 1000,
+        autoClose: timeOut * 1000,
         closeOnClick: true,
     });

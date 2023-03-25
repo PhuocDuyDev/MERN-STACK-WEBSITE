@@ -1,8 +1,8 @@
 import { gql, useMutation } from '@apollo/client';
 
 const ADD_TO_CART_MUTATION = gql`
-    mutation AddToCart($productId: ID!, $quantity: Int!, $size: String!) {
-        addToCart(productId: $productId, quantity: $quantity, size: $size) {
+    mutation AddToCart($inputProduct: inputAddToCart!) {
+        addToCart(inputProduct: $inputProduct) {
             id
             name
             email
@@ -15,6 +15,12 @@ const ADD_TO_CART_MUTATION = gql`
                     quantity
                     discount
                     sizeProductUser
+                    size {
+                        items {
+                            size
+                            quantity
+                        }
+                    }
                 }
             }
             wishlist {
@@ -30,6 +36,7 @@ const useAddToCartMutation = () => {
         ADD_TO_CART_MUTATION,
         {
             onError: (err) => {
+                console.log(err)
                 throw err.graphQLErrors[0];
             },
         }

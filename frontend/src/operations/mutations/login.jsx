@@ -23,6 +23,12 @@ const LOGIN_MUTATION = gql`
                             quantity
                             discount
                             sizeProductUser
+                            size {
+                                items {
+                                    size
+                                    quantity
+                                }
+                            }
                         }
                     }
                 }

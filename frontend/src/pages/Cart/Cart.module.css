@@ -10,7 +10,7 @@
     grid-auto-flow: column;
     grid-template-columns: 75fr 25fr;
     gap: var(--gap-l);
-    min-width: 80%;
+    max-width: 80%;
     height: 80%;
     padding: 2.4rem;
     border-radius: var(--border-radius-l);
@@ -19,65 +19,23 @@
 
 .cart-infomation,
 .cart-summary {
+    max-height: 80%;
     display: grid;
-    grid-template-rows: 10fr 80% 10fr;
+    grid-template-rows: 10fr 42rem 10fr;
     gap: var(--gap-m);
-    /* grid-template-columns: max-content; */
 }
 
-.cart-list,
 .summary-list {
     position: relative;
-    height: calc(100% - 3.8rem);
+    height: 100%;
     padding: 2.2rem 1.6rem 1.6rem;
     border-top: 1px solid var(--primary-color);
     border-bottom: 1px solid var(--primary-color);
     overflow: auto;
     display: grid;
     grid-auto-flow: row;
-    grid-auto-rows: calc(100% / 5);
+    grid-auto-rows: max-content;
     row-gap: var(--gap-m);
-}
-
-.cart-fields {
-    position: absolute;
-    width: calc(100% - 3.2rem);
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 20fr 20fr 10fr 30fr 20fr;
-    text-align: center;
-}
-
-.cart-box {
-    width: 100%; /* Set the width of each cart-box to 100% */
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 20fr 20fr 10fr 30fr 20fr;
-    text-align: center;
-}
-
-.cart-box-img img {
-    max-width: 70%;
-    margin: 0 auto;
-}
-
-.cart-box-name {
-    place-self: center;
-}
-
-.cart-box-size {
-    display: grid;
-    place-items: center;
-}
-.cart-box-quantity {
-    display: grid;
-    place-items: center;
-}
-.cart-box-price {
-    place-self: center;
 }
 
 /* BUTTON */
@@ -86,7 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 2rem;
+    padding: 1rem 2rem;
     font-size: 1.6rem;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.5);
@@ -101,8 +59,9 @@
 }
 
 .cart-button-checkout {
+    place-self: stretch end;
     width: max-content;
-    padding: 0 2rem;
+    padding: 1rem 2rem;
     border: none;
     outline: none;
     font-size: 1.6rem;

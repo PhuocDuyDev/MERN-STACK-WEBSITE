@@ -32,6 +32,7 @@ const ModalAddToCart = ({ open, onClose, addCart, ...productInfo }) => {
             productId: id,
             quantity: quantityInput,
             size: sizeSelect,
+            isEditQuantity: false,
         });
     };
 
@@ -50,28 +51,28 @@ const ModalAddToCart = ({ open, onClose, addCart, ...productInfo }) => {
         setQuantityOfSize(sizeInfo.quantity);
     }, []);
 
-    const quantityChangeHandler = (event) => {
+    const quantityChangeHandler = useCallback((event) => {
         if (event.target.value > quantityOfSize) {
             setQuantityInput(quantityOfSize);
         } else {
             setQuantityInput(event.target.value);
         }
-    };
+    }, []);
 
-    const quantityDecreaseHandler = () => {
+    const quantityDecreaseHandler = useCallback(() => {
         if (quantityInput <= 1) {
             setQuantityInput(1);
         } else {
             setQuantityInput((quantity) => quantity - 1);
         }
-    };
-    const quantityIncreaseHandler = () => {
+    }, []);
+    const quantityIncreaseHandler = useCallback(() => {
         if (quantityInput >= quantityOfSize) {
             setQuantityInput(quantityOfSize);
         } else {
             setQuantityInput((quantity) => quantity + 1);
         }
-    };
+    }, []);
 
     return ReactDom.createPortal(
         <>

@@ -47,7 +47,7 @@ const cache = new InMemoryCache({
 });
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:4000/graphql',
+    uri: import.meta.env.VITE_BACKEND_URI,
     credentials: 'include',
 });
 

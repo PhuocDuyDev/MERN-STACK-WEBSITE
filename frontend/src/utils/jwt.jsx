@@ -41,15 +41,17 @@ const JWTManager = () => {
 
     const getRefreshToken = async () => {
         try {
-            const response = await fetch('http://localhost:4000/graphql', {
-                headers: {
-                    'content-type': 'application/json',
-                    Authorization: `Bearer ${getToken()}`,
-                },
-                method: 'POST',
-                credentials: 'include',
-                body: JSON.stringify({
-                    query: `mutation RefreshToken {
+            const response = await fetch(
+                `${import.meta.env.VITE_BACKEND_URI}`,
+                {
+                    headers: {
+                        'content-type': 'application/json',
+                        Authorization: `Bearer ${getToken()}`,
+                    },
+                    method: 'POST',
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        query: `mutation RefreshToken {
                         refreshToken {
                             accessToken
                             user {
@@ -71,14 +73,21 @@ const JWTManager = () => {
                                         discount
                                         quantity
                                         sizeProductUser
+                                        size {
+                                            items {
+                                                size
+                                                quantity
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                         
                     }`,
-                }),
-            });
+                    }),
+                }
+            );
             const { data } = await response.json();
             setToken(data.refreshToken.accessToken);
             currentUserVar(data.refreshToken.user);
