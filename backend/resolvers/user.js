@@ -191,7 +191,7 @@ const userResolvers = {
             const { name, email, password } = args;
 
             const existingUser = await User.findOne({ email });
-            console.log(existingUser)
+            console.log(existingUser);
             if (!email.trim() || !password.trim() || !name.trim()) {
                 throw new GraphQLError(
                     'Fullname, email and password are required fields.',
@@ -384,7 +384,9 @@ const userResolvers = {
                     },
                 });
             }
-            const { productId, quantity, size } = args;
+
+            const { productId, quantity, size, isEditQuantity } =
+                args.inputProduct;
 
             const productInfo = await Product.findById(productId);
             if (!productId) {
@@ -396,23 +398,13 @@ const userResolvers = {
                 });
             }
 
-            const [dataCartUserBySize] = currentUser.cart.items.filter(
-                (cartItem) =>
-                    cartItem.productId.toString() ===
-                        productInfo._id.toString() &&
-                    cartItem.sizeProductUser === size
-            );
-
             const [dataProductSize] = productInfo.size.items.filter(
                 (sizeItem) => sizeItem.size === size
             );
 
-            if (
-                dataCartUserBySize.quantity + quantity >
-                dataProductSize.quantity
-            ) {
+            if (isEditQuantity && quantity > dataProductSize.quantity) {
                 throw new GraphQLError(
-                    `You already has: ${dataCartUserBySize.quantity} in cart. You can not add more than quantity in stocks`,
+                    `Maximum quantity product is: ${dataProductSize.quantity}. You can not add more than quantity in stocks`,
                     {
                         extensions: {
                             code: 'NOT ACCEPTABLE',
@@ -420,6 +412,44 @@ const userResolvers = {
                         },
                     }
                 );
+            }
+
+            const [dataCartUserBySize] = currentUser.cart.items.filter(
+                (cartItem) => {
+                    return (
+                        cartItem.productId.toString() ===
+                            productInfo._id.toString() &&
+                        cartItem.sizeProductUser === size
+                    );
+                }
+            );
+
+            if (dataCartUserBySize) {
+                if (
+                    (dataCartUserBySize.quantity + quantity >
+                        dataProductSize.quantity &&
+                        !isEditQuantity) ||
+                    (isEditQuantity && quantity > dataProductSize.quantity)
+                ) {
+                    throw new GraphQLError(
+                        `You already has: ${dataCartUserBySize.quantity} in cart. You can not add more than quantity in stocks`,
+                        {
+                            extensions: {
+                                code: 'NOT ACCEPTABLE',
+                                http: { status: 406 },
+                            },
+                        }
+                    );
+                }
+            } else {
+                currentUser.cart.items.push({
+                    productId,
+                    quantity: quantity,
+                    sizeProductUser: size,
+                });
+
+                await currentUser.save();
+                return currentUser;
             }
 
             // get all product id match productId from args.
@@ -430,7 +460,6 @@ const userResolvers = {
                         : acc,
                 []
             );
-
             // if cartProductsIndexes exist => length > 0
             if (cartProductIndexes.length > 0) {
                 // flag for same size or not.
@@ -443,8 +472,13 @@ const userResolvers = {
                         size ===
                         currentUser.cart.items[cartProductIndex].sizeProductUser
                     ) {
-                        currentUser.cart.items[cartProductIndex].quantity +=
-                            quantity;
+                        if (isEditQuantity) {
+                            currentUser.cart.items[cartProductIndex].quantity =
+                                quantity;
+                        } else {
+                            currentUser.cart.items[cartProductIndex].quantity +=
+                                quantity;
+                        }
                         hasSameSize = true;
                     }
                 });

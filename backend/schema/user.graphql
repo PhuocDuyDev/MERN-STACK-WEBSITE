@@ -75,6 +75,13 @@ type AccessToken {
     user: User!
 }
 
+input inputAddToCart {
+    productId: ID!
+    quantity: Int!
+    size: String!
+    isEditQuantity: Boolean
+}
+
 type Mutation {
     refreshToken: AccessToken!
     register(name: String!, email: String!, password: String!): ResigerResponse!
@@ -88,7 +95,7 @@ type Mutation {
         role: String!
     ): User!
     deleteUser(id: ID!): String!
-    addToCart(productId: ID!, quantity: Int!, size: String!): User!
+    addToCart(inputProduct: inputAddToCart!): User!
     addProductToWishlist(productId: ID!): User!
     removeProductFromWishlist(productId: ID!): User!
     deleteItemFromCart(productId: ID!): User!
