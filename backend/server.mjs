@@ -22,6 +22,7 @@ const allowedOrigins = [
     'http://127.0.0.1:5173',
     'http://127.0.0.1:5500',
     'https://studio.apollographql.com',
+    'https://phuocduy-shop-app.netlify.app',
 ];
 const corsOptions = {
     origin: allowedOrigins,
