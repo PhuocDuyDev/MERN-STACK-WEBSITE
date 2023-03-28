@@ -27,7 +27,6 @@ const CartList = ({ cartList }) => {
             setCurrentUser(data.data.addToCart);
             notifySuccess('Adjust cart success!');
         } catch (error) {
-            console.log(error);
             if (error.extensions.http.status === 401) {
                 setTimeout(() => navigate('/login'), 500);
             }

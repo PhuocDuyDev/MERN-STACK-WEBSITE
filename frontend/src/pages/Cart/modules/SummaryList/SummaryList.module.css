@@ -1,0 +1,46 @@
+.summary-list {
+    position: relative;
+    height: 100%;
+    padding: 2.2rem 1.6rem 1.6rem;
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    overflow: auto;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    row-gap: var(--gap-m);
+}
+
+.summary-fields {
+    position: absolute;
+    width: calc(100% - 3.2rem);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 35fr 20fr 15fr 30fr;
+    text-align: center;
+}
+
+/* SCROLL BAR */
+.summary-list::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+/* Set the background color of the scrollbar */
+.summary-list::-webkit-scrollbar-track {
+    background: var(--accent-light-color);
+    border-radius: 4px;
+}
+
+/* Set the color and shape of the scrollbar thumb */
+.summary-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+/* Set the color and shape of the scrollbar thumb when hovering */
+.summary-list::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-shade-color);
+}

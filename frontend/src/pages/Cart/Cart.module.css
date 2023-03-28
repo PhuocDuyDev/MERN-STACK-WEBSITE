@@ -8,7 +8,7 @@
 .cart-container {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: 75fr 25fr;
+    grid-template-columns: 8fr 4fr;
     gap: var(--gap-l);
     max-width: 80%;
     height: 80%;
@@ -79,28 +79,3 @@
     background-color: var(--accent-color);
 }
 
-/* SCROLL BAR */
-.cart-list::-webkit-scrollbar,
-.summary-list::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-}
-/* Set the background color of the scrollbar */
-.cart-list::-webkit-scrollbar-track,
-.summary-list::-webkit-scrollbar-track {
-    background: var(--accent-light-color);
-    border-radius: 4px;
-}
-
-/* Set the color and shape of the scrollbar thumb */
-.cart-list::-webkit-scrollbar-thumb,
-.summary-list::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 4px;
-}
-
-/* Set the color and shape of the scrollbar thumb when hovering */
-.cart-list::-webkit-scrollbar-thumb:hover,
-.summary-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-shade-color);
-}

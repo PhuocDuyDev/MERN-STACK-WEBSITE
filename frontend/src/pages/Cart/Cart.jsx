@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useAuthContext } from '../../context/AuthContext';
 import styles from './Cart.module.css';
 import { Link } from 'react-router-dom';
 
-import { CartList } from './modules';
+import { CartList, SummaryList } from './modules';
 
 const Cart = () => {
     const { currentUser } = useAuthContext();
@@ -13,30 +13,35 @@ const Cart = () => {
     );
 
     // using Object.values to get values from object and convert it to array
-    const cartItems = Object.values(
-        currentUser.cart.itemsInfo.reduce((acc, cartItem) => {
-            const { id, quantity, sizeProductUser, ...itemInfo } = cartItem;
+    const cartItems = useMemo(
+        () =>
+            Object.values(
+                currentUser.cart.itemsInfo.reduce((acc, cartItem) => {
+                    const { id, quantity, sizeProductUser, ...itemInfo } =
+                        cartItem;
 
-            // id in acc (acc is object temp).
-            // push new object contain quantity and sizeProductUser
-            // if not : create new object contain all info with id is a key
-            id in acc
-                ? acc[id].cartInfo.push({
-                      quantity,
-                      sizeProductUser,
-                  })
-                : (acc[id] = {
-                      id,
-                      ...itemInfo,
-                      cartInfo: [
-                          {
+                    // id in acc (acc is object temp).
+                    // push new object contain quantity and sizeProductUser
+                    // if not : create new object contain all info with id is a key
+                    id in acc
+                        ? acc[id].cartInfo.push({
                               quantity,
                               sizeProductUser,
-                          },
-                      ],
-                  });
-            return acc;
-        }, {})
+                          })
+                        : (acc[id] = {
+                              id,
+                              ...itemInfo,
+                              cartInfo: [
+                                  {
+                                      quantity,
+                                      sizeProductUser,
+                                  },
+                              ],
+                          });
+                    return acc;
+                }, {})
+            ),
+        [currentUser.cart.itemsInfo]
     );
 
     return (
@@ -51,13 +56,7 @@ const Cart = () => {
                 </div>
                 <div className={styles['cart-summary']}>
                     <h1>Summary</h1>
-                    <div className={styles['summary-list']}>
-                        {/* <div className={styles['card-box']}></div>
-                        <div className={styles['card-box']}></div>
-                        <div className={styles['card-box']}></div>
-                        <div className={styles['card-box']}></div>
-                        <div className={styles['card-box']}></div> */}
-                    </div>
+                    <SummaryList cartList={cartItems} />
                     <button className={styles['cart-button-checkout']}>
                         Check out
                     </button>
