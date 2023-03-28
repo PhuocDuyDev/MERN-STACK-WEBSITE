@@ -54,7 +54,7 @@ const CartItem = ({ item, addCart }) => {
                 isEditQuantity: true,
             });
         },
-        []
+        [cartInfo]
     );
 
     const quantityDecreaseHandler = useCallback(
@@ -86,7 +86,7 @@ const CartItem = ({ item, addCart }) => {
                 isEditQuantity: true,
             });
         },
-        []
+        [cartInfo]
     );
 
     const quantityIncreaseHandler = useCallback(
@@ -125,7 +125,7 @@ const CartItem = ({ item, addCart }) => {
                 isEditQuantity: true,
             });
         },
-        []
+        [cartInfo]
     );
 
     return (
