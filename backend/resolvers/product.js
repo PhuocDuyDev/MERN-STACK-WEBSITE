@@ -55,8 +55,8 @@ const productResolvers = {
             });
         },
         product: async (parent, { id }, { currentUser }) => {
-            if (!currentUser) {
-                return await Product.findById(id).transform((product) => {
+            const product = await Product.findById(id)
+                .transform((product) => {
                     return {
                         id: product.id,
                         name: product.name,
@@ -69,7 +69,18 @@ const productResolvers = {
                         inCart: null,
                         inWishlist: null,
                     };
+                })
+                .catch((_) => {
+                    throw new GraphQLError('Product not found', {
+                        extensions: {
+                            code: 'NOT FOUND',
+                            http: { status: 404 },
+                        },
+                    });
                 });
+
+            if (!currentUser) {
+                return product;
             }
 
             const wishlistProductIds = currentUser.wishlist.items.map(
@@ -79,27 +90,15 @@ const productResolvers = {
                 product.productId.toString()
             );
 
-            return await Product.findById(id).transform((product) => {
-                return {
-                    id: product.id,
-                    name: product.name,
-                    discount: product.discount,
-                    description: product.description,
-                    images: product.images,
-                    category: product.category,
-                    price: product.price,
-                    size: product.size,
-                    feature: product.feature,
-                    inCart:
-                        cartProductIds.indexOf(product.id) !== -1
-                            ? true
-                            : false,
-                    inWishlist:
-                        wishlistProductIds.indexOf(product.id) !== -1
-                            ? true
-                            : false,
-                };
-            });
+            return {
+                ...product,
+                inCart:
+                    cartProductIds.indexOf(product.id) !== -1 ? true : false,
+                inWishlist:
+                    wishlistProductIds.indexOf(product.id) !== -1
+                        ? true
+                        : false,
+            };
         },
     },
     Mutation: {
