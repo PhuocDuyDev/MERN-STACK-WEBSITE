@@ -7,3 +7,6 @@ export { default as Spinner } from './Spinner/Spinner';
 export { default as MyImage } from './MyImage/MyImage';
 export { default as SliderImages } from './SliderImages/SliderImages';
 export { default as Modal } from './Modal/Modal';
+export { default as Input } from './Input/Input';
+export { default as SelectAddressCustome } from './SelectAddressCustome/SelectAddressCustome';
+export { default as SelectPaymentMethod } from './SelectPaymentMethod/SelectPaymentMethod';
