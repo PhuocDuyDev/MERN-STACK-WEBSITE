@@ -23,7 +23,7 @@ const allowedOrigins = [
     'http://127.0.0.1:5173',
     'http://127.0.0.1:5500',
     'https://studio.apollographql.com',
-    `${process.env.REACT_URL}`,
+    process.env.REACT_URL,
 ];
 const corsOptions = {
     origin: allowedOrigins,
