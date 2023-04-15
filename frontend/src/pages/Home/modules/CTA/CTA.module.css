@@ -4,11 +4,22 @@
     height: 48rem;
 }
 
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: -9;
+}
+
 .cta-banner {
     height: 100%;
     width: 100%;
     position: absolute;
-    z-index: -1;
+    z-index: -99;
 }
 
 .cta-container {
@@ -27,17 +38,16 @@
     max-width: 60rem;
     margin: 0 auto;
     text-align: center;
-    color: var(--text-color-black);
 }
 
 .cta-details h3 {
     font-size: 4rem;
-    color: var(--text-color-black);
+    color: var(--text-color-white);
 }
 
 .cta-details p {
     font-size: 2.4rem;
-    color: var(--text-color-black);
+    color: var(--text-color-gray);
 }
 
 .cta-btn {
