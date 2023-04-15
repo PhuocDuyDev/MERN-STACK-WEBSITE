@@ -56,14 +56,14 @@ const ProductCard = ({
             setAddWishlistSuccess(true);
         } catch (error) {
             // already has product
+            notifyWarning(error.message);
             if (error.extensions.http.status === 409) {
                 setAddWishlistSuccess(true);
             } else {
                 setAddWishlistSuccess(false);
-                setTimeout(() => navigate('/login'), 500);
+                // setTimeout(() => navigate('/login'), 500);
                 notifyWarning('Please login to use this feature!');
             }
-            notifyWarning(error.message);
             return error;
         }
     };
@@ -84,16 +84,16 @@ const ProductCard = ({
             setAddWishlistSuccess(false);
         } catch (error) {
             // not in wishlist to remove
+            notifyWarning(error.message);
             if (error.extensions.http.status === 409) {
                 setAddWishlistSuccess(false);
             } else if (error.extensions.http.status === 401) {
                 setAddWishlistSuccess(false);
-                setTimeout(() => navigate('/login'), 500);
+                // setTimeout(() => navigate('/login'), 500);
                 notifyWarning('Please login to use this feature!');
             } else {
                 setAddWishlistSuccess(true);
             }
-            notifyWarning(error.message);
             return error;
         }
     };
@@ -123,13 +123,13 @@ const ProductCard = ({
             notifySuccess('Added success product to cart!');
             // setAddCartSuccess(true);
         } catch (error) {
-            console.log(error);
             if (error.extensions.http.status === 401) {
-                setTimeout(() => navigate('/login'), 500);
+                notifyWarning('Please login to use this feature!');
+                // setTimeout(() => navigate('/login'), 500);
+                return;
             }
             // setAddCartSuccess(false);
             notifyWarning(error.message);
-            return error;
         }
     };
 
