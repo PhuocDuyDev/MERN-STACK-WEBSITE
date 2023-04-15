@@ -24,13 +24,12 @@ export const GET_PRODUCTS_QUERY = gql`
 `;
 
 const useGetProductsQuery = () => {
-    const { data, error, loading } = useQuery(GET_PRODUCTS_QUERY, {
+    const { data, error, loading, refetch } = useQuery(GET_PRODUCTS_QUERY, {
         onError: (err) => {
             throw err.graphQLErrors[0];
         },
-        fetchPolicy: 'no-cache',
     });
-    return { data, error, loading };
+    return { data, error, loading, refetch };
 };
 
 export default useGetProductsQuery;

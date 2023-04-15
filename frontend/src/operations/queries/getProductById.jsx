@@ -23,16 +23,19 @@ const GET_PRODUCT_ID_QUERY = gql`
 `;
 
 const useGetProductById = (productId) => {
-    const { data, loading, error } = useQuery(GET_PRODUCT_ID_QUERY, {
+    const { data, loading, error, refetch } = useQuery(GET_PRODUCT_ID_QUERY, {
         onError: (error) => {
             return error.graphQLErrors[0];
         },
         variables: {
             productId,
         },
+        fetchPolicy: 'network-only',
     });
 
-    return { data, loading, error };
+    
+
+    return { data, loading, error, refetch };
 };
 
 export default useGetProductById;
