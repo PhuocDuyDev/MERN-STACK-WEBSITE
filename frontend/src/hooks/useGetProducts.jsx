@@ -41,7 +41,10 @@ const useGetProducts = () => {
         navigate(
             `?category=${categoryFilterVar().id}&sort=${
                 sortFilterVar().id
-            }&page=${currentPage}`
+            }&page=${currentPage}`,
+            {
+                replace: true,
+            }
         );
         window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     }, [search, currentPage]);
