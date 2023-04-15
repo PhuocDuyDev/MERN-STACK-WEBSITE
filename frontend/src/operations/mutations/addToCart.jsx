@@ -36,7 +36,6 @@ const useAddToCartMutation = () => {
         ADD_TO_CART_MUTATION,
         {
             onError: (err) => {
-                console.log(err)
                 throw err.graphQLErrors[0];
             },
         }
