@@ -15,7 +15,7 @@
     --accent-border-color: #3b4149;
     --text-color-white: #fff;
     --text-color-black: #000;
-    --text-color-grey: #555;
+    --text-color-grey: #333;
     --cta-bg-color: #a58f7c;
     --border-radius-sm: 0.4rem;
     --border-radius-m: 0.8rem;
@@ -109,6 +109,13 @@ img {
     display: block;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
 .btn {
     display: inline-block;
     border: none;
@@ -153,6 +160,7 @@ img {
 .section {
     padding: 4rem 0.8rem;
 }
+
 .container {
     max-width: 132rem;
     margin: 0 auto;
