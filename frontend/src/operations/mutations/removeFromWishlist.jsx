@@ -38,7 +38,7 @@ const useAddToWishlist = () => {
         {
             onError: (err) => {
                 throw err.graphQLErrors[0];
-            }
+            },
         }
     );
     return { mutate, loading, error, data };
