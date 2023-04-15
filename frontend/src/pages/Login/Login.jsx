@@ -9,6 +9,8 @@ import JWTManager from './../../utils/jwt';
 import { REGISTER_PAGE } from '../../const/';
 import { notifyInfo } from '../../utils/toast';
 import styles from './Login.module.css';
+import { client } from '../../client/client';
+import { Input } from '../../components';
 
 const Login = () => {
     const { setIsAuthenticated, isAuthenticated, setCurrentUser } =
@@ -19,7 +21,6 @@ const Login = () => {
     const [errorMsg, setErrorMsg] = useState(null);
     const [emailIsValid, setEmailIsValid] = useState(null);
     const [passwordIsValid, setPasswordIsValid] = useState(null);
-    const [formIsValid, setFormIsValid] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,35 +33,22 @@ const Login = () => {
             setCurrentUser(data?.login.authPayload.user);
             JWTManager.setToken(accessToken);
             setIsAuthenticated(true);
+
+            client.resetStore();
         }
         if (error) {
             setErrorMsg(error.message);
         }
     }, [data, error, isAuthenticated]);
 
-    useEffect(() => {
-        const validate = setTimeout(() => {
-            setFormIsValid(
-                validator.isEmail(email) &&
-                    validator.isLength(password.trim(), {
-                        min: 6,
-                    })
-            );
-        }, 300);
-        return () => {
-            clearTimeout(validate);
-        };
-    });
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = await loginMutation({
+        await loginMutation({
             variables: {
                 email,
                 password,
             },
         });
-        setCurrentUser(data.data?.login.authPayload.user);
     };
 
     const emailChangeHandler = (e) => {
@@ -92,7 +80,7 @@ const Login = () => {
             >
                 <div className={styles['form-input']}>
                     <label htmlFor='inputEmail'>Email: </label>
-                    <input
+                    <Input
                         id='inputEmail'
                         type='email'
                         value={email}
@@ -100,6 +88,7 @@ const Login = () => {
                         onChange={emailChangeHandler}
                         onBlur={validateEmailHandler}
                         placeholder='Enter your email...'
+                        sizeInput='small'
                     />
                     {emailIsValid === false ? (
                         <span>Email is invalid. Please try again!</span>
@@ -107,7 +96,7 @@ const Login = () => {
                 </div>
                 <div className={styles['form-input']}>
                     <label htmlFor='inputPassword'>Password: </label>
-                    <input
+                    <Input
                         id='inputPassword'
                         type='password'
                         value={password}
@@ -115,6 +104,7 @@ const Login = () => {
                         onChange={passwordChangeHandler}
                         onBlur={validatePasswordHandler}
                         placeholder='Enter your password...'
+                        sizeInput='small'
                     />
                     {passwordIsValid === false ? (
                         <span>Password is invalid. Please try again!</span>
@@ -130,7 +120,7 @@ const Login = () => {
                     <Link to={REGISTER_PAGE}>Signup now!</Link>
                 </div>
 
-                <button disabled={!formIsValid || loading} type='submit'>
+                <button type='submit'>
                     {loading ? 'Try log in' : 'Submit'}
                 </button>
             </form>
