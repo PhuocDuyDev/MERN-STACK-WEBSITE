@@ -1,5 +1,4 @@
 import React from 'react';
-import { productsVar } from '../../client/client';
 import { useGetProductsQuery } from '../../operations/queries';
 import {
     Banner,
@@ -11,15 +10,14 @@ import {
 
 const Home = () => {
     const { data } = useGetProductsQuery();
-    productsVar(data?.products);
 
     return (
         <>
             <Banner />
             <Services />
-            <FeaturedProducts listProducts={productsVar()} />
+            <FeaturedProducts listProducts={data?.products} />
             <CTA />
-            <SaleProducts listProducts={productsVar()} />
+            <SaleProducts listProducts={data?.products} />
         </>
     );
 };
