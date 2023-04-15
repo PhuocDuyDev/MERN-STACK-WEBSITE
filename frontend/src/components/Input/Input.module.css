@@ -1,0 +1,22 @@
+.input {
+    border: none;
+    outline: 2px solid transparent;
+    width: 100%;
+    border-radius: var(--border-radius-sm);
+    transition: 0.3s ease;
+}
+
+.input:active,
+.input:focus {
+    outline: 2px solid var(--primary-color);
+}
+
+.input-small {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.4rem;
+}
+
+.input-medium {
+    padding: 1.6rem 2rem;
+    font-size: 1.6rem;
+}
