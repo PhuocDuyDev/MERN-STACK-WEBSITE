@@ -1,18 +1,18 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { memo, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 
 import cart from '../../../../assets/icons/cart.svg';
 import user from '../../../../assets/icons/user.svg';
-import wishlist from '../../../../assets/icons/wishlist.svg';
 
-import { ProductCardSearch, Spinner } from './../../../';
-import { CART_PAGE, LOGIN_PAGE, WISHLIST_PAGE } from './../../../../const/';
+import { Input, ProductCardSearch } from './../../../';
+import { CART_PAGE, LOGIN_PAGE } from './../../../../const/';
 import styles from './HeaderMiddle.module.css';
 
-import { productsVar } from '../../../../client/client';
+import { client } from '../../../../client/client';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { useLogoutMutation } from '../../../../operations/mutations/';
+import { useGetProductsQuery } from '../../../../operations/queries';
 import { useDebounce } from './../../../../hooks/';
 import JWTManager from './../../../../utils/jwt';
 
@@ -23,21 +23,12 @@ const HeaderMiddle = memo(() => {
     const {
         isAuthenticated,
         logoutClient,
-        checkAuth,
         currentUser,
         setIsAuthenticated,
         setCurrentUser,
     } = useAuthContext();
-    const [loadingCheckAuth, setLoadingCheckAuth] = useState(true);
     const { mutate: logoutMutation } = useLogoutMutation();
-
-    useEffect(() => {
-        const authenticate = async () => {
-            await checkAuth();
-            setLoadingCheckAuth(false);
-        };
-        authenticate();
-    }, [checkAuth]);
+    const { data } = useGetProductsQuery();
 
     const handleInputFocus = () => {
         setIsInputFocus(true);
@@ -58,9 +49,11 @@ const HeaderMiddle = memo(() => {
         logoutClient();
         setCurrentUser(false);
         setIsAuthenticated(false);
+        client.resetStore();
+        window.location.reload();
     };
 
-    const filteredProducts = productsVar()?.filter((product) => {
+    const filteredProducts = data?.products.filter((product) => {
         const productName = product.name.toLowerCase();
         const searchName =
             debouncedSearch == '' ? null : debouncedSearch.toLowerCase(); // add guard clause here
@@ -94,7 +87,7 @@ const HeaderMiddle = memo(() => {
                     San.D Store
                 </Link>
                 <form method='POST' className={styles['header-form']}>
-                    <input
+                    <Input
                         type='text'
                         onFocus={handleInputFocus}
                         onBlur={handleInputBlur}
@@ -132,7 +125,7 @@ const HeaderMiddle = memo(() => {
                     </div>
                 </form>
                 <div className={`grid ${styles['header-action']}`}>
-                    <Link
+                    {/* <Link
                         to={WISHLIST_PAGE}
                         className={`grid ${styles['header-action-item']}`}
                     >
@@ -140,11 +133,9 @@ const HeaderMiddle = memo(() => {
                         <p>
                             Favourite <br /> wishlish
                         </p>
-                    </Link>
+                    </Link> */}
                     {/* Login Start */}
-                    {loadingCheckAuth ? (
-                        <Spinner />
-                    ) : isAuthenticated ? (
+                    {isAuthenticated ? (
                         <div className={styles['menu-user']}>
                             <h2>{currentUser.name}</h2>
                             <ul>
