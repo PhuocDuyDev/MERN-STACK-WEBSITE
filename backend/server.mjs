@@ -12,6 +12,7 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 
 const app = express();
+console.log(process.env.REACT_URL);
 const allowedOrigins = [
     'http://localhost:4000',
     'http://127.0.0.1:4000',
