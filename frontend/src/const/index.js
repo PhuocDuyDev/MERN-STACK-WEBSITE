@@ -1,6 +1,5 @@
 export const PRODUCTS_PAGE = '/products';
 export const CART_PAGE = '/cart';
-export const CHECKOUT_PAGE = '/checkout';
 export const LOGIN_PAGE = '/login';
 export const REGISTER_PAGE = '/register';
 export const WISHLIST_PAGE = '/wishlist';
@@ -36,10 +35,8 @@ export const navLink = [
         path: CART_PAGE,
         title: 'Cart',
     },
-    {
-        path: CHECKOUT_PAGE,
-        title: 'Check out',
-    },
 ];
 
 export const PRODUCTS_PER_PAGE = 9;
+
+export const TIME_SHOW_TOAST_DEFAULT = 1.5;
