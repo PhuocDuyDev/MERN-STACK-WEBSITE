@@ -1,1 +1,0 @@
-import{Q as n}from"./index-26733e41.js";const e=1.5,c=(o,s=e)=>n.warning(o,{autoClose:s*1e3,closeOnClick:!0}),i=(o,s=e)=>n.info(o,{autoClose:s*1e3,closeOnClick:!0}),a=(o,s=e)=>n.success(o,{autoClose:s*1e3,closeOnClick:!0});export{c as a,i as b,a as n};
