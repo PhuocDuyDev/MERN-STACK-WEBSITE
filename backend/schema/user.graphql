@@ -52,10 +52,6 @@ type Query {
     getProductsInCartWithStatus: MessageProducts!
 }
 
-type Message {
-    message: String!
-}
-
 type ResigerResponse {
     message: String!
     user: User!
@@ -82,6 +78,11 @@ input inputAddToCart {
     isEditQuantity: Boolean
 }
 
+type checkoutResponse {
+    message: String!
+    user: User!
+}
+
 type Mutation {
     refreshToken: AccessToken!
     register(name: String!, email: String!, password: String!): ResigerResponse!
@@ -98,6 +99,7 @@ type Mutation {
     addToCart(inputProduct: inputAddToCart!): User!
     addProductToWishlist(productId: ID!): User!
     removeProductFromWishlist(productId: ID!): User!
-    deleteItemFromCart(productId: ID!): User!
+    removeProductFromCart(productId: ID!, sizeProduct: String!): User!
     clearCart: User!
+    checkout: checkoutResponse!
 }
