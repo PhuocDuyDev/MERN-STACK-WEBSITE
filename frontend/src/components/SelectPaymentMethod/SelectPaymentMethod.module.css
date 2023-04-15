@@ -1,0 +1,119 @@
+.select {
+    display: grid;
+    gap: calc(var(--gap-s) / 2);
+    grid-auto-rows: max-content;
+}
+.select * {
+    transition: 0.3s ease;
+}
+
+.select .label {
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    text-transform: capitalize;
+}
+
+.select .select-menu {
+    position: relative;
+    cursor: pointer;
+}
+
+.select-menu .selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.2rem;
+    background-color: var(--text-color-white);
+    border-radius: var(--border-radius-sm);
+    outline: 0.2rem solid transparent;
+}
+
+.select-menu.active .selected {
+    outline: 0.2rem solid var(--primary-color);
+}
+
+.select-menu .selected h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.select-menu .selected img {
+    width: 20px;
+    transition: 0.3s ease;
+    opacity: 0.8;
+}
+
+.select-menu.active .selected img {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    width: 100%;
+    top: calc(100% + 0.4rem);
+    max-height: 20rem;
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    gap: calc(var(--gap-s) / 2);
+    flex-direction: column;
+    background-color: #fff;
+    overflow: scroll;
+    overflow-x: hidden;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+}
+
+.dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-menu .dropdown-item {
+    padding: 0.8rem 0.8rem;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    border: 0.1rem solid transparent;
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .active.dropdown-item {
+    border-color: var(--primary-color);
+    border-radius: var(--border-radius-sm);
+}
+
+.dropdown-menu .dropdown-item.disable {
+    background-color: #ccc;
+    user-select: none;
+    cursor: no-drop;
+    border-color: transparent;
+    border-radius: var(--border-radius-sm);
+}
+
+
+/* SCROLL BAR */
+.dropdown-menu::-webkit-scrollbar {
+    width: .4rem;
+    height: .4rem;
+}
+/* Set the background color of the scrollbar */
+.dropdown-menu::-webkit-scrollbar-track {
+    background: var(--accent-light-color);
+    border-radius: .4rem;
+}
+
+/* Set the color and shape of the scrollbar thumb */
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: .4rem;
+}
+
+/* Set the color and shape of the scrollbar thumb when hovering */
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-shade-color);
+}
