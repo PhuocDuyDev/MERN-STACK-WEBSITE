@@ -1,0 +1,87 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    padding: 1.6rem 1.6rem 1.6rem 0;
+    gap: calc(var(--gap-l));
+    overflow: auto;
+}
+
+.form .form-group {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    gap: var(--gap-l);
+}
+
+.form .form-group:not(:first-child) {
+    padding-top: 2.4rem;
+    border-top: 2px solid hsl(30, 50%, 79%);
+}
+
+.form-group .form-group-fields {
+    display: grid;
+    gap: var(--gap-l);
+}
+
+.form-group-fields .form-group-field {
+    display: grid;
+    gap: calc(var(--gap-s) / 2);
+}
+
+.form-group-fields .form-group-field label {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    font-weight: 500;
+}
+
+.form-group-fields .form-group-field h3 {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 500;
+}
+
+.form-group-fields .form-group-contacts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-m);
+}
+
+.form-group-fields .form-group-address {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap-m);
+}
+
+.form-group .form-group-label p {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    font-weight: 400;
+    color: #333;
+}
+
+.form-group-address .form-group-field {
+    grid-column: 1 / -1;
+}
+
+/* SCROLL BAR */
+.form::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+/* Set the background color of the scrollbar */
+.form::-webkit-scrollbar-track {
+    background: var(--accent-light-color);
+    border-radius: 4px;
+}
+
+/* Set the color and shape of the scrollbar thumb */
+.form::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+/* Set the color and shape of the scrollbar thumb when hovering */
+.form::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-shade-color);
+}
