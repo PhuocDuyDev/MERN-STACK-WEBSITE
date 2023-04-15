@@ -15,9 +15,9 @@ const HeaderBottom = memo(() => {
                     <li>
                         <Link to={`${PRODUCTS_PAGE}`}>Our Store</Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link to={'/contact'}>Contact</Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </header>
