@@ -22,7 +22,7 @@
     align-items: center;
     height: 80vh;
     width: 100%;
-    padding: 6rem 4rem;
+    padding: 4rem 4rem;
     grid-template-columns: 4fr 8fr;
     gap: var(--gap-l);
 }

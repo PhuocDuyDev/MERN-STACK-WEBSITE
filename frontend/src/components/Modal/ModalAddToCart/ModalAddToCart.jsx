@@ -99,7 +99,7 @@ const ModalAddToCart = ({ open, onClose, addCart, ...productInfo }) => {
                                         styles['product-details-price-sale']
                                     }
                                 >
-                                    Price: ${productDiscount}
+                                    ${productDiscount}
                                 </span>
                             ) : null}
                             <span
@@ -107,7 +107,7 @@ const ModalAddToCart = ({ open, onClose, addCart, ...productInfo }) => {
                                     styles['product-details-price-original']
                                 } ${!discount ? styles['not-sale'] : null}`}
                             >
-                                {!discount ? <>Price: </> : null}${price}
+                                ${price}
                             </span>
                         </div>
                         <div className={styles['product-details-size']}>
