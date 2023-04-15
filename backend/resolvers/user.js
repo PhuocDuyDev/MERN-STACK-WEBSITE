@@ -191,7 +191,7 @@ const userResolvers = {
             const { name, email, password } = args;
 
             const existingUser = await User.findOne({ email });
-            console.log(existingUser);
+                
             if (!email.trim() || !password.trim() || !name.trim()) {
                 throw new GraphQLError(
                     'Fullname, email and password are required fields.',
@@ -387,7 +387,14 @@ const userResolvers = {
 
             const { productId, quantity, size, isEditQuantity } =
                 args.inputProduct;
-
+            if (quantity <= 0) {
+                throw new GraphQLError('Out of stocks', {
+                    extensions: {
+                        code: 'NOT FOUND',
+                        http: { status: 404 },
+                    },
+                });
+            }
             const productInfo = await Product.findById(productId);
             if (!productId) {
                 throw new GraphQLError('Product not found', {
@@ -502,7 +509,7 @@ const userResolvers = {
             await currentUser.save();
             return currentUser;
         },
-        deleteItemFromCart: async (parent, args, { currentUser }) => {
+        removeProductFromCart: async (parent, args, { currentUser }) => {
             if (!currentUser) {
                 throw new GraphQLError('User is not authenticated', {
                     extensions: {
@@ -511,10 +518,13 @@ const userResolvers = {
                     },
                 });
             }
-            const { productId } = args;
-            const updatedCartItems = currentUser.cart.items.filter(
-                (cartItem) =>
-                    cartItem.productId.toString() !== productId.toString()
+            const { productId, sizeProduct } = args;
+            const updatedCartItems = currentUser.cart.items.filter((cartItem) =>
+                cartItem.productId.toString() === productId.toString() &&
+                sizeProduct.toLowerCase() ===
+                    cartItem.sizeProductUser.toLowerCase()
+                    ? false
+                    : true
             );
             currentUser.cart.items = updatedCartItems;
             await currentUser.save();
@@ -595,6 +605,10 @@ const userResolvers = {
             currentUser.wishlist.items.splice(wishlistProductIndex, 1);
             await currentUser.save();
             return currentUser;
+        },
+
+        checkout: async (parent, args, { currentUser }) => {
+            return { message: 'checkout success', user: currentUser };
         },
     },
     Cart: {
