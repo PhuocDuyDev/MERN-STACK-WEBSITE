@@ -2,18 +2,11 @@ import React, { useEffect, useState, lazy } from 'react';
 import { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout, Spinner } from './components';
-import {
-    CART_PAGE,
-    CHECKOUT_PAGE,
-    LOGIN_PAGE,
-    PRODUCTS_PAGE,
-    REGISTER_PAGE,
-} from './const/';
+import { CART_PAGE, LOGIN_PAGE, PRODUCTS_PAGE, REGISTER_PAGE } from './const/';
 import { useAuthContext } from './context/AuthContext';
 
 const PrivateRoutes = lazy(() => import('./utils/PrivateRoutes'));
 const Cart = lazy(() => import('./pages/Cart/Cart'));
-const Checkout = lazy(() => import('./pages/Checkout/Checkout'));
 const Home = lazy(() => import('./pages/Home/Home'));
 const Login = lazy(() => import('./pages/Login/Login'));
 const SingleProduct = lazy(() => import('./pages/Product/Product'));
@@ -119,16 +112,6 @@ const App = () => {
                                         fallback={<Spinner fullPage={true} />}
                                     >
                                         <Cart />
-                                    </Suspense>
-                                }
-                            />
-                            <Route
-                                path={CHECKOUT_PAGE}
-                                element={
-                                    <Suspense
-                                        fallback={<Spinner fullPage={true} />}
-                                    >
-                                        <Checkout />
                                     </Suspense>
                                 }
                             />
