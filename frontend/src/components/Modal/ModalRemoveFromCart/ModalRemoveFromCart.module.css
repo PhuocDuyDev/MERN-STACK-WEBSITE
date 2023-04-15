@@ -5,8 +5,8 @@
     z-index: 999;
 }
 
-.modal-add-to-cart {
-    width: 70%;
+.modal-remove-from-cart {
+    width: 50%;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -14,4 +14,46 @@
     transform: translate(-50%, -50%);
     background-color: white;
     z-index: 999;
+}
+
+.modal-container {
+    position: relative;
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    height: 30vh;
+    width: 100%;
+    padding: 4rem 4rem;
+    gap: var(--gap-l);
+}
+
+.btn-close {
+    position: absolute;
+    top: 4rem;
+    right: 4rem;
+}
+
+.action {
+    display: flex;
+    gap: 2rem;
+}
+
+.btn-close,
+.btn-cancel {       
+    padding: 0.6rem 1.4rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    outline: 1px solid var(--primary-color);
+    border: none;
+    color: var(--text-color-black);
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-close:hover,
+.btn-cancel:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color-white);
 }
