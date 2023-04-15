@@ -8,6 +8,7 @@ import { LOGIN_PAGE } from '../../const/';
 import { useRegisterMutation } from '../../operations/mutations/';
 import { notifyWarning } from '../../utils/toast';
 import styles from './Register.module.css';
+import { Input } from '../../components';
 
 const Register = () => {
     const { isAuthenticated } = useAuthContext();
@@ -25,7 +26,6 @@ const Register = () => {
     const [nameIsValid, setNameIsValid] = useState(null);
     const [emailIsValid, setEmailIsValid] = useState(null);
     const [passwordIsValid, setPasswordIsValid] = useState(null);
-    const [formIsValid, setFormIsValid] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,26 +42,9 @@ const Register = () => {
         }
     }, [error, data, isAuthenticated]);
 
-    useEffect(() => {
-        const validate = setTimeout(() => {
-            setFormIsValid(
-                validator.isLength(name.trim(), {
-                    min: 3,
-                }) &&
-                    validator.isEmail(email) &&
-                    validator.isLength(password.trim(), {
-                        min: 6,
-                    })
-            );
-        }, 300);
-        return () => {
-            clearTimeout(validate);
-        };
-    });
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        registerMutation({
+        await registerMutation({
             variables: {
                 name,
                 email,
@@ -111,7 +94,8 @@ const Register = () => {
             >
                 <div className={styles['form-input']}>
                     <label htmlFor='inputName'>Fullname: </label>
-                    <input
+                    <Input
+                        sizeInput='small'
                         id='inputName'
                         type='text'
                         value={name}
@@ -126,7 +110,8 @@ const Register = () => {
                 </div>
                 <div className={styles['form-input']}>
                     <label htmlFor='inputEmail'>Email: </label>
-                    <input
+                    <Input
+                        sizeInput='small'
                         id='inputEmail'
                         type='email'
                         value={email}
@@ -141,7 +126,8 @@ const Register = () => {
                 </div>
                 <div className={styles['form-input']}>
                     <label htmlFor='inputPassword'>Password: </label>
-                    <input
+                    <Input
+                        sizeInput='small'
                         id='inputPassword'
                         type='password'
                         value={password}
@@ -168,7 +154,7 @@ const Register = () => {
                     <Link to={LOGIN_PAGE}>Login now!</Link>
                 </div>
 
-                <button disabled={!formIsValid || loading} type='submit'>
+                <button type='submit'>
                     {loading ? 'Try register' : 'Submit'}
                 </button>
             </form>

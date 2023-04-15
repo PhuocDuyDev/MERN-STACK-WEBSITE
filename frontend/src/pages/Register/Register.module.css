@@ -10,8 +10,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--gap-m);
-    padding: 1.6rem;
-    min-width: 25%;
+    padding: 2.4rem;
+    min-width: 35%;
     background-color: var(--primary-tint-color);
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius-sm);
@@ -47,14 +47,6 @@
     flex-direction: column;
     gap: var(--gap-s);
 }
-.form-input input {
-    border: none;
-    outline: none;
-    font-size: 1.4rem;
-    width: 100%;
-    padding: 1rem;
-    border-radius: var(--border-radius-sm);
-}
 
 .form-input label {
     font-size: 1.6rem;
@@ -66,7 +58,11 @@
 }
 
 .error-server {
-    color: red;
+    align-self: center;
+    width: fit-content;
+    padding: 1.2rem 1.6rem;
+    background-color: rgb(255, 0, 0, 0.8);
+    color: var(--text-color-white);
     font-size: 1.4rem;
     text-align: center;
     user-select: none;
