@@ -1,11 +1,16 @@
-import React, { useState, useCallback } from 'react';
-import styles from './CartItem.module.css';
+import React, { useCallback, useMemo, useState } from 'react';
 import minusIcon from '../../../../assets/icons/minus.svg';
 import plusIcon from '../../../../assets/icons/plus.svg';
+import { ModalRemoveFromCart } from '../../../../components/Modal';
+import { useAuthContext } from '../../../../context/AuthContext';
 import { notifyWarning } from '../../../../utils/toast';
+import styles from './CartItem.module.css';
 
-const CartItem = ({ item, addCart }) => {
-    const [cartInfo, setCartInfo] = useState(item.cartInfo);
+const CartItem = ({ item, addToCart, removeFromCart }) => {
+    const { currentUser } = useAuthContext();
+    const cartInfo = useMemo(() => item.cartInfo, [currentUser]);
+    const [sizeProduct, setSizeProduct] = useState(null);
+    const [isOpenModalRemove, setIsOpenModalRemove] = useState(false);
     const productDiscount = Math.round(
         item.price - (item.price * item.discount) / 100
     );
@@ -34,20 +39,9 @@ const CartItem = ({ item, addCart }) => {
                     `Product in stocks: ${dataProductBySize.quantity}. Your cart is updated.`,
                     5
                 );
-
                 // return;
             }
-
-            const updatedCartItem = {
-                ...cartInfo[cartItemExistingIndex],
-                quantity: newQuantity,
-            };
-
-            const updatedCartInfo = [...cartInfo];
-            updatedCartInfo[cartItemExistingIndex] = updatedCartItem;
-            setCartInfo(updatedCartInfo);
-
-            await addCart(event, {
+            await addToCart(event, {
                 productId: item.id,
                 quantity: newQuantity,
                 size: size,
@@ -68,20 +62,14 @@ const CartItem = ({ item, addCart }) => {
 
             if (cartInfo[cartItemExistingIndex].quantity === 1) {
                 // OPEN MODAL CONFIRM DELETE ITEM FROM CART
+                setSizeProduct(cartInfo[cartItemExistingIndex].sizeProductUser);
+                setIsOpenModalRemove(true);
                 return;
             }
 
-            const updatedCartItem = {
-                ...cartInfo[cartItemExistingIndex],
-                quantity: cartInfo[cartItemExistingIndex].quantity - 1,
-            };
-            const updatedCartInfo = [...cartInfo];
-            updatedCartInfo[cartItemExistingIndex] = updatedCartItem;
-            setCartInfo(updatedCartInfo);
-
-            await addCart(event, {
+            await addToCart(event, {
                 productId: item.id,
-                quantity: updatedCartItem.quantity,
+                quantity: cartInfo[cartItemExistingIndex].quantity - 1,
                 size: size,
                 isEditQuantity: true,
             });
@@ -90,7 +78,7 @@ const CartItem = ({ item, addCart }) => {
     );
 
     const quantityIncreaseHandler = useCallback(
-        async (size, dataProductBySize) => {
+        async (event, size, dataProductBySize) => {
             const cartItemExistingIndex = cartInfo.findIndex(
                 ({ sizeProductUser }) => sizeProductUser === size
             );
@@ -102,7 +90,6 @@ const CartItem = ({ item, addCart }) => {
                 cartInfo[cartItemExistingIndex].quantity >
                 dataProductBySize.quantity
             ) {
-                // OPEN MODAL CONFIRM DELETE ITEM FROM CART
                 notifyWarning(
                     `Product is maximum quantity. Product in stocks: ${dataProductBySize.quantity}.`,
                     5
@@ -110,17 +97,9 @@ const CartItem = ({ item, addCart }) => {
                 return;
             }
 
-            const updatedCartItem = {
-                ...cartInfo[cartItemExistingIndex],
-                quantity: cartInfo[cartItemExistingIndex].quantity + 1,
-            };
-            const updatedCartInfo = [...cartInfo];
-            updatedCartInfo[cartItemExistingIndex] = updatedCartItem;
-            setCartInfo(updatedCartInfo);
-
-            await addCart(event, {
+            await addToCart(event, {
                 productId: item.id,
-                quantity: updatedCartItem.quantity,
+                quantity: cartInfo[cartItemExistingIndex].quantity + 1,
                 size: size,
                 isEditQuantity: true,
             });
@@ -129,89 +108,111 @@ const CartItem = ({ item, addCart }) => {
     );
 
     return (
-        <div key={item.id} className={styles['cart-box']}>
-            <div className={styles['cart-box-img']}>
-                <img src={item.images[0]} alt={item.name} />
-            </div>
-            <h4 className={styles['cart-box-name']}>{item.name}</h4>
-            <div className={styles['cart-box-size']}>
-                {cartInfo.map(({ sizeProductUser }) => (
-                    <p key={sizeProductUser}>{sizeProductUser}</p>
-                ))}
-            </div>
-            <div className={styles['cart-box-quantity']}>
-                {cartInfo.map(
-                    ({ quantity, sizeProductUser }, indexCartInfo) => {
-                        const [dataProductBySize] = item.size.items.filter(
-                            ({ size: sizeProduct }) =>
-                                sizeProduct === sizeProductUser
-                        );
+        <>
+            <ModalRemoveFromCart
+                onClose={() => {
+                    setIsOpenModalRemove(false);
+                }}
+                open={isOpenModalRemove}
+                removeFromCart={(event) =>
+                    removeFromCart(event, { productId: item.id, sizeProduct })
+                }
+            />
 
-                        return (
-                            <div
-                                key={item.id + indexCartInfo}
-                                className={styles['cart-box-quantity-flex']}
-                            >
-                                <button
-                                    className={styles['btn-quantity']}
-                                    onClick={() =>
-                                        quantityDecreaseHandler(sizeProductUser)
-                                    }
+            <div key={item.id} className={styles['cart-box']}>
+                <div className={styles['cart-box-img']}>
+                    <img src={item.images[0]} alt={item.name} />
+                </div>
+                <h4 className={styles['cart-box-name']}>{item.name}</h4>
+                <div className={styles['cart-box-size']}>
+                    {cartInfo.map(({ sizeProductUser }) => (
+                        <p key={sizeProductUser}>{sizeProductUser}</p>
+                    ))}
+                </div>
+                <div className={styles['cart-box-quantity']}>
+                    {cartInfo.map(
+                        ({ quantity, sizeProductUser }, indexCartInfo) => {
+                            const [dataProductBySize] = item.size.items.filter(
+                                ({ size: sizeProduct }) =>
+                                    sizeProduct === sizeProductUser
+                            );
+
+                            return (
+                                <div
+                                    key={item.id + indexCartInfo}
+                                    className={styles['cart-box-quantity-flex']}
                                 >
-                                    <img src={minusIcon} alt='minus icon' />
-                                </button>
-                                <input
-                                    type='tel'
-                                    className={
-                                        styles['cart-box-quantity-input']
-                                    }
-                                    value={
-                                        quantity >= dataProductBySize.quantity
-                                            ? dataProductBySize.quantity
-                                            : quantity
-                                    }
-                                    onChange={(event) =>
-                                        quantityChangeHandler(
-                                            event,
-                                            sizeProductUser,
-                                            dataProductBySize
-                                        )
-                                    }
-                                />
-                                <button
-                                    className={styles['btn-quantity']}
-                                    onClick={() =>
-                                        quantityIncreaseHandler(
-                                            sizeProductUser,
-                                            dataProductBySize
-                                        )
-                                    }
-                                    disabled={
-                                        quantity >= dataProductBySize.quantity
-                                    }
-                                >
-                                    <img src={plusIcon} alt='plus icon' />
-                                </button>
-                            </div>
-                        );
-                    }
-                )}
-            </div>
-            <div className={styles['cart-box-price']}>
-                {item.discount > 0 ? (
-                    <span className={styles['cart-box-price-sale']}>
-                        ${productDiscount}
+                                    <button
+                                        className={`${styles['btn-quantity']} ${
+                                            quantity == 1
+                                                ? styles['is-delete']
+                                                : null
+                                        }`}
+                                        onClick={() =>
+                                            quantityDecreaseHandler(
+                                                sizeProductUser
+                                            )
+                                        }
+                                        disabled={quantity < 1}
+                                    >
+                                        <img src={minusIcon} alt='minus icon' />
+                                    </button>
+                                    <input
+                                        type='tel'
+                                        className={
+                                            styles['cart-box-quantity-input']
+                                        }
+                                        value={
+                                            quantity >=
+                                            dataProductBySize.quantity
+                                                ? dataProductBySize.quantity
+                                                : quantity
+                                        }
+                                        onChange={(event) =>
+                                            quantityChangeHandler(
+                                                event,
+                                                sizeProductUser,
+                                                dataProductBySize
+                                            )
+                                        }
+                                    />
+                                    <button
+                                        className={styles['btn-quantity']}
+                                        onClick={() =>
+                                            quantityIncreaseHandler(
+                                                event,
+                                                sizeProductUser,
+                                                dataProductBySize
+                                            )
+                                        }
+                                        disabled={
+                                            quantity >=
+                                            dataProductBySize.quantity
+                                        }
+                                    >
+                                        <img src={plusIcon} alt='plus icon' />
+                                    </button>
+                                </div>
+                            );
+                        }
+                    )}
+                </div>
+                <div className={styles['cart-box-price']}>
+                    {item.discount > 0 ? (
+                        <span className={styles['cart-box-price-sale']}>
+                            ${productDiscount}
+                        </span>
+                    ) : null}
+                    <span
+                        className={`${styles['cart-box-price-original']} ${
+                            !item.discount ? styles['not-sale'] : null
+                        }`}
+                    >
+                        ${item.price}
                     </span>
-                ) : null}
-                <span
-                    className={`${styles['cart-box-price-original']} ${
-                        !item.discount ? styles['not-sale'] : null
-                    }`}
-                >
-                    ${item.price}
-                </span>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

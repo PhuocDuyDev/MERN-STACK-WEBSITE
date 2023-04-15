@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { SummaryItem } from '../';
 import styles from './SummaryList.module.css';
-import {SummaryItem} from '../'
 
-const SummaryList = ({ cartList }) => {
+const SummaryList = memo(({ cartList }) => {
     return (
         <div className={styles['summary-list']}>
             <div className={styles['summary-fields']}>
@@ -12,15 +12,10 @@ const SummaryList = ({ cartList }) => {
                 <h4>Total</h4>
             </div>
             {cartList.map((cartItem) => {
-                return (
-                    <SummaryItem
-                        key={cartItem.id}
-                        item={cartItem}
-                    />
-                );
+                return <SummaryItem key={cartItem.id} item={cartItem} />;
             })}
         </div>
     );
-};
+});
 
 export default SummaryList;

@@ -8,7 +8,7 @@
 
 .cart-box:not(:last-child) {
     padding-bottom: var(--gap-m);
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid hsl(30, 50%, 79%);
 }
 
 .cart-box-img img {
@@ -23,6 +23,7 @@
 .cart-box-size {
     display: grid;
     place-items: center;
+    gap: var(--gap-s);
 }
 .cart-box-quantity {
     display: grid;
@@ -57,6 +58,11 @@
     color: var(--text-color-white);
 }
 
+.btn-quantity:hover:not(:disabled).is-delete {
+    background-color: #ff4d4d;
+    color: var(--text-color-white);
+}
+
 .btn-quantity:disabled {
     background-color: #ccc;
     outline: 1px solid transparent;
@@ -64,8 +70,8 @@
 }
 
 .cart-box-quantity-flex .cart-box-quantity-input {
-    border: 1px solid var(--primary-color);
-    outline: none;
+    border: none;
+    outline: 1px solid var(--primary-color);
     min-width: 2rem;
     max-width: 4rem;
     text-align: center;

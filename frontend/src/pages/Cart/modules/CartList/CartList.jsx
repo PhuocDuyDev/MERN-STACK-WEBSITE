@@ -1,40 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { CartItem } from '../';
 import styles from './CartList.module.css';
-import { useAddToCartMutation } from './../../../../operations/mutations/';
-import { notifySuccess, notifyWarning } from '../../../../utils/toast';
-import { useAuthContext } from '../../../../context/AuthContext';
 
-const CartList = ({ cartList }) => {
-    const { mutate: addToCartHandler } = useAddToCartMutation();
-    const { setCurrentUser } = useAuthContext();
-    const handleAddToCart = async (event, inputProductCart) => {
-        event.preventDefault();
-        const { productId, quantity, size, isEditQuantity } = inputProductCart;
-
-        try {
-            const data = await addToCartHandler({
-                variables: {
-                    inputProduct: {
-                        productId,
-                        quantity: +quantity,
-                        size: size,
-                        isEditQuantity: isEditQuantity,
-                    },
-                },
-            });
-
-            setCurrentUser(data.data.addToCart);
-            notifySuccess('Adjust cart success!');
-        } catch (error) {
-            if (error.extensions.http.status === 401) {
-                setTimeout(() => navigate('/login'), 500);
-            }
-            notifyWarning(error.message);
-            return error;
-        }
-    };
-
+const CartList = memo(({ cartList, addToCart, removeFromCart }) => {
     return (
         <div className={styles['cart-list']}>
             <div className={styles['cart-fields']}>
@@ -49,13 +17,13 @@ const CartList = ({ cartList }) => {
                     <CartItem
                         key={cartItem.id}
                         item={cartItem}
-                        addCart={handleAddToCart}
+                        addToCart={addToCart}
+                        removeFromCart={removeFromCart}
                     />
                 );
             })}
         </div>
     );
-    return;
-};
+});
 
 export default CartList;

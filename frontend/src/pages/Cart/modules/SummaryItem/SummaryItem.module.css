@@ -8,7 +8,7 @@
 
 .summary-box:not(:last-child) {
     padding-bottom: var(--gap-m);
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid hsl(30, 50%, 79%);
 }
 
 .summary-box-img img {
@@ -23,6 +23,8 @@
 .summary-box-size {
     display: grid;
     place-items: center;
+    gap: var(--gap-s);
+    
 }
 .summary-box-quantity {
     display: grid;
