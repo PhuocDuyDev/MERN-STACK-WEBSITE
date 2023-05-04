@@ -91,7 +91,9 @@ const Login = () => {
                         sizeInput='small'
                     />
                     {emailIsValid === false ? (
-                        <span>Email is invalid. Please try again!</span>
+                        <span className='err-msg'>
+                            Email is invalid. Please try again!
+                        </span>
                     ) : null}
                 </div>
                 <div className={styles['form-input']}>
@@ -107,7 +109,9 @@ const Login = () => {
                         sizeInput='small'
                     />
                     {passwordIsValid === false ? (
-                        <span>Password is invalid. Please try again!</span>
+                        <span className='err-msg'>
+                            Password is invalid. Please try again!
+                        </span>
                     ) : null}
                 </div>
 

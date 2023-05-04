@@ -7,37 +7,37 @@ import { Spinner } from '../../../../components';
 import { PRODUCTS_PER_PAGE } from './../../../../const/index';
 
 const ListProducts = ({ products, pageChangeHandler, currentPage }) => {
+    const listProduct = products.slice(
+        (currentPage - 1) * PRODUCTS_PER_PAGE,
+        currentPage * PRODUCTS_PER_PAGE
+    );
+    
     return (
         <div className={`${styles['products-container']}`}>
             <FilterProducts />
-            {products?.length > 0 ? (
+            {listProduct?.length > 0 ? (
                 <div className={`${styles['products-list']}`}>
-                    {products
-                        .slice(
-                            (currentPage - 1) * PRODUCTS_PER_PAGE,
-                            currentPage * PRODUCTS_PER_PAGE
-                        )
-                        .map((product) => {
-                            return (
-                                <ProductCard
-                                    id={product.id}
-                                    productImg={product.images}
-                                    price={product.price}
-                                    category={product.category}
-                                    name={product.name}
-                                    description={product.description}
-                                    key={product.id}
-                                    discount={
-                                        product.discount != 0
-                                            ? product.discount
-                                            : null
-                                    }
-                                    isInCart={product.inCart}
-                                    isInWishlist={product.inWishlist}
-                                    size={product.size}
-                                />
-                            );
-                        })}
+                    {listProduct.map((product) => {
+                        return (
+                            <ProductCard
+                                id={product.id}
+                                productImg={product.images}
+                                price={product.price}
+                                category={product.category}
+                                name={product.name}
+                                description={product.description}
+                                key={product.id}
+                                discount={
+                                    product.discount != 0
+                                        ? product.discount
+                                        : null
+                                }
+                                isInCart={product.inCart}
+                                isInWishlist={product.inWishlist}
+                                size={product.size}
+                            />
+                        );
+                    })}
                 </div>
             ) : (
                 <Spinner />

@@ -13,19 +13,21 @@ const FormCheckOut = () => {
         listDistrict,
         listWard,
         listPaymentMethod,
-        listOrderConfirmMethod,
         selectedProvince,
         selectedDistrict,
         selectedWard,
         selectedPaymentMethod,
-        selectedOrderConfirmMethod,
         selectProvinceHandler,
         selectDistrictHandler,
         selectWardHandler,
         selectPaymentMethodHandler,
-        selectOrderConfirmMethodHandler,
+        name,
         phoneNumber,
+        nameIsValid,
+        phoneNumberIsvalid,
+        nameChangeHandler,
         phoneNumberChangeHandler,
+        validateName,
         validatePhoneNumber,
     } = useFormCheckOut();
 
@@ -34,7 +36,10 @@ const FormCheckOut = () => {
             <div className={styles['form-group']}>
                 <div className={styles['form-group-label']}>
                     <h3>Profile</h3>
-                    <p>This information will.</p>
+                    <p>
+                        This information will be forwarded to the shipping unit,
+                        please review carefully before placing an order.
+                    </p>
                 </div>
                 <div className={styles['form-group-fields']}>
                     <div className={styles['form-group-contacts']}>
@@ -44,11 +49,16 @@ const FormCheckOut = () => {
                                 id='fullname'
                                 type='text'
                                 placeholder='Enter your fullname...'
-                                // onBlur={() => validatePhoneNumber(phoneNumber)}
-                                // onChange={phoneNumberChangeHandler}
-                                // value={phoneNumber}
+                                onBlur={() => validateName(name)}
+                                onChange={nameChangeHandler}
+                                value={name}
                                 sizeInput='small'
                             />
+                            {nameIsValid === false ? (
+                                <span className='err-msg'>
+                                    Fullname should be at least 6 characters.
+                                </span>
+                            ) : null}
                         </div>
                         <div className={styles['form-group-field']}>
                             <label htmlFor='phone'>Phone number</label>
@@ -61,6 +71,11 @@ const FormCheckOut = () => {
                                 value={phoneNumber}
                                 sizeInput='small'
                             />
+                            {phoneNumberIsvalid === false ? (
+                                <span className='err-msg'>
+                                    Phone is invalid. Please try again!
+                                </span>
+                            ) : null}
                         </div>
                     </div>
                     <div className={styles['form-group-address']}>

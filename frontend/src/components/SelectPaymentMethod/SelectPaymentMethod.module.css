@@ -30,7 +30,7 @@
 }
 
 .select-menu.active .selected {
-    outline: 0.2rem solid var(--primary-color);
+    outline: 0.2rem solid var(--accent-light-color);
 }
 
 .select-menu .selected h3 {

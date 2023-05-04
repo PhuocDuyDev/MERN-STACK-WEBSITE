@@ -1,6 +1,6 @@
 .input {
     border: none;
-    outline: 2px solid transparent;
+    outline: 0.2rem solid transparent;
     width: 100%;
     border-radius: var(--border-radius-sm);
     transition: 0.3s ease;
@@ -8,7 +8,7 @@
 
 .input:active,
 .input:focus {
-    outline: 2px solid var(--primary-color);
+    outline: 0.2rem solid var(--accent-light-color);
 }
 
 .input-small {

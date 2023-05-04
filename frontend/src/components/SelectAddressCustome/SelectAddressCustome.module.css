@@ -30,7 +30,7 @@
 }
 
 .select-menu.active .selected {
-    outline: 0.2rem solid var(--primary-color);
+    outline: 0.2rem solid var(--accent-light-color);
 }
 
 .select-menu .selected h3 {
@@ -66,7 +66,7 @@
     overflow-x: hidden;
     opacity: 0;
     visibility: hidden;
-    z-index:99;
+    z-index: 99;
 }
 
 .dropdown-menu.active {
@@ -87,22 +87,21 @@
     border-radius: var(--border-radius-sm);
 }
 
-
 /* SCROLL BAR */
 .dropdown-menu::-webkit-scrollbar {
-    width: .4rem;
-    height: .4rem;
+    width: 0.4rem;
+    height: 0.4rem;
 }
 /* Set the background color of the scrollbar */
 .dropdown-menu::-webkit-scrollbar-track {
     background: var(--accent-light-color);
-    border-radius: .4rem;
+    border-radius: 0.4rem;
 }
 
 /* Set the color and shape of the scrollbar thumb */
 .dropdown-menu::-webkit-scrollbar-thumb {
     background: var(--primary-color);
-    border-radius: .4rem;
+    border-radius: 0.4rem;
 }
 
 /* Set the color and shape of the scrollbar thumb when hovering */

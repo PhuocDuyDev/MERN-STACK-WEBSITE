@@ -49,6 +49,10 @@ const useGetProducts = () => {
         window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     }, [search, currentPage]);
 
+    useEffect(() => {
+        pageChangeHandler(1);
+    }, [categoryFilterVar().id]);
+
     const pageChangeHandler = (numPage) => {
         setCurrentPage(numPage);
     };
@@ -62,6 +66,7 @@ const useGetProducts = () => {
             )
         );
     }
+
     return {
         products: productsVar(),
         pageChangeHandler: pageChangeHandler,

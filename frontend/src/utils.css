@@ -193,3 +193,10 @@ input::-webkit-inner-spin-button {
     font-family: 'Poppins', sans-serif;
     font-size: 1.2rem;
 }
+
+/* MSG */
+.err-msg {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: red;
+}

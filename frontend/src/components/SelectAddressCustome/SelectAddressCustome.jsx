@@ -36,7 +36,9 @@ const SelectAddressCustome = ({
                 onClick={() => setActive(!active)}
             >
                 <div className={styles['selected']}>
-                    <h3>{selected ? selected : `Select ${label.toLowerCase()}`}</h3>
+                    <h3>
+                        {selected ? selected : `Select ${label.toLowerCase()}`}
+                    </h3>
                     <img src={arrowImg} alt='icon' />
                 </div>
                 <ul
@@ -44,24 +46,32 @@ const SelectAddressCustome = ({
                         active ? styles['active'] : ''
                     }`}
                 >
-                    {listOptionFormat.map((option, index) => (
-                        <li
-                            key={option.code || index}
-                            className={`${styles['dropdown-item']} ${
-                                selectedCode === option.code
-                                    ? styles['active']
-                                    : ''
-                            }`}
-                            onClick={(event) => {
-                                event.stopPropagation();
-                                selectHandler(option.code);
-                                setSelectedCode(option.code);
-                                setActive(false);
-                            }}
-                        >
-                            {option.name}
-                        </li>
-                    ))}
+                    {listOptionFormat.length > 0 ? (
+                        listOptionFormat.map((option, index) => (
+                            <li
+                                key={option.code || index}
+                                className={`${styles['dropdown-item']} ${
+                                    selectedCode === option.code
+                                        ? styles['active']
+                                        : ''
+                                }`}
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    selectHandler(option.code);
+                                    setSelectedCode(option.code);
+                                    setActive(false);
+                                }}
+                            >
+                                {option.name}
+                            </li>
+                        ))
+                    ) : label == 'district' ? (
+                        <span>Please select city</span>
+                    ) : (
+                        (label = 'ward' ? (
+                            <span>Please select district</span>
+                        ) : null)
+                    )}
                 </ul>
             </div>
         </div>

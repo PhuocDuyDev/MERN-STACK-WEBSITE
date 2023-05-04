@@ -105,7 +105,9 @@ const Register = () => {
                         placeholder='Enter your fullname...'
                     />
                     {nameIsValid === false ? (
-                        <span>Fullname is invalid. Please try again!</span>
+                        <span className='err-msg'>
+                            Fullname is invalid. Please try again!
+                        </span>
                     ) : null}
                 </div>
                 <div className={styles['form-input']}>
@@ -121,7 +123,9 @@ const Register = () => {
                         placeholder='Enter your email...'
                     />
                     {emailIsValid === false ? (
-                        <span>Email is invalid. Please try again!</span>
+                        <span className='err-msg'>
+                            Email is invalid. Please try again!
+                        </span>
                     ) : null}
                 </div>
                 <div className={styles['form-input']}>
@@ -137,7 +141,9 @@ const Register = () => {
                         placeholder='Enter your password...'
                     />
                     {passwordIsValid === false ? (
-                        <span>Password is invalid. Please try again!</span>
+                        <span className='err-msg'>
+                            Password is invalid. Please try again!
+                        </span>
                     ) : null}
                 </div>
 

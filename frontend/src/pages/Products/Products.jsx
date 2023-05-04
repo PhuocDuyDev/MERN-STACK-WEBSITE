@@ -5,7 +5,7 @@ import styles from './Products.module.css';
 
 const Products = () => {
     const { products, currentPage, pageChangeHandler } = useGetProducts();
-    
+
     return (
         <section className={`${styles['products-section']} section`}>
             <div className={`container ${styles['products-container']}`}>

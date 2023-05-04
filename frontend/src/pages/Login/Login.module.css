@@ -52,11 +52,6 @@
     font-size: 1.6rem;
 }
 
-.form-input span {
-    font-size: 1.2rem;
-    color: red;
-}
-
 .error-server {
     align-self: center;
     width: fit-content;
